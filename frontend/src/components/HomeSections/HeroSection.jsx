@@ -88,9 +88,18 @@ export default function HeroSection({ mainTheme }) {
 
   return (
     <section
+      id="hero"
       className="relative flex flex-col items-center justify-start min-h-[max(950px,100vh)] px-6 lg:px-12 pt-16 lg:pt-20 pb-10 overflow-visible"
       style={heroStyle}
     >
+
+      <div className="absolute right-4 top-4 z-30 sm:right-10 sm:top-8">
+        <a href="/portfolio">
+          <Button className="rounded-full border border-black/50 bg-transparent px-6 py-2 text-xs font-accent uppercase tracking-[0.3em] text-black transition-colors hover:bg-black hover:text-white">
+            View Portfolio
+          </Button>
+        </a>
+      </div>
 
 
 
@@ -203,7 +212,7 @@ export default function HeroSection({ mainTheme }) {
           <StatCard
             heading="100%"
             subtext="Mobile Friendly Layouts"
-            detailBody="Integrated with OpenAI, a daily quote API, and OpenWeather API to make the site's theme weather dependent."
+            detailBody="Integrated with OpenAI tooling and the OpenWeather API so the entire color system shifts with the sky."
             isOpen={openCard === 'apis'}
             onToggle={() => setOpenCard((prev) => (prev === 'apis' ? null : 'apis'))}
             delay={1.0}

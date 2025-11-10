@@ -53,10 +53,8 @@ export default function AboutSection({ weather, theme }) {
       : undefined;
 
   const cardStyle = buildCardStyle(cardPalette);
-  const altCardStyle = buildCardStyle(altCardPalette);
   const tertiaryCardStyle = buildCardStyle(tertiaryCardPalette);
   const cardMutedStyle = cardPalette.muted ? { color: cardPalette.muted } : undefined;
-  const altCardMutedStyle = altCardPalette.muted ? { color: altCardPalette.muted } : undefined;
   const tertiaryCardMutedStyle = tertiaryCardPalette.muted ? { color: tertiaryCardPalette.muted } : undefined;
 
   return (
@@ -130,35 +128,9 @@ export default function AboutSection({ weather, theme }) {
             </motion.article>
 
             <div className="flex flex-col gap-8 lg:gap-10">
-              <motion.aside
-                variants={cardVariants}
-                custom={0.2}
-                className="rounded-3xl border border-secondary-dark/30 bg-white/80 p-7 shadow-lg backdrop-blur-sm"
-                style={altCardStyle}
-              >
-                <h3
-                  className="font-accent uppercase text-md tracking-[0.3em] text-secondary-dark mb-4"
-                  style={accentStyle}
-                >
-                  Daily Quote
-                </h3>
-                <blockquote
-                  className="font-serif italic text-lg leading-snug"
-                  style={altCardMutedStyle}
-                >
-                  “A future API-powered insight will land here—perfect for an inspiring nudge before diving in.”
-                </blockquote>
-                <p
-                  className="mt-4 text-sm font-serifalt text-neutral-dark/60"
-                  style={altCardMutedStyle}
-                >
-                  Hook this card up to your favorite quote service to keep the energy fresh.
-                </p>
-              </motion.aside>
-
               <motion.section
                 variants={cardVariants}
-                custom={0.3}
+                custom={0.2}
                 className="rounded-3xl border border-primary-dark/25 bg-gradient-to-br from-white/90 via-white/70 to-secondary-light/60 p-8 shadow-lg backdrop-blur-sm"
                 style={tertiaryCardStyle}
               >

@@ -6,6 +6,7 @@ import CertificationsSection from '../components/HomeSections/CertificationsSect
 import SkillsSection from '../components/HomeSections/SkillsSection';
 import OffersSection from '../components/HomeSections/Offer';
 import Footer from '../components/Footer';
+import StickyHeader from '../components/StickyHeader';
 
 export default function Home({ weather, theme, mainTheme }) {
   useEffect(() => {
@@ -26,6 +27,7 @@ export default function Home({ weather, theme, mainTheme }) {
 
   return (
     <div className="min-h-screen" style={pageStyle}>
+      <StickyHeader theme={theme} />
       <HeroSection mainTheme={mainTheme} />
       <AboutSection weather={weather} theme={theme} />
       <PortfolioSection theme={theme} />

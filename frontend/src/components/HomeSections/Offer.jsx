@@ -25,42 +25,42 @@ const marqueeVariants = {
 
 const plans = [
   {
-    title: "Launchpad Website",
-    price: "$2.8k+",
-    icon: Sparkles,
-    duration: "4 – 6 weeks",
-    scope: "Perfect for founders or teams who need a handcrafted, performant marketing site that still feels bespoke.",
-    highlights: [
-      "Brand-aligned design system + copy guidance",
-      "Responsive build in React / Vite with accessibility baked in",
-      "Content modeling + markdown-driven blog or portfolio",
-      "Basic SEO + analytics instrumentation",
-    ],
-  },
-  {
-    title: "Growth Retainer",
-    price: "$1.2k / month",
-    icon: Layers,
-    duration: "Monthly partnership",
-    scope: "Ongoing improvements for product teams that want design/dev momentum without hiring a full-time squad.",
-    highlights: [
-      "Two feature sprints per month (landing pages, UI polish, experiments)",
-      "Component refactors + performance tuning",
-      "Priority bug fixes and QA sweeps",
-      "Content updates, release notes, and hand-off docs",
-    ],
-  },
-  {
-    title: "SEO Deep Dive",
-    price: "$950",
+    title: "SEO & Visibility",
+    price: "Custom scopes",
     icon: LineChart,
-    duration: "10-day turnaround",
-    scope: "A tactical audit with implementation-ready steps to help your site get discovered and stay speedy.",
+    duration: "Audits + retainers",
+    scope: "Technical + content SEO paired with analytics reporting so the right people keep finding you.",
     highlights: [
-      "Technical audit (Core Web Vitals, crawlability, accessibility)",
-      "Content strategy with prioritized keyword targets",
-      "Schema, social preview, and metadata recommendations",
-      "Implementation roadmap + optional pairing sessions",
+      "Full crawl, Core Web Vitals, and accessibility sweeps",
+      "Keyword maps, structured data, and editorial briefs",
+      "Analytics dashboards with KPI tracking",
+      "Search QA plus implementation support",
+    ],
+  },
+  {
+    title: "Signature Web Builds",
+    price: "4–6 week builds",
+    icon: Layers,
+    duration: "React · WP · Framer",
+    scope: "Custom UI systems and coded builds in React/Vite or polished sites inside WordPress or Framer.",
+    highlights: [
+      "High-fidelity design systems + responsive components",
+      "Performance budgets, animations, and QA",
+      "CMS setups (headless, WordPress, or Framer)",
+      "Launch support, docs, and hand-offs",
+    ],
+  },
+  {
+    title: "AI Business Automations",
+    price: "Sprint-based",
+    icon: Sparkles,
+    duration: "2-week pilots",
+    scope: "Prototype copilots or workflow automations that remove busywork and keep teams in flow.",
+    highlights: [
+      "Process mapping + automation strategy",
+      "OpenAI / API integration and testing",
+      "Knowledge base + prompt engineering",
+      "Enablement docs for your team",
     ],
   },
 ];
@@ -80,7 +80,6 @@ export default function OffersSection({ theme }) {
 
   const headerAccent = palette.heading || sectionTheme?.text || "#F9FBF9";
   const muted = palette.body || palette.muted || "rgba(244, 249, 246, 0.75)";
-  const railBg = palette.railBg || palette.buttonBg || `${accent}33`;
 
   const baseCardPalette = sectionTheme
     ? {
@@ -103,6 +102,8 @@ export default function OffersSection({ theme }) {
       };
 
   const cardPalette = { ...baseCardPalette, ...(palette.card || {}) };
+  const cardShadow = cardPalette.shadow || "0 18px 60px rgba(15, 23, 20, 0.18)";
+  const hoverShadow = cardPalette.hoverShadow || "0 30px 70px rgba(15, 23, 42, 0.25)";
 
   const baseButtonPalette = sectionTheme
     ? {
@@ -127,21 +128,6 @@ export default function OffersSection({ theme }) {
 
   return (
     <section id="services" className="relative py-32 px-6 overflow-hidden" style={sectionStyle}>
-      <div className="absolute inset-0 opacity-[0.08] [mask-image:radial-gradient(circle_at_top,#000,transparent_70%)] pointer-events-none">
-        <motion.div
-          className="absolute -left-40 top-24 h-96 w-96 rounded-full"
-          style={{ background: accent }}
-          animate={{ opacity: [0.15, 0.25, 0.15] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute right-[-20%] bottom-12 h-80 w-80 rounded-full"
-          style={{ background: `${accent}80` }}
-          animate={{ opacity: [0.1, 0.2, 0.1] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-        />
-      </div>
-
       <div className="relative mx-auto max-w-6xl">
         <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
@@ -177,13 +163,6 @@ export default function OffersSection({ theme }) {
         </div>
 
         <div className="relative mt-16">
-          <div
-            className="absolute inset-y-0 left-0 right-0 rounded-3xl pointer-events-none"
-            style={{
-              background: `linear-gradient(90deg, rgba(0,0,0,0) 0%, ${railBg} 20%, ${railBg} 80%, rgba(0,0,0,0) 100%)`,
-            }}
-          />
-
           <motion.div
             className="relative flex gap-6 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-hide"
             initial="initial"
@@ -195,14 +174,15 @@ export default function OffersSection({ theme }) {
               return (
                 <motion.article
                   key={plan.title}
-                  className="relative min-w-[19rem] max-w-[22rem] snap-center rounded-3xl border p-7 backdrop-blur-sm transition-transform hover:-translate-y-2"
+                  className="relative min-w-[19rem] max-w-[22rem] snap-center rounded-3xl border p-7 backdrop-blur-sm transition-all"
                   custom={index}
                   variants={planVariants}
+                  whileHover={{ y: -12, boxShadow: hoverShadow }}
                   style={{
                     background: cardPalette.bg,
                     color: cardPalette.text,
                     borderColor: cardPalette.border,
-                    boxShadow: cardPalette.shadow,
+                    boxShadow: cardShadow,
                   }}
                 >
                   <div className="flex items-center gap-3">

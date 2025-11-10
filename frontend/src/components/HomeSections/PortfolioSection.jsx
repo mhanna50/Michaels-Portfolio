@@ -386,25 +386,14 @@ function FeaturedProjectCard({ project, index, palette }) {
   );
 }
 
-export default function PortfolioSection({ theme }) {
+function DeepDiveLibrary({ palette, buttonPalette }) {
   const [activeTab, setActiveTab] = useState('websites');
   const activeTabConfig = tabConfig.find((tab) => tab.value === activeTab);
   const activeProjects = activeTabConfig ? projectCollections[activeTabConfig.value] : [];
-  const sectionTheme = theme?.sections?.portfolio;
-  const palette = sectionTheme?.palette || {};
-  const sectionStyle = sectionTheme
-    ? withTransition({
-        background: sectionTheme.bg,
-        color: sectionTheme.text,
-      })
-    : undefined;
-  const accentStyle = palette.accent ? { color: palette.accent } : undefined;
-  const headingStyle = palette.heading ? { color: palette.heading } : undefined;
-  const mutedStyle = palette.muted ? { color: palette.muted } : undefined;
-  const dividerStyle = palette.divider ? { backgroundColor: palette.divider } : undefined;
-  const buttonPalette = palette.button || {};
-  const overlayStyle = palette.overlay ? { background: palette.overlay } : undefined;
-  const deepDivePalette = palette.deepDive || {};
+  const sectionPalette = palette || {};
+  const accentStyle = sectionPalette.accent ? { color: sectionPalette.accent } : undefined;
+  const headingStyle = sectionPalette.heading ? { color: sectionPalette.heading } : undefined;
+  const deepDivePalette = sectionPalette.deepDive || {};
   const deepDiveStyle = deepDivePalette.bg
     ? withTransition({
         background: deepDivePalette.bg,
@@ -434,11 +423,6 @@ export default function PortfolioSection({ theme }) {
         backgroundColor: deepDivePalette.tabs.activeBg,
       }
     : undefined;
-  const accentFallbackClass = accentStyle ? '' : 'text-primary-dark/70';
-  const headingFallbackClass = headingStyle ? '' : 'text-black';
-  const mutedFallbackClass = mutedStyle ? '' : 'text-neutral-dark/80';
-  const dividerFallbackClass = dividerStyle ? '' : 'bg-primary-dark/70';
-  const overlayFallbackClass = overlayStyle ? '' : 'bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.6),_transparent_60%)]';
   const deepDiveFallbackClass = deepDiveStyle ? '' : 'border-primary-dark/10 bg-white/75';
   const deepDiveAccentFallbackClass = deepDiveAccentStyle ? '' : 'text-secondary-dark/80';
   const deepDiveHeadingFallbackClass = deepDiveHeadingStyle ? '' : 'text-black';
@@ -446,6 +430,105 @@ export default function PortfolioSection({ theme }) {
   const tabFallbackClass = deepDivePalette.tabs
     ? ''
     : 'text-neutral-dark data-[state=active]:border data-[state=active]:border-primary-dark/40 data-[state=active]:bg-neutral data-[state=active]:text-white';
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-100px' }}
+      transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
+      className={`rounded-[36px] border p-8 shadow-2xl backdrop-blur ${deepDiveFallbackClass}`}
+      style={deepDiveStyle}
+    >
+      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between md:gap-6">
+        <div className="space-y-1">
+          <p
+            className={`font-accent uppercase tracking-[0.3em] text-lg ${deepDiveAccentFallbackClass}`}
+            style={deepDiveAccentStyle}
+          >
+            Deep Dive Library
+          </p>
+          <h3
+            className={`font-serifalt text-3xl leading-tight ${deepDiveHeadingFallbackClass}`}
+            style={deepDiveHeadingStyle}
+          >
+            Explore additional builds by discipline.
+          </h3>
+        </div>
+      </div>
+
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="mt-8">
+        <div className="flex w-full justify-start overflow-x-auto pb-2">
+          <TabsList
+            className={`flex w-full justify-center gap-6 rounded-full border p-2 backdrop-blur ${tabsListFallbackClass}`}
+            style={tabsListStyle}
+          >
+            {tabConfig.map((tab) => (
+              <TabsTrigger
+                key={tab.value}
+                value={tab.value}
+                className={`rounded-full px-6 py-2 font-accent uppercase tracking-[0.15em] text-sm border transition-all duration-300 ${tabFallbackClass}`}
+                style={{
+                  ...(tabBaseStyle || {}),
+                  ...(activeTab === tab.value && tabActiveStyle ? tabActiveStyle : {}),
+                }}
+              >
+                {tab.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </div>
+
+        <AnimatePresence mode="wait">
+          {activeTabConfig && (
+            <TabsContent key={activeTabConfig.value} value={activeTabConfig.value} className="mt-10">
+              <motion.div
+                key={activeTabConfig.value}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4, ease: 'easeOut' }}
+                className="grid gap-8 md:grid-cols-2"
+              >
+                {activeProjects.map((project, index) => (
+                  <ProjectCard
+                    key={project.title}
+                    project={project}
+                    index={index}
+                    palette={sectionPalette?.projectCard || sectionPalette?.card}
+                    buttonPalette={buttonPalette}
+                  />
+                ))}
+              </motion.div>
+            </TabsContent>
+          )}
+        </AnimatePresence>
+      </Tabs>
+    </motion.div>
+  );
+}
+
+export default function PortfolioSection({ theme, showDeepDive = false }) {
+  const sectionTheme = theme?.sections?.portfolio;
+  const palette = sectionTheme?.palette || {};
+  const sectionStyle = sectionTheme
+    ? withTransition({
+        background: sectionTheme.bg,
+        color: sectionTheme.text,
+      })
+    : undefined;
+  const accentStyle = palette.accent ? { color: palette.accent } : undefined;
+  const headingStyle = palette.heading ? { color: palette.heading } : undefined;
+  const mutedStyle = palette.muted ? { color: palette.muted } : undefined;
+  const dividerStyle = palette.divider ? { backgroundColor: palette.divider } : undefined;
+  const buttonPalette = palette.button || {};
+  const overlayStyle = palette.overlay ? { background: palette.overlay } : undefined;
+  const ctaTextColor = sectionTheme?.text || palette.heading || '#0f172a';
+  const accentFallbackClass = accentStyle ? '' : 'text-primary-dark/70';
+  const headingFallbackClass = headingStyle ? '' : 'text-black';
+  const mutedFallbackClass = mutedStyle ? '' : 'text-neutral-dark/80';
+  const dividerFallbackClass = dividerStyle ? '' : 'bg-primary-dark/70';
+  const overlayFallbackClass = overlayStyle ? '' : 'bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.6),_transparent_60%)]';
 
   const buttonStyle = buttonPalette.bg
     ? {
@@ -455,6 +538,18 @@ export default function PortfolioSection({ theme }) {
         transition: 'all 300ms ease',
       }
     : undefined;
+
+  const secondaryButtonStyle = buttonPalette.bg
+    ? {
+        backgroundColor: 'transparent',
+        color: buttonPalette.text || ctaTextColor,
+        borderColor: buttonPalette.text || buttonPalette.bg,
+      }
+    : {
+        backgroundColor: 'transparent',
+        color: ctaTextColor,
+        borderColor: ctaTextColor,
+      };
 
   const handleButtonHover = (event, entering) => {
     if (!buttonPalette.bg || !buttonPalette.hover) return;
@@ -506,22 +601,31 @@ export default function PortfolioSection({ theme }) {
               className={`max-w-3xl font-serifalt text-lg ${mutedFallbackClass}`}
               style={mutedStyle}
             >
-              I ensure
-              every project blends thoughtful user experience with high-level quality assurance.
+              I ensure every project blends thoughtful user experience with high-level quality assurance.
             </p>
-            <a
-              href="mailto:michaelhanna@gmail.com"
-              className="md:ml-5 md:self-end"
-            >
-              <Button
-                className="rounded-full px-7 py-2 text-base font-accent uppercase tracking-[0.2em]"
-                style={buttonStyle}
-                onMouseEnter={(event) => handleButtonHover(event, true)}
-                onMouseLeave={(event) => handleButtonHover(event, false)}
-              >
-                Work Together
-              </Button>
-            </a>
+            <div className="flex flex-col gap-3 md:ml-5 md:flex-row md:items-center md:self-end">
+              <a href="mailto:michaelhanna@gmail.com">
+                <Button
+                  className="rounded-full px-7 py-2 text-base font-accent uppercase tracking-[0.2em]"
+                  style={buttonStyle}
+                  onMouseEnter={(event) => handleButtonHover(event, true)}
+                  onMouseLeave={(event) => handleButtonHover(event, false)}
+                >
+                  Work Together
+                </Button>
+              </a>
+              <a href="/portfolio">
+                <Button
+                  className="rounded-full border px-7 py-2 text-base font-accent uppercase tracking-[0.2em] bg-transparent hover:opacity-90"
+                  style={{
+                    ...secondaryButtonStyle,
+                    transition: 'all 300ms ease',
+                  }}
+                >
+                  See Full Portfolio
+                </Button>
+              </a>
+            </div>
           </div>
         </motion.header>
 
@@ -536,80 +640,9 @@ export default function PortfolioSection({ theme }) {
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
-          className={`rounded-[36px] border p-8 shadow-2xl backdrop-blur ${deepDiveFallbackClass}`}
-          style={deepDiveStyle}
-        >
-          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between md:gap-6">
-            <div className="space-y-1">
-              <p
-                className={`font-accent uppercase tracking-[0.3em] text-lg ${deepDiveAccentFallbackClass}`}
-                style={deepDiveAccentStyle}
-              >
-                Deep Dive Library
-              </p>
-              <h3
-                className={`font-serifalt text-3xl leading-tight ${deepDiveHeadingFallbackClass}`}
-                style={deepDiveHeadingStyle}
-              >
-                Explore additional builds by discipline.
-              </h3>
-            </div>
-            
-          </div>
-
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="mt-8">
-            <div className="flex w-full justify-start overflow-x-auto pb-2">
-              <TabsList
-                className={`flex w-full justify-center gap-6 rounded-full border p-2 backdrop-blur ${tabsListFallbackClass}`}
-                style={tabsListStyle}
-              >
-                {tabConfig.map((tab) => (
-                  <TabsTrigger
-                    key={tab.value}
-                    value={tab.value}
-                    className={`rounded-full px-6 py-2 font-accent uppercase tracking-[0.15em] text-sm border transition-all duration-300 ${tabFallbackClass}`}
-                    style={{
-                      ...(tabBaseStyle || {}),
-                      ...(activeTab === tab.value && tabActiveStyle ? tabActiveStyle : {}),
-                    }}
-                  >
-                    {tab.label}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </div>
-
-            <AnimatePresence mode="wait">
-              {activeTabConfig && (
-                <TabsContent key={activeTabConfig.value} value={activeTabConfig.value} className="mt-10">
-                  <motion.div
-                    key={activeTabConfig.value}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.4, ease: 'easeOut' }}
-                    className="grid gap-8 md:grid-cols-2"
-                  >
-                    {activeProjects.map((project, index) => (
-                      <ProjectCard
-                        key={project.title}
-                        project={project}
-                        index={index}
-                        palette={palette?.projectCard || palette?.card}
-                        buttonPalette={buttonPalette}
-                      />
-                    ))}
-                  </motion.div>
-                </TabsContent>
-              )}
-            </AnimatePresence>
-          </Tabs>
-        </motion.div>
+        {showDeepDive && (
+          <DeepDiveLibrary palette={palette} buttonPalette={buttonPalette} />
+        )}
       </div>
     </section>
   );
