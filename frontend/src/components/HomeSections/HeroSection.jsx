@@ -85,6 +85,15 @@ export default function HeroSection({ mainTheme }) {
         color: mainTheme.hero.text,
       }
     : undefined;
+  const heroPortfolioButtonStyle = {
+    backgroundImage: 'linear-gradient(130deg, #101010, #3a3a3a)',
+    backgroundColor: '#1a1a1a',
+    color: '#f6f6f6',
+    borderColor: '#050505',
+    boxShadow: '0 18px 36px rgba(0, 0, 0, 0.35)',
+  };
+  const heroPortfolioButtonClass =
+    'rounded-full border px-7 py-2.5 text-xs font-accent uppercase tracking-[0.3em] transition-all duration-300 bg-[#161616] text-white hover:-translate-y-0.5 hover:bg-black hover:text-white';
 
   return (
     <section
@@ -95,7 +104,7 @@ export default function HeroSection({ mainTheme }) {
 
       <div className="absolute right-4 top-4 z-30 sm:right-10 sm:top-8">
         <a href="/portfolio">
-          <Button className="rounded-full border border-black/50 bg-transparent px-6 py-2 text-xs font-accent uppercase tracking-[0.3em] text-black transition-colors hover:bg-black hover:text-white">
+          <Button className={heroPortfolioButtonClass} style={heroPortfolioButtonStyle}>
             View Portfolio
           </Button>
         </a>

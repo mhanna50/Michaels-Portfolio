@@ -3,6 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import { getPostBySlug } from "../../utils/loadposts";
 import { formatReadableDate } from "../../utils/formatDate";
 import Footer from "../Footer";
+import StickyHeader from "../StickyHeader";
 
 const THEME_TRANSITION = "background 600ms ease, background-color 600ms ease, color 600ms ease, border-color 600ms ease";
 
@@ -72,6 +73,7 @@ export default function BlogPost({ slug, mainTheme, theme }) {
     console.error(error);
     return (
       <>
+        <StickyHeader theme={theme} forceVisible />
         <main className="min-h-[200dvh] px-6 py-24" style={pageStyle}>
           <div
             className={`mx-auto max-w-3xl rounded-[2.5rem] border p-12 text-center shadow-2xl backdrop-blur-sm ${articleFallbackClass}`}
@@ -106,6 +108,7 @@ export default function BlogPost({ slug, mainTheme, theme }) {
 
   return (
     <>
+      <StickyHeader theme={theme} forceVisible />
       <main className="min-h-[200dvh] px-6 py-24" style={pageStyle}>
         <div className="mx-auto flex max-w-4xl flex-col gap-8">
           <div>

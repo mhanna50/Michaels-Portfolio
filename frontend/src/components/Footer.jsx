@@ -3,10 +3,9 @@ import { motion } from "framer-motion";
 import { Mail, Linkedin, Github, FileUser } from "lucide-react";
 
 const navLinks = [
-  { label: "About", href: "#about" },
+  { label: "Home", href: "/" },
+  { label: "Services", href: "/services" },
   { label: "Portfolio", href: "/portfolio" },
-  { label: "Certifications", href: "#credentials" },
-  { label: "Services", href: "#services" },
   { label: "Blog", href: "/blog" },
 ];
 

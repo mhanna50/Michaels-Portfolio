@@ -23,6 +23,22 @@ const marqueeVariants = {
   },
 };
 
+const hexToRgba = (hex, alpha = 1) => {
+  if (!hex) return `rgba(0,0,0,${alpha})`;
+  let normalized = hex.replace("#", "");
+  if (normalized.length === 3) {
+    normalized = normalized
+      .split("")
+      .map((char) => char + char)
+      .join("");
+  }
+  const numeric = parseInt(normalized, 16);
+  const r = (numeric >> 16) & 255;
+  const g = (numeric >> 8) & 255;
+  const b = numeric & 255;
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+};
+
 const plans = [
   {
     title: "SEO & Visibility",
@@ -73,8 +89,7 @@ export default function OffersSection({ theme }) {
   const sectionStyle = sectionTheme
     ? { background: sectionTheme.bg, color: sectionTheme.text }
     : {
-        background:
-          "linear-gradient(140deg, rgba(8,18,14,0.95) 0%, rgba(31,56,41,0.92) 50%, rgba(10,16,13,0.95) 100%)",
+        background: 'transparent',
         color: "#F4F9F6",
       };
 
@@ -101,9 +116,17 @@ export default function OffersSection({ theme }) {
         shadow: "0 18px 60px rgba(15, 23, 20, 0.18)",
       };
 
-  const cardPalette = { ...baseCardPalette, ...(palette.card || {}) };
-  const cardShadow = cardPalette.shadow || "0 18px 60px rgba(15, 23, 20, 0.18)";
-  const hoverShadow = cardPalette.hoverShadow || "0 30px 70px rgba(15, 23, 42, 0.25)";
+  const cardOverrides = palette.card || {};
+  const themedCardBg = palette.serviceCardBg || palette.buttonBg || palette.cardBg || accent;
+  const cardPalette = {
+    ...baseCardPalette,
+    ...cardOverrides,
+    bg: themedCardBg,
+    text: cardOverrides.text || sectionTheme?.buttonContrast || sectionTheme?.text || baseCardPalette.text,
+    subtext: cardOverrides.subtext || palette.body || palette.muted || baseCardPalette.subtext,
+  };
+  const cardShadow = cardPalette.shadow || `0 18px 60px ${hexToRgba(accent, 0.25)}`;
+  const hoverShadow = cardPalette.hoverShadow || `0 22px 60px ${hexToRgba(accent, 0.35)}`;
 
   const baseButtonPalette = sectionTheme
     ? {
@@ -131,11 +154,11 @@ export default function OffersSection({ theme }) {
       <div className="relative mx-auto max-w-6xl">
         <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
-            <p className="font-accent uppercase tracking-[0.35em] text-sm mb-4" style={{ color: muted }}>
+            <p className="font-accent uppercase tracking-[0.35em] text-lg mb-4" style={{ color: muted }}>
               Services
             </p>
             <h2
-              className="font-serifalt text-5xl md:text-6xl tracking-tight leading-tight"
+              className="font-serifalt text-6xl md:text-7xl tracking-tight leading-tight"
               style={{ color: headerAccent }}
             >
               Tailored builds that keep shipping momentum.
@@ -146,17 +169,14 @@ export default function OffersSection({ theme }) {
             </p>
           </div>
 
-          <div className="flex flex-col items-start gap-4 lg:text-right">
-            <span className="font-accent text-xs uppercase tracking-[0.28em]" style={{ color: muted }}>
-              Ready when you are
-            </span>
+          <div className="flex flex-col items-start gap-4 lg:items-end">
             <a href="mailto:michaelhanna50@gmail.com">
               <Button
-                className="rounded-full px-8 py-5 text-sm font-accent uppercase tracking-[0.25em] border transition-transform hover:-translate-y-0.5 hover:opacity-90 focus-visible:ring-2 focus-visible:ring-offset-2"
+                className="inline-flex min-w-[280px] items-center justify-between rounded-full px-10 py-5 text-sm font-accent uppercase tracking-[0.25em] border transition-transform hover:-translate-y-0.5 hover:opacity-90 focus-visible:ring-2 focus-visible:ring-offset-2"
                 style={buttonStyle}
               >
-                Start a project
-                <ArrowRight className="ml-3 h-4 w-4" />
+                <span>Start a project</span>
+                <ArrowRight className="ml-4 h-4 w-4" />
               </Button>
             </a>
           </div>
@@ -174,10 +194,10 @@ export default function OffersSection({ theme }) {
               return (
                 <motion.article
                   key={plan.title}
-                  className="relative min-w-[19rem] max-w-[22rem] snap-center rounded-3xl border p-7 backdrop-blur-sm transition-all"
+                  className="group relative min-w-[19rem] max-w-[22rem] snap-center rounded-3xl border p-7 backdrop-blur-sm transition-all"
                   custom={index}
                   variants={planVariants}
-                  whileHover={{ y: -12, boxShadow: hoverShadow }}
+                  whileHover={{ y: -4, boxShadow: hoverShadow }}
                   style={{
                     background: cardPalette.bg,
                     color: cardPalette.text,

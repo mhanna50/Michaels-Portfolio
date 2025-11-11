@@ -30,6 +30,12 @@ export default function AboutSection({ weather, theme }) {
   const cardPalette = palette.card || {};
   const altCardPalette = palette.cardAlt || cardPalette;
   const tertiaryCardPalette = palette.cardTertiary || altCardPalette;
+  const patternColor = palette.accent || '#0f172a';
+  const curvePattern = [
+    { width: 300, height: 250, radius: 360, thickness: 6, opacity: 0.95, top: 0, left: 0 },
+    { width: 230, height: 200, radius: 320, thickness: 4, opacity: 0.65, top: 52, left: 68 },
+    { width: 170, height: 150, radius: 280, thickness: 3, opacity: 0.45, top: 110, left: 138 },
+  ];
 
   const sectionStyle = sectionTheme
     ? withTransition({
@@ -164,6 +170,31 @@ export default function AboutSection({ weather, theme }) {
 
                 </div>
               </motion.section>
+              <motion.div
+                variants={cardVariants}
+                custom={0.35}
+                className="hidden h-full min-h-[240px] items-center justify-center lg:flex"
+                aria-hidden="true"
+              >
+                <div className="relative h-full min-h-[260px] w-full max-w-[360px]">
+                  {curvePattern.map(({ width, height, radius, thickness, opacity, top, left }) => (
+                    <span
+                      key={`${width}-${top}-${left}`}
+                      className="absolute block origin-top-left"
+                      style={{
+                        top,
+                        left,
+                        width,
+                        height,
+                        borderLeft: `${thickness}px solid ${patternColor}`,
+                        borderTop: `${thickness}px solid ${patternColor}`,
+                        borderTopLeftRadius: radius,
+                        opacity,
+                      }}
+                    />
+                  ))}
+                </div>
+              </motion.div>
             </div>
           </div>
         </motion.div>

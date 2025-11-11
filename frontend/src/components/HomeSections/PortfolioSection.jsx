@@ -231,7 +231,7 @@ function FeaturedProjectCard({ project, index, palette }) {
       transition={{ duration: 0.35, ease: 'easeOut' }}
       viewport={{ once: true, amount: 0.3 }}
       custom={index}
-      className={`relative overflow-hidden rounded-3xl border shadow-xl backdrop-blur-sm transition-transform transform-gpu duration-500 ease-out ${cardFallbackClass}`}
+      className={`relative overflow-hidden rounded-3xl border backdrop-blur-sm transition-transform transform-gpu duration-500 ease-out ${cardFallbackClass}`}
       style={Object.keys(featurePalette).length ? withTransition({
         background: featurePalette.bg,
         borderColor: featurePalette.border,
@@ -300,7 +300,7 @@ function FeaturedProjectCard({ project, index, palette }) {
               testimonialEntry.type === 'video' ? (
                 <div
                   key={`${project.title}-testimonial-video-${testimonialIndex}`}
-                  className={`overflow-hidden rounded-2xl border shadow-lg ${videoFallbackClass}`}
+                  className={`overflow-hidden rounded-2xl border ${videoFallbackClass}`}
                   style={withTransition({
                     borderColor: indicatorColor || featurePalette.border,
                     background: 'rgba(0,0,0,0.8)',
@@ -327,7 +327,7 @@ function FeaturedProjectCard({ project, index, palette }) {
               ) : (
                 <blockquote
                   key={`${project.title}-testimonial-quote-${testimonialIndex}`}
-                  className={`rounded-2xl border p-6 text-base shadow-sm backdrop-blur ${blockquoteFallbackClass}`}
+                  className={`rounded-2xl border p-6 text-base backdrop-blur ${blockquoteFallbackClass}`}
                   style={withTransition({
                     background: altCardPalette.bg || featurePalette.bg,
                     borderColor: altCardPalette.border || featurePalette.border,
@@ -437,7 +437,7 @@ function DeepDiveLibrary({ palette, buttonPalette }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-100px' }}
       transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
-      className={`rounded-[36px] border p-8 shadow-2xl backdrop-blur ${deepDiveFallbackClass}`}
+      className={`rounded-[36px] border p-8 backdrop-blur ${deepDiveFallbackClass}`}
       style={deepDiveStyle}
     >
       <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between md:gap-6">
@@ -528,8 +528,6 @@ export default function PortfolioSection({ theme, showDeepDive = false }) {
   const headingFallbackClass = headingStyle ? '' : 'text-black';
   const mutedFallbackClass = mutedStyle ? '' : 'text-neutral-dark/80';
   const dividerFallbackClass = dividerStyle ? '' : 'bg-primary-dark/70';
-  const overlayFallbackClass = overlayStyle ? '' : 'bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.6),_transparent_60%)]';
-
   const buttonStyle = buttonPalette.bg
     ? {
         backgroundColor: buttonPalette.bg,
@@ -541,9 +539,12 @@ export default function PortfolioSection({ theme, showDeepDive = false }) {
 
   const secondaryButtonStyle = buttonPalette.bg
     ? {
-        backgroundColor: 'transparent',
+        backgroundImage: buttonPalette.hover
+          ? `linear-gradient(120deg, ${buttonPalette.bg}, ${buttonPalette.hover})`
+          : undefined,
+        backgroundColor: buttonPalette.bg,
         color: buttonPalette.text || ctaTextColor,
-        borderColor: buttonPalette.text || buttonPalette.bg,
+        borderColor: buttonPalette.hover || buttonPalette.bg,
       }
     : {
         backgroundColor: 'transparent',
@@ -568,10 +569,12 @@ export default function PortfolioSection({ theme, showDeepDive = false }) {
       className="relative overflow-hidden py-28 px-6"
       style={sectionStyle}
     >
-      <div
-        className={`pointer-events-none absolute inset-0 ${overlayFallbackClass}`}
-        style={overlayStyle}
-      />
+      {overlayStyle && (
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={overlayStyle}
+        />
+      )}
 
       <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-16">
         <motion.header
@@ -616,7 +619,11 @@ export default function PortfolioSection({ theme, showDeepDive = false }) {
               </a>
               <a href="/portfolio">
                 <Button
-                  className="rounded-full border px-7 py-2 text-base font-accent uppercase tracking-[0.2em] bg-transparent hover:opacity-90"
+                  className={`rounded-full border px-7 py-2 text-base font-accent uppercase tracking-[0.2em] transition-all duration-300 ${
+                    buttonPalette.bg
+                      ? 'hover:-translate-y-0.5'
+                      : 'hover:opacity-90'
+                  }`}
                   style={{
                     ...secondaryButtonStyle,
                     transition: 'all 300ms ease',

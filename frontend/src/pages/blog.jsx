@@ -3,6 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import BlogList from "../components/BlogTools/BlogList";
 import Footer from "../components/Footer";
+import StickyHeader from "../components/StickyHeader";
 import { getAllPosts } from "../utils/loadposts";
 import { formatReadableDate } from "../utils/formatDate";
 
@@ -115,6 +116,7 @@ export default function Blog({ theme, mainTheme }) {
 
   return (
     <>
+      <StickyHeader theme={theme} forceVisible />
       <main
         className="min-h-screen"
         style={{
