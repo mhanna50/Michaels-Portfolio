@@ -42,9 +42,9 @@ export default function StickyHeader({ theme, forceVisible = false }) {
   const logoSrc = '/images/personal/michaellogo.svg';
 
   const baseButtonClass =
-    'rounded-full px-7 py-3 font-accent uppercase tracking-[0.28em] transition-colors duration-200';
-  const navButtonClass = `${baseButtonClass} text-sm sm:text-base lg:text-lg`;
-  const ctaButtonClass = `${baseButtonClass} text-sm sm:text-base lg:text-lg`;
+    'rounded-full font-accent uppercase transition-colors duration-200';
+  const navButtonClass = `${baseButtonClass} tracking-[0.18em] md:tracking-[0.22em] xl:tracking-[0.28em] px-3.5 py-2 text-xs md:px-4 md:py-2.5 md:text-sm lg:text-base xl:text-lg xl:px-5 whitespace-nowrap`;
+  const ctaButtonClass = `${baseButtonClass} tracking-[0.28em] px-6 py-3 text-sm sm:text-base lg:text-lg`;
   const navText = theme?.sections?.about?.palette?.muted || theme?.sections?.about?.text || '#0B0B0B';
   const normalizedPath =
     typeof window !== 'undefined'
@@ -113,7 +113,7 @@ export default function StickyHeader({ theme, forceVisible = false }) {
           </div>
         </div>
         <nav
-          className={`order-3 flex w-full flex-col items-center gap-1 sm:gap-1.5 border-t pt-4 lg:order-1 lg:col-start-1 lg:col-end-2 lg:flex lg:w-full lg:flex-row lg:flex-1 lg:items-center lg:gap-2 lg:border-none lg:pt-0 ${
+          className={`order-3 flex w-full flex-col items-center gap-1 sm:gap-1.5 border-t pt-4 lg:order-1 lg:col-start-1 lg:col-end-2 lg:flex lg:w-auto lg:max-w-[600px] lg:flex-row lg:flex-wrap lg:items-center lg:justify-end lg:gap-2 xl:gap-4 2xl:gap-6 lg:border-none lg:pt-0 ${
             menuOpen ? 'flex' : 'hidden'
           } lg:flex`}
         >

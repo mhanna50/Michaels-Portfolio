@@ -1,14 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
-import {
-  Sun,
-  Cloud,
-  CloudRain,
-  CloudSnow,
-  Moon,
-  Gauge,
-  ChevronLeft,
-} from "lucide-react";
+import { Sun, Cloud, CloudRain, CloudSnow, Moon, Gauge, Paintbrush } from "lucide-react";
 
 const OPTIONS = [
   { value: "live", label: "Live", icon: Gauge },
@@ -23,11 +15,6 @@ const panelVariants = {
   initial: { x: 260, opacity: 0 },
   animate: { x: 0, opacity: 1, transition: { type: "spring", stiffness: 260, damping: 28 } },
   exit: { x: 260, opacity: 0, transition: { duration: 0.2 } },
-};
-
-const iconVariants = {
-  open: { rotate: 180 },
-  closed: { rotate: 0 },
 };
 
 const hexToRgb = (hex) => {
@@ -149,13 +136,9 @@ export default function ThemeControl({ manualCondition, setManualOverride, theme
           onClick={() => setOpen((prev) => !prev)}
           className={open ? openButtonClasses : closedButtonClasses}
         >
-          <motion.span
-            variants={iconVariants}
-            animate={open ? "open" : "closed"}
-            className="flex items-center justify-center"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </motion.span>
+          <span className="flex items-center justify-center">
+            <Paintbrush className="h-5 w-5" />
+          </span>
         </button>
       </div>
     </div>

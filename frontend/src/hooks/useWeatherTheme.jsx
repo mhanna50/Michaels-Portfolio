@@ -888,7 +888,7 @@ const buildTheme = (condition, isNight = false) => {
 const STORAGE_KEY = "wxData";
 const TIMESTAMP_KEY = "wxFetchedAt";
 const MANUAL_KEY = "wxManualCondition";
-const TTL = 10 * 60 * 1000; // 10 minutes per session
+const TTL = 2 * 60 * 60 * 1000; // 2 hours per session
 const HOME_CITY = import.meta.env.VITE_HOME_CITY || "Philadelphia";
 
 export default function useWeatherTheme() {

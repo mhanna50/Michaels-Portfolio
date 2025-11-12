@@ -15,6 +15,13 @@ const headlineStats = [
   { value: "3", label: "Countries" },
 ];
 
+const marqueePhrases = [
+  "Automation-ready handoff",
+  "Research-led UX",
+  "Weather-aware theming",
+  "Ops + web in sync",
+];
+
 function WorkCard({ study, styles }) {
   const tags = [...(study.industry || []), ...(study.services || [])];
   return (
@@ -80,6 +87,13 @@ function WorkCard({ study, styles }) {
 
 export default function PortfolioPage({ theme, mainTheme }) {
   const [origin, setOrigin] = useState("");
+  const marqueeItems = clientLogos.length
+    ? clientLogos.flatMap((client, idx) => [
+        { type: "logo", id: `${client.name}-logo`, src: client.logo, alt: client.name },
+        { type: "text", id: `${client.name}-text`, content: marqueePhrases[idx % marqueePhrases.length] },
+      ])
+    : marqueePhrases.map((phrase, idx) => ({ type: "text", id: `phrase-${idx}`, content: phrase }));
+  const marqueeLoop = [...marqueeItems, ...marqueeItems];
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -178,17 +192,13 @@ export default function PortfolioPage({ theme, mainTheme }) {
 
       <section className="relative overflow-hidden px-6 pt-28 pb-16 lg:pt-36" style={heroStyle}>
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.08),_transparent_65%)]" />
-        <div className="relative mx-auto flex max-w-5xl flex-col gap-8 text-left">
-          <p className="font-accent text-xs uppercase tracking-[0.45em]" style={labelStyle}>
+        <div className="relative mx-auto flex max-w-5xl flex-col gap-6 text-left">
+          <p className="font-accent text-sm uppercase tracking-[0.45em] sm:text-base" style={labelStyle}>
             Selected Work
           </p>
           <h1 className="font-serifalt text-5xl leading-tight md:text-6xl" style={headingStyle}>
             Design, development, and automation that drive measurable growth.
           </h1>
-          <p className="text-lg leading-relaxed" style={mutedStyle}>
-            Real engagements that pair brand, product, and ops work—every case study includes the
-            problem, the systems behind the solution, and the numbers that proved it out.
-          </p>
           <div className="flex flex-wrap gap-4">
             <a href="mailto:michaelhanna50@gmail.com?subject=Start%20a%20Project">
               <Button
@@ -206,51 +216,16 @@ export default function PortfolioPage({ theme, mainTheme }) {
               See Services
             </a>
           </div>
-          <div className="mt-6">
-            <p className="text-xs font-accent uppercase tracking-[0.4em]" style={labelStyle}>
-              Trusted by
-            </p>
-            <div className="mt-4 grid gap-4 sm:grid-cols-3">
-              {clientLogos.map((client) => (
-                <div
-                  key={client.name}
-                  className="flex items-center justify-center rounded-2xl border px-4 py-3 text-sm font-semibold"
-                  style={{
-                    borderColor: dividerColor.borderColor,
-                    color: headingStyle.color,
-                    background: getTone("rgba(246,248,246,0.06)", "rgba(15,23,42,0.04)"),
-                  }}
-                >
-                  {client.name}
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       </section>
 
-      <section className="px-6 py-16 lg:py-24" style={heroStyle}>
-        <div className="mx-auto max-w-6xl space-y-10">
-          <div>
-            <p className="font-accent text-xs uppercase tracking-[0.45em]" style={labelStyle}>
-              Work gallery
-            </p>
-            <h2 className="mt-3 font-serifalt text-4xl leading-tight md:text-5xl" style={headingStyle}>
-              Systems-first builds across design, dev, and automation.
-            </h2>
-          </div>
-          <div className="grid gap-8 md:grid-cols-2">
-            {portfolioCaseStudies.map((study) => (
-              <WorkCard key={study.slug} study={study} styles={workCardStyles} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="px-6 pb-24" style={heroStyle}>
-        <div className="mx-auto max-w-6xl space-y-10 rounded-3xl border px-6 py-10 md:px-10" style={dividerColor}>
-          <div className="space-y-3 text-center">
-            <p className="font-accent text-xs uppercase tracking-[0.45em]" style={labelStyle}>
+      <section className="px-6 pb-10 lg:pb-12 lg:pt-12" style={heroStyle}>
+        <div
+          className="mx-auto flex max-w-6xl min-h-[520px] flex-col items-center justify-center gap-10 rounded-3xl border px-6 py-12 text-center md:px-12"
+          style={dividerColor}
+        >
+          <div className="space-y-3">
+            <p className="font-accent text-base uppercase tracking-[0.45em] sm:text-lg" style={labelStyle}>
               Highlights
             </p>
             <h2 className="font-serifalt text-4xl leading-tight" style={headingStyle}>
@@ -261,7 +236,7 @@ export default function PortfolioPage({ theme, mainTheme }) {
               development, and automation with accountable metrics.
             </p>
           </div>
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid w-full gap-6 md:grid-cols-3">
             {headlineStats.map((stat) => (
               <div
                 key={stat.label}
@@ -280,7 +255,7 @@ export default function PortfolioPage({ theme, mainTheme }) {
               </div>
             ))}
           </div>
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid w-full gap-6 text-left md:grid-cols-2">
             {portfolioStats.map((stat) => (
               <div
                 key={stat.label}
@@ -302,7 +277,7 @@ export default function PortfolioPage({ theme, mainTheme }) {
               </div>
             ))}
           </div>
-          <div className="flex flex-wrap justify-center gap-4 pt-2">
+          <div className="flex w-full flex-wrap justify-center gap-4 pt-2">
             <a href="/services">
               <Button
                 className="rounded-full px-8 py-4 text-sm font-accent uppercase tracking-[0.3em]"
@@ -318,6 +293,59 @@ export default function PortfolioPage({ theme, mainTheme }) {
             >
               Start a Similar Project
             </a>
+          </div>
+        </div>
+      </section>
+
+      {marqueeItems.length > 0 && (
+        <section className="px-0 py-4" style={heroStyle}>
+          <div className="relative overflow-hidden border-y" style={dividerColor}>
+            <div className="marquee-track gap-10 py-6">
+              {marqueeLoop.map((item, idx) => {
+                const isDuplicate = idx >= marqueeItems.length;
+                return (
+                  <div
+                    key={`${item.id}-${idx}`}
+                    className="marquee-item"
+                    aria-hidden={isDuplicate}
+                  >
+                    {item.type === "logo" ? (
+                      <img
+                        src={item.src}
+                        alt={item.alt}
+                        className="h-10 w-auto object-contain opacity-80"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <span
+                        className="text-sm font-accent uppercase tracking-[0.35em]"
+                        style={{ color: headingStyle.color }}
+                      >
+                        {item.content}
+                      </span>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <section className="px-6 pt-10 pb-16 lg:pt-12 lg:pb-24" style={heroStyle}>
+        <div className="mx-auto max-w-6xl space-y-10">
+          <div>
+            <p className="font-accent text-xs uppercase tracking-[0.45em]" style={labelStyle}>
+              Work gallery
+            </p>
+            <h2 className="mt-3 font-serifalt text-4xl leading-tight md:text-5xl" style={headingStyle}>
+              Systems-first builds across design, dev, and automation.
+            </h2>
+          </div>
+          <div className="grid gap-8 md:grid-cols-2">
+            {portfolioCaseStudies.map((study) => (
+              <WorkCard key={study.slug} study={study} styles={workCardStyles} />
+            ))}
           </div>
         </div>
       </section>
