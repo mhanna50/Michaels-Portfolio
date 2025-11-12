@@ -1,33 +1,33 @@
-const ENDPOINT = "https://api.openweathermap.org/data/2.5/weather";
+const ENDPOINT = 'https://api.openweathermap.org/data/2.5/weather';
 
-class WeatherConfigError extends Error {
+export class WeatherConfigError extends Error {
   constructor(message) {
     super(message);
-    this.name = "WeatherConfigError";
+    this.name = 'WeatherConfigError';
     this.statusCode = 500;
   }
 }
 
-class WeatherFetchError extends Error {
+export class WeatherFetchError extends Error {
   constructor(message) {
     super(message);
-    this.name = "WeatherFetchError";
+    this.name = 'WeatherFetchError';
     this.statusCode = 502;
   }
 }
 
-async function fetchWeatherData({ lat, lon, key }) {
+export async function fetchWeatherData({ lat, lon, key }) {
   if (!lat || !lon || !key) {
-    throw new WeatherConfigError("Missing WEATHER_LAT, WEATHER_LON, or WEATHER_API_KEY");
+    throw new WeatherConfigError('Missing WEATHER_LAT, WEATHER_LON, or WEATHER_API_KEY');
   }
 
   const url = `${ENDPOINT}?lat=${lat}&lon=${lon}&appid=${key}&units=metric`;
   const response = await fetch(url, {
-    headers: { "User-Agent": "portfolio-weather/1.0" },
+    headers: { 'User-Agent': 'portfolio-weather/1.0' },
   });
 
   if (!response.ok) {
-    throw new WeatherFetchError("Weather fetch failed");
+    throw new WeatherFetchError('Weather fetch failed');
   }
 
   const data = await response.json();
@@ -36,25 +36,19 @@ async function fetchWeatherData({ lat, lon, key }) {
   const sunsetUtc = data?.sys?.sunset ?? null;
 
   let isNight = false;
-  if (typeof sunriseUtc === "number" && typeof sunsetUtc === "number") {
+  if (typeof sunriseUtc === 'number' && typeof sunsetUtc === 'number') {
     isNight = nowUtcSeconds < sunriseUtc || nowUtcSeconds > sunsetUtc;
   }
 
   return {
     city: data.name,
-    condition: (data.weather?.[0]?.main || "unknown").toLowerCase(),
-    description: data.weather?.[0]?.description || "",
+    condition: (data.weather?.[0]?.main || 'unknown').toLowerCase(),
+    description: data.weather?.[0]?.description || '',
     tempC: Math.round(data.main?.temp ?? 0),
     updatedAt: new Date().toISOString(),
     isNight,
     sunrise: sunriseUtc ? new Date(sunriseUtc * 1000).toISOString() : null,
     sunset: sunsetUtc ? new Date(sunsetUtc * 1000).toISOString() : null,
-    source: "live",
+    source: 'live',
   };
 }
-
-module.exports = {
-  fetchWeatherData,
-  WeatherConfigError,
-  WeatherFetchError,
-};

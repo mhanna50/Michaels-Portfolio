@@ -3,15 +3,12 @@ import react from '@vitejs/plugin-react';
 import path from 'node:path';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'node:url';
-import { createRequire } from 'node:module';
+import { fetchWeatherData } from './api/weatherService.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
-
-const require = createRequire(import.meta.url);
-const { fetchWeatherData } = require('../api/weatherService.js');
 
 function weatherDevProxy() {
   return {
