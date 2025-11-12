@@ -7,6 +7,8 @@ import useWeatherTheme from "./hooks/useWeatherTheme";
 import ThemeControl from "./components/ThemeControl";
 import PortfolioCaseStudy from "./pages/PortfolioCaseStudy";
 import ServicesPage from "./pages/services";
+import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 function App() {
   const { weather, theme, manualCondition, setManualOverride, mainTheme } = useWeatherTheme(); // keeps weather + theme in sync
