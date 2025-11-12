@@ -1,5 +1,6 @@
 // src/hooks/useWeatherTheme.js
 import { useEffect, useState } from "react";
+import { getWeather } from "@/utils/getWeather";
 
 const MAIN_THEME = {
   accent: "#F6F8F6",
@@ -888,6 +889,7 @@ const STORAGE_KEY = "wxData";
 const TIMESTAMP_KEY = "wxFetchedAt";
 const MANUAL_KEY = "wxManualCondition";
 const TTL = 10 * 60 * 1000; // 10 minutes per session
+const HOME_CITY = import.meta.env.VITE_HOME_CITY || "Philadelphia";
 
 export default function useWeatherTheme() {
   const [weather, setWeather] = useState(null);
@@ -916,9 +918,7 @@ export default function useWeatherTheme() {
 
       (async () => {
         try {
-          const res = await fetch("/api/weather", { cache: "no-store" });
-          if (!res.ok) throw new Error("weather");
-          const data = await res.json();
+          const data = await getWeather(HOME_CITY);
           setWeather(data);
           setTheme(buildTheme(data.condition, data.isNight));
 

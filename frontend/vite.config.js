@@ -19,11 +19,22 @@ function weatherDevProxy() {
         res.setHeader('Content-Type', 'application/json');
 
         try {
-          const payload = await fetchWeatherData({
-            lat: process.env.WEATHER_LAT,
-            lon: process.env.WEATHER_LON,
-            key: process.env.WEATHER_API_KEY,
-          });
+          const url = new URL(req.originalUrl || req.url || '', 'http://localhost');
+          const city = (url.searchParams.get('city') || url.searchParams.get('q') || '').trim();
+          if (!city) {
+            res.statusCode = 400;
+            res.end(JSON.stringify({ error: 'Missing "city" query param' }));
+            return;
+          }
+
+          const key = process.env.OPENWEATHER_KEY || process.env.WEATHER_API_KEY;
+          if (!key) {
+            res.statusCode = 500;
+            res.end(JSON.stringify({ error: 'OPENWEATHER_KEY is not configured' }));
+            return;
+          }
+
+          const payload = await fetchWeatherData({ city, key });
 
           res.statusCode = 200;
           res.end(JSON.stringify(payload));
