@@ -10,14 +10,14 @@ const featuredProjects = [
     title: 'This Portfolio',
     category: 'Website Design & Launch',
     description:
-      'A personal portfolio site showcasing my projects, skills, and the story behind why I love to create.',
-    highlights: ['4 week build duration','Fully Custom Coded'],
+      'My own site built to mirror the process clients experience—from kickoff chat to hand-off videos and training clips.',
+    highlights: ['4-week build with weekly owner check-ins', 'Fully custom coded with easy-to-edit content blocks'],
     liveUrl: 'https://search-symphony.example.com',
     caseStudyUrl: 'https://search-symphony.example.com/strategy',
     cover: 'https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=1400&q=80',
     testimonial: {
       type: 'quote',
-      quote: 'The portfolio perfectly captures my journey and the essence of my work. It’s more than just a site; it’s a reflection of my passion and dedication.',
+      quote: 'Building my own site reminded me to explain every decision in simple steps—just like I do with clients.',
       author: 'Michael Hanna · Designer & Developer',
     },
   },
@@ -25,8 +25,8 @@ const featuredProjects = [
     title: 'Millie Aesthetics',
     category: 'Website Design & Launch',
     description:
-      'A refined brand and online presence for a beauty and weight-loss focused Medical Spa, blending elegant design with seamless user experience.',
-    highlights: ['3 week build duration', 'Built using Wordpress'],
+      'Plain-language service pages and direct booking links for a med spa, paired with a calming new visual identity.',
+    highlights: ['3-week build with shared Trello board', 'WordPress + drag-and-drop editor for quick updates'],
     liveUrl: 'https://studio-palette.example.com',
     caseStudyUrl: 'https://studio-palette.example.com/case-study',
     cover: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1400&q=80',
@@ -40,14 +40,14 @@ const featuredProjects = [
     title: 'American Craftsman LLC',
     category: 'Website Design & Launch',
     description:
-      'An updated brand identity, SEO Strategy, and website for a local contracting firm, highlighting craftsmanship and personalized service.',
-    highlights: ['5 week project duration', 'Built using Framer'],
+      'Refreshed brand story, SEO basics, and a portfolio-forward site for a local contractor focused on craftsmanship.',
+    highlights: ['5-week project with on-site photo support', 'Built in Framer with copy blocks the team can update'],
     liveUrl: 'https://americancraftsmanllc.com',
     caseStudyUrl: 'https://code-atlas.example.com/build-notes',
     cover: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1400&q=80',
     testimonial: {
       type: 'quote',
-      quote: 'Fill in with jims quote',
+      quote: 'Prospects finally understand what we do before we even pick up the phone.',
       author: 'American Craftsman · Owner & Lead Contractor',
     },
   },
@@ -59,7 +59,7 @@ const projectCollections = {
     {
       title: 'E-Commerce Platform',
       description:
-        'Full-stack e-commerce solution with payment integration, inventory management, and responsive design. Built with React, Node.js, and MongoDB.',
+        'Online shop with secure checkout, real-time inventory alerts, and clear shipping updates for customers.',
       github: 'https://github.com/yourusername/ecommerce',
       liveUrl: 'https://demo-ecommerce.com',
       thumbnail: 'https://images.unsplash.com/photo-1557821552-17105176677c?w=800&q=80',
@@ -68,7 +68,7 @@ const projectCollections = {
     {
       title: 'Portfolio Builder',
       description:
-        'A drag-and-drop portfolio builder that lets users create stunning personal websites without coding. Features real-time preview and export functionality.',
+        'Drag-and-drop tool that lets creatives launch a simple site without code, with live previews for every change.',
       github: 'https://github.com/yourusername/portfolio-builder',
       thumbnail: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&q=80',
       media: ['https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=1200&q=80'],
@@ -78,7 +78,7 @@ const projectCollections = {
     {
       title: 'Algorithm Visualizer',
       description:
-        'Interactive tool for visualizing sorting and searching algorithms. Helps students understand computer science concepts through animation.',
+        'Interactive teaching tool that walks students through how sorting and searching actually work, step by step.',
       github: 'https://github.com/yourusername/algo-viz',
       liveUrl: 'https://demo-algo-viz.com',
       thumbnail: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80',
@@ -87,7 +87,7 @@ const projectCollections = {
     {
       title: 'CLI Task Manager',
       description:
-        'Command-line task management tool with priority sorting, deadlines, and project categorization. Built with Python.',
+        'Command-line checklist for teams who live in the terminal, keeping priorities and due dates organized.',
       github: 'https://github.com/yourusername/cli-tasks',
       thumbnail: 'https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=800&q=80',
       media: ['https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=1200&q=80'],
@@ -97,7 +97,7 @@ const projectCollections = {
     {
       title: 'Content Systems Audit',
       description:
-        'Technical SEO and content replatform for a B2B SaaS product. Delivered a living keyword map and schema-powered editorial workflow.',
+        'Deep review for a B2B SaaS brand—reorganized blog topics and added schema so search engines understand their offer.',
       github: 'https://github.com/yourusername/content-systems-audit',
       liveUrl: 'https://content-audit.example.com',
       thumbnail: 'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?w=800&q=80',
@@ -106,7 +106,7 @@ const projectCollections = {
     {
       title: 'Brand Voice Playbook',
       description:
-        'Developed storytelling guidelines and SEO-ready content briefs for a product launch, aligning design, marketing, and sales messaging.',
+        'Messaging guide and SEO-ready briefs for a product launch so sales, design, and marketing spoke the same language.',
       thumbnail: 'https://images.unsplash.com/photo-1520607162513-3b1c5b1af582?w=800&q=80',
       media: ['https://images.unsplash.com/photo-1520607162513-3b1c5b1af582?w=1200&q=80'],
     },
@@ -115,7 +115,7 @@ const projectCollections = {
     {
       title: 'Automated Testing Framework',
       description:
-        'Comprehensive testing framework for web applications using Selenium and pytest. Includes parallel execution and detailed reporting.',
+        'Testing toolkit that runs through critical site flows automatically and reports issues in one dashboard.',
       github: 'https://github.com/yourusername/qa-framework',
       thumbnail: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80',
       media: ['https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&q=80'],
@@ -123,7 +123,7 @@ const projectCollections = {
     {
       title: 'API Testing Suite',
       description:
-        'RESTful API testing suite with automated validation, performance testing, and integration with CI/CD pipelines.',
+        'Automated checks that keep every API response accurate and fast before new features go live.',
       github: 'https://github.com/yourusername/api-tests',
       thumbnail: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80',
       media: ['https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80'],
@@ -591,12 +591,12 @@ export default function PortfolioSection({ theme, showDeepDive = false }) {
             Portfolio
           </span>
           <div className="flex flex-col gap-4">
-            <h2
-              className={`max-w-3xl font-serifalt text-5xl md:text-6xl leading-tight ${headingFallbackClass}`}
-              style={headingStyle}
-            >
-              Signature builds that span launch-ready business sites to custom web applications and coding projects.
-            </h2>
+          <h2
+            className={`max-w-3xl font-serifalt text-5xl md:text-6xl leading-tight ${headingFallbackClass}`}
+            style={headingStyle}
+          >
+            Real projects that solve everyday business problems—from new launches to smarter internal tools.
+          </h2>
           </div>
           <div className={`h-1 w-24 rounded-full ${dividerFallbackClass}`} style={dividerStyle} />
           <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
@@ -604,7 +604,7 @@ export default function PortfolioSection({ theme, showDeepDive = false }) {
               className={`max-w-3xl font-serifalt text-lg ${mutedFallbackClass}`}
               style={mutedStyle}
             >
-              I ensure every project blends thoughtful user experience with high-level quality assurance.
+              Each example pairs thoughtful design with practical steps like content planning, testing, and training so you can run the site with confidence.
             </p>
             <div className="flex flex-col gap-3 md:ml-5 md:flex-row md:items-center md:self-end">
               <a href="mailto:michaelhanna@gmail.com">

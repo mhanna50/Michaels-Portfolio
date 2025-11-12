@@ -6,7 +6,7 @@ export default function Post() {
   const { slug } = useParams();
   const post = getPostBySlug(slug);
 
-  if (!post) return <p>Post not found.</p>;
+  if (!post) return <p>Sorry, that story isn&apos;t available.</p>;
 
   return (
     <article className="max-w-3xl mx-auto py-12 px-6">

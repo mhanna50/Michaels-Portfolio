@@ -92,21 +92,21 @@ export default function SkillsSection({ theme }) {
             className="font-accent uppercase tracking-[0.35em] text-lg text-primary-dark/70"
             style={accentStyle}
           >
-            Technical Focus
+            Practical Toolkit
           </span>
           <h2
             className="max-w-3xl font-serifalt text-5xl md:text-6xl text-black leading-tight"
             style={headingStyle}
           >
-            Skills & Technologies
+            The tools I lean on to plan, build, and care for your site.
           </h2>
           <div className="h-1 w-20 rounded-full bg-[#A8B8A0]" style={dividerStyle} />
           <p
             className="max-w-3xl font-serifalt text-lg text-neutral-dark/80"
             style={mutedStyle}
           >
-            A cross-disciplinary toolkit that spans coding, automation, and design enables me to ship
-            polished experiences while keeping performance, accessibility, and quality in check.
+            This mix lets me guide a project without passing you between different vendors. From clean code to testing
+            and hosting, every tool supports a smoother launch and easier maintenance.
           </p>
         </motion.div>
 
@@ -116,7 +116,7 @@ export default function SkillsSection({ theme }) {
               className="text-2xl font-medium text-[#2C2C2C] mb-6"
               style={headingStyle}
             >
-              Programming Languages
+              Languages I Build With
             </h3>
             <div className="flex flex-wrap gap-3">
               {skills.languages.map((skill, idx) => (
@@ -136,7 +136,7 @@ export default function SkillsSection({ theme }) {
               className="text-2xl font-medium text-[#2C2C2C] mb-6"
               style={headingStyle}
             >
-              Frameworks & Libraries
+              Frameworks That Speed Things Up
             </h3>
             <div className="flex flex-wrap gap-3">
               {skills.frameworks.map((skill, idx) => (
@@ -156,7 +156,7 @@ export default function SkillsSection({ theme }) {
               className="text-2xl font-medium text-[#2C2C2C] mb-6"
               style={headingStyle}
             >
-              Tools & Platforms
+              Platforms I Manage For You
             </h3>
             <div className="flex flex-wrap gap-3">
               {skills.tools.map((skill, idx) => (
@@ -176,7 +176,7 @@ export default function SkillsSection({ theme }) {
               className="text-2xl font-medium text-[#2C2C2C] mb-6"
               style={headingStyle}
             >
-              Other Skills
+              Supporting Skills
             </h3>
             <div className="flex flex-wrap gap-3">
               {skills.other.map((skill, idx) => (

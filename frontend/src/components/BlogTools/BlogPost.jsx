@@ -80,14 +80,13 @@ export default function BlogPost({ slug, mainTheme, theme }) {
             style={articleStyle}
           >
             <h1 className={`font-serifalt text-3xl ${headingFallbackClass}`} style={headingStyle}>
-              Post unavailable.
+              That story isn&apos;t available anymore.
             </h1>
             <p
               className={`mt-6 font-serifalt text-base ${mutedFallbackClass}`}
               style={mutedStyle || bodyStyle}
             >
-              The entry you were looking for has been moved or no longer exists. Please return to the journal
-              for the latest updates.
+              It may have been renamed or archived. Head back to the journal to read the latest lessons and project notes.
             </p>
             <a
               href="/blog"

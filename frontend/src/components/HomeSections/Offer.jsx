@@ -45,12 +45,12 @@ const plans = [
     price: "Custom scopes",
     icon: LineChart,
     duration: "Audits + retainers",
-    scope: "Technical + content SEO paired with analytics reporting so the right people keep finding you.",
+    scope: "Clear, plain-language audits so the right people can find you online and quickly grasp what you offer.",
     highlights: [
-      "Full crawl, Core Web Vitals, and accessibility sweeps",
-      "Keyword maps, structured data, and editorial briefs",
-      "Analytics dashboards with KPI tracking",
-      "Search QA plus implementation support",
+      "Full site health review with a simple priority checklist",
+      "Keyword map translated into copy prompts your team can use",
+      "Analytics dashboards focused on leads and calls, not vanity stats",
+      "Follow-up sessions so fixes and new content actually ship",
     ],
   },
   {
@@ -58,12 +58,12 @@ const plans = [
     price: "4–6 week builds",
     icon: Layers,
     duration: "React · WP · Framer",
-    scope: "Custom UI systems and coded builds in React/Vite or polished sites inside WordPress or Framer.",
+    scope: "Done-for-you design and development so you can keep running the business while the new site takes shape.",
     highlights: [
-      "High-fidelity design systems + responsive components",
-      "Performance budgets, animations, and QA",
-      "CMS setups (headless, WordPress, or Framer)",
-      "Launch support, docs, and hand-offs",
+      "Kickoff workshop to unpack goals, offers, and proof",
+      "Design approval before any code is written",
+      "Content entry, forms, and SEO essentials handled for you",
+      "Launch support plus short video tutorials for future edits",
     ],
   },
   {
@@ -71,12 +71,12 @@ const plans = [
     price: "Sprint-based",
     icon: Sparkles,
     duration: "2-week pilots",
-    scope: "Prototype copilots or workflow automations that remove busywork and keep teams in flow.",
+    scope: "Small experiments that remove repetitive tasks like reporting, follow-ups, or FAQs without replacing your team.",
     highlights: [
-      "Process mapping + automation strategy",
-      "OpenAI / API integration and testing",
-      "Knowledge base + prompt engineering",
-      "Enablement docs for your team",
+      "Map the current process and pick the clearest win",
+      "Build and test a lightweight assistant or automation",
+      "Gather feedback in plain language to keep it useful",
+      "Leave behind simple docs so anyone can adjust it later",
     ],
   },
 ];
@@ -161,11 +161,11 @@ export default function OffersSection({ theme }) {
               className="font-serifalt text-6xl md:text-7xl tracking-tight leading-tight"
               style={{ color: headerAccent }}
             >
-              Tailored builds that keep shipping momentum.
+              Website help that stays clear, collaborative, and on schedule.
             </h2>
             <p className="mt-6 text-lg leading-relaxed" style={{ color: muted }}>
-              Each engagement blends product intuition, intentional UX, and production-ready code. Whether you need a
-              flagship launch, steady iteration, or a visibility boost, we’ll scope exactly what moves the needle.
+              We start with business goals, then map the design, copy, and tech needed to reach them. You’ll always know
+              what we’re working on, what’s coming next, and how each step supports sales, bookings, or brand trust.
             </p>
           </div>
 

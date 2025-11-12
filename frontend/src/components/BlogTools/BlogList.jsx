@@ -110,7 +110,7 @@ export default function BlogList({ posts: incomingPosts, palette, themeColors })
   if (!posts.length) {
     return (
       <p className="text-center font-serifalt text-neutral/70">
-        Articles will appear here soon. Check back for fresh notes from the studio.
+        Articles will appear here soon. Check back for approachable updates on current projects and lessons learned.
       </p>
     );
   }

@@ -166,22 +166,21 @@ export default function Blog({ theme, mainTheme }) {
               className={`font-accent uppercase tracking-[0.35em] text-md ${navMutedFallbackClass}`}
               style={navMutedStyle || navStyle}
             >
-              Studio Journal
+              Project Notes
             </p>
             <h1
               className={`font-serifalt text-5xl md:text-6xl lg:text-7xl tracking-tight ${headingFallbackClass}`}
               style={headingStyle}
             >
-              Notes on design systems, creative development, and polished delivery.
+              Plain-language updates on building websites, content systems, and helpful automations.
             </h1>
             <div className={`h-1 w-24 rounded-full ${dividerFallbackClass}`} style={dividerStyle} />
             <p
               className={`font-serifalt text-xl leading-relaxed ${bodyFallbackClass}`}
               style={bodyStyle}
             >
-              A space to document the thinking, process, and craft lessons from building immersive,
-              performance-minded experiences. Each entry connects the dots between UX strategy,
-              refined visuals, and production-quality code.
+              Each entry explains what we tried, what changed, and how you can apply the same ideas without learning new
+              jargon. It&apos;s practical storytelling for business owners who want the highlights.
             </p>
           </motion.header>
 
@@ -252,7 +251,7 @@ export default function Blog({ theme, mainTheme }) {
                       style={bodyStyle}
                     >
                       {featuredPost.description ??
-                        "Explore the journal for insights into the thinking and craft behind each build."}
+                        'Browse the journal for practical lessons on planning, building, and improving digital projects.'}
                     </p>
                   )}
                 </div>

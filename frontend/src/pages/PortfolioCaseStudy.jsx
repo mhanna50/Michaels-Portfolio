@@ -26,16 +26,20 @@ export default function PortfolioCaseStudy({ slug, theme, mainTheme }) {
     [slug]
   );
 
+  const sectionTheme = theme?.sections?.portfolio;
+  const palette = sectionTheme?.palette;
+
   const pageStyle = mainTheme?.page
     ? { background: mainTheme.page.bg, color: mainTheme.page.text }
     : undefined;
-  const sectionTheme = theme?.sections?.portfolio;
-  const palette = sectionTheme?.palette;
-  const heroStyle = sectionTheme
-    ? { background: sectionTheme.bg, color: sectionTheme.text }
-    : undefined;
-  const headingStyle = palette?.heading ? { color: palette.heading } : undefined;
-  const mutedStyle = palette?.muted ? { color: palette.muted } : undefined;
+  const heroStyle = sectionTheme ? { background: sectionTheme.bg, color: sectionTheme.text } : undefined;
+
+  const headingStyle = { color: palette?.heading || "#F6F8F6" };
+  const mutedStyle = { color: palette?.muted || "rgba(246,248,246,0.78)" };
+  const labelStyle = { color: palette?.muted || "rgba(246,248,246,0.65)" };
+  const dividerColor = {
+    borderColor: palette?.divider || "rgba(246,248,246,0.25)",
+  };
 
   const canonical = origin && caseStudy ? `${origin}/portfolio/${caseStudy.slug}` : undefined;
   const jsonLd =
@@ -60,9 +64,7 @@ export default function PortfolioCaseStudy({ slug, theme, mainTheme }) {
     title: caseStudy
       ? `${caseStudy.title} Case Study | Michael Hanna`
       : "Case Study Not Found | Michael Hanna",
-    description: caseStudy
-      ? caseStudy.summary
-      : "The requested case study could not be found.",
+    description: caseStudy ? caseStudy.summary : "The requested case study could not be found.",
     canonical,
     jsonLd,
   });
@@ -83,7 +85,20 @@ export default function PortfolioCaseStudy({ slug, theme, mainTheme }) {
     );
   }
 
-  const relatedStudies = caseStudy.related
+  const heroKpis = caseStudy.heroKpis || [];
+  const stackItems = caseStudy.stack || [];
+  const automationItems = caseStudy.automations || [];
+  const kpiCards = caseStudy.kpis || [];
+
+  const infoRows = [
+    { label: "Client", value: caseStudy.client },
+    { label: "Year", value: caseStudy.year },
+    { label: "Industry", value: caseStudy.industry.join(", ") },
+    { label: "Services", value: caseStudy.services.join(" · ") },
+    { label: "Platform", value: caseStudy.platform.join(" · ") },
+  ];
+
+  const relatedStudies = (caseStudy.related || [])
     .map((relatedSlug) => portfolioCaseStudies.find((study) => study.slug === relatedSlug))
     .filter(Boolean);
 
@@ -94,104 +109,122 @@ export default function PortfolioCaseStudy({ slug, theme, mainTheme }) {
   return (
     <div className="min-h-screen" style={pageStyle}>
       <StickyHeader theme={theme} forceVisible />
+
       <section className="px-6 pt-24 pb-16 lg:pt-32" style={heroStyle}>
-        <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.5fr_1fr]">
-          <div className="space-y-6">
-            <p className="font-accent text-xs uppercase tracking-[0.4em]" style={mutedStyle}>
-              {caseStudy.heroSummary}
-            </p>
-            <h1 className="font-serifalt text-5xl leading-tight" style={headingStyle}>
-              {caseStudy.title}
-            </h1>
-            <p className="font-serifalt text-lg text-white/80">{caseStudy.summary}</p>
-            <div className="flex flex-wrap gap-4">
-              {caseStudy.heroKpis.map((kpi) => (
-                <span
-                  key={kpi.label}
-                  className="rounded-full border border-white/30 px-4 py-2 text-xs font-accent uppercase tracking-[0.3em] text-white/80"
+        <div className="mx-auto max-w-6xl space-y-10">
+          <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr]">
+            <div className="space-y-6">
+              <p className="font-accent text-xs uppercase tracking-[0.4em]" style={labelStyle}>
+                Selected Work · {caseStudy.heroSummary}
+              </p>
+              <h1 className="font-serifalt text-5xl leading-tight" style={headingStyle}>
+                {caseStudy.title}
+              </h1>
+              <p className="text-lg leading-relaxed" style={mutedStyle}>
+                {caseStudy.summary}
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {[...(caseStudy.industry || []), ...(caseStudy.services || [])].map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-full border px-3 py-1 text-xs font-accent uppercase tracking-[0.25em]"
+                    style={{
+                      color: labelStyle.color,
+                      borderColor: dividerColor.borderColor,
+                      background: "rgba(255,255,255,0.05)",
+                    }}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-3">
+                {heroKpis.map((kpi) => (
+                  <span
+                    key={kpi.label}
+                    className="rounded-full border px-4 py-2 text-xs font-accent uppercase tracking-[0.3em]"
+                    style={{
+                      color: headingStyle.color,
+                      borderColor: dividerColor.borderColor,
+                      background: "rgba(255,255,255,0.05)",
+                    }}
+                  >
+                    {kpi.value} · {kpi.label}
+                  </span>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-4">
+                <a href="mailto:michaelhanna50@gmail.com?subject=Start%20a%20Similar%20Project">
+                  <Button className="rounded-full px-8 py-4 text-sm font-accent uppercase tracking-[0.3em]">
+                    Start a Similar Project
+                  </Button>
+                </a>
+                <a
+                  href="/services"
+                  className="rounded-full border border-white/30 px-8 py-4 text-sm font-accent uppercase tracking-[0.3em] text-white/80 transition hover:text-white"
                 >
-                  {kpi.value} · {kpi.label}
-                </span>
-              ))}
+                  View Services
+                </a>
+              </div>
             </div>
-            <div className="flex flex-wrap gap-4">
-              <a href="mailto:michaelhanna50@gmail.com">
-                <Button className="rounded-full px-8 py-4 text-sm font-accent uppercase tracking-[0.3em]">
-                  Start a Similar Project
-                </Button>
-              </a>
-              <a
-                href="/services"
-                className="rounded-full border border-white/30 px-8 py-4 text-sm font-accent uppercase tracking-[0.3em] text-white/80 transition hover:text-white"
-              >
-                View Services
-              </a>
+            <div className="relative overflow-hidden rounded-3xl border border-white/10">
+              <img
+                src={caseStudy.coverImage}
+                alt={caseStudy.coverImageAlt}
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent px-6 py-5">
+                <p className="text-xs font-accent uppercase tracking-[0.35em] text-white/70">Result</p>
+                <p className="text-xl font-serifalt text-white">{caseStudy.outcome}</p>
+              </div>
             </div>
           </div>
-          <div className="overflow-hidden rounded-3xl border border-white/10 bg-black/30">
-            <img
-              src={caseStudy.coverImage}
-              alt={caseStudy.coverImageAlt}
-              className="h-full w-full object-cover"
-              loading="lazy"
-            />
+          <div className="grid gap-4 md:grid-cols-3">
+            {infoRows.map((row) => (
+              <div key={row.label} className="rounded-2xl border px-4 py-3 text-sm" style={dividerColor}>
+                <p className="text-xs font-accent uppercase tracking-[0.35em]" style={labelStyle}>
+                  {row.label}
+                </p>
+                <p className="mt-1 font-semibold" style={headingStyle}>
+                  {row.value}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       <section className="px-6 py-16" style={heroStyle}>
-        <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1fr_1.5fr]">
-          <div className="space-y-4 rounded-3xl border border-white/10 bg-white/5 p-6">
-            <h2 className="font-accent text-xs uppercase tracking-[0.35em] text-white/60">Project summary</h2>
-            <dl className="space-y-3 text-sm text-white/80">
-              <div className="flex justify-between border-b border-white/10 pb-2">
-                <dt>Client</dt>
-                <dd>{caseStudy.client}</dd>
-              </div>
-              <div className="flex justify-between border-b border-white/10 pb-2">
-                <dt>Year</dt>
-                <dd>{caseStudy.year}</dd>
-              </div>
-              <div className="flex justify-between border-b border-white/10 pb-2">
-                <dt>Industry</dt>
-                <dd>{caseStudy.industry.join(", ")}</dd>
-              </div>
-              <div className="flex justify-between border-b border-white/10 pb-2">
-                <dt>Services</dt>
-                <dd>{caseStudy.services.join(" · ")}</dd>
-              </div>
-              <div className="flex justify-between">
-                <dt>Platform</dt>
-                <dd>{caseStudy.platform.join(" · ")}</dd>
-              </div>
-            </dl>
-          </div>
-          <div className="space-y-6">
-            <p className="font-serifalt text-lg text-white/85">
-              {caseStudy.challenge}
+        <div className="mx-auto max-w-6xl space-y-10">
+          <div>
+            <p className="font-accent text-xs uppercase tracking-[0.4em]" style={labelStyle}>
+              Challenge → Solution → Benefit
             </p>
-            <p className="text-white/75">{caseStudy.strategy}</p>
-            <p className="text-white/75">{caseStudy.solution}</p>
+            <h2 className="mt-3 font-serifalt text-4xl" style={headingStyle}>
+              Why the project mattered and how we tackled it.
+            </h2>
           </div>
-        </div>
-      </section>
-
-      <section className="px-6 py-16" style={heroStyle}>
-        <div className="mx-auto max-w-6xl space-y-8">
-          <h2 className="font-serifalt text-4xl" style={headingStyle}>
-            Challenge → Strategy → Solution
-          </h2>
           <div className="grid gap-6 md:grid-cols-3">
             {[
               { title: "Challenge", body: caseStudy.challenge },
-              { title: "Strategy", body: caseStudy.strategy },
               { title: "Solution", body: caseStudy.solution },
+              { title: "Strategy", body: caseStudy.strategy },
             ].map((block) => (
-              <div key={block.title} className="rounded-3xl border border-white/10 bg-white/5 p-6">
-                <p className="text-xs font-accent uppercase tracking-[0.35em] text-white/60">
+              <div
+                key={block.title}
+                className="rounded-3xl border p-6"
+                style={{
+                  ...dividerColor,
+                  background: "rgba(255,255,255,0.05)",
+                }}
+              >
+                <p className="text-xs font-accent uppercase tracking-[0.35em]" style={labelStyle}>
                   {block.title}
                 </p>
-                <p className="mt-3 text-sm text-white/80">{block.body}</p>
+                <p className="mt-3 text-sm leading-relaxed" style={mutedStyle}>
+                  {block.body}
+                </p>
               </div>
             ))}
           </div>
@@ -201,10 +234,12 @@ export default function PortfolioCaseStudy({ slug, theme, mainTheme }) {
       {galleryTabs.length > 0 && (
         <section className="px-6 py-16" style={heroStyle}>
           <div className="mx-auto max-w-6xl space-y-8">
-            <div className="flex flex-col gap-3">
-              <p className="font-accent text-xs uppercase tracking-[0.4em] text-white/70">Process Gallery</p>
-              <h2 className="font-serifalt text-4xl" style={headingStyle}>
-                Wireframes, UI, build, automations.
+            <div>
+              <p className="font-accent text-xs uppercase tracking-[0.4em]" style={labelStyle}>
+                Process snapshots
+              </p>
+              <h2 className="mt-3 font-serifalt text-4xl" style={headingStyle}>
+                Wireframes, UI, build, and automation touchpoints.
               </h2>
             </div>
             <Tabs defaultValue={galleryTabs[0][0]} className="space-y-6">
@@ -213,7 +248,7 @@ export default function PortfolioCaseStudy({ slug, theme, mainTheme }) {
                   <TabsTrigger
                     key={phase}
                     value={phase}
-                    className="rounded-full border border-white/10 px-5 py-2 text-xs font-accent uppercase tracking-[0.3em]"
+                    className="rounded-full border border-white/20 px-5 py-2 text-xs font-accent uppercase tracking-[0.3em]"
                   >
                     {phase}
                   </TabsTrigger>
@@ -232,7 +267,9 @@ export default function PortfolioCaseStudy({ slug, theme, mainTheme }) {
                             loading="lazy"
                           />
                         </div>
-                        <figcaption className="text-sm text-white/70">{image.caption}</figcaption>
+                        <figcaption className="text-sm" style={mutedStyle}>
+                          {image.caption}
+                        </figcaption>
                       </figure>
                     ))}
                   </div>
@@ -246,22 +283,35 @@ export default function PortfolioCaseStudy({ slug, theme, mainTheme }) {
       <section className="px-6 py-16" style={heroStyle}>
         <div className="mx-auto max-w-6xl space-y-10">
           <div>
-            <p className="font-accent text-xs uppercase tracking-[0.4em] text-white/70">Outcomes</p>
-            <h2 className="font-serifalt text-4xl" style={headingStyle}>
-              KPIs with measurement context.
+            <p className="font-accent text-xs uppercase tracking-[0.4em]" style={labelStyle}>
+              Results
+            </p>
+            <h2 className="mt-3 font-serifalt text-4xl" style={headingStyle}>
+              KPIs and before/after proof.
             </h2>
           </div>
           <div className="grid gap-6 md:grid-cols-3">
-            {caseStudy.kpis.map((kpi) => (
-              <div key={kpi.label} className="rounded-3xl border border-white/10 bg-white/5 p-6">
-                <p className="text-xs uppercase tracking-[0.35em] text-white/60">{kpi.label}</p>
+            {kpiCards.map((kpi) => (
+              <div
+                key={kpi.label}
+                className="rounded-3xl border p-6"
+                style={{
+                  ...dividerColor,
+                  background: "rgba(255,255,255,0.05)",
+                }}
+              >
+                <p className="text-xs font-accent uppercase tracking-[0.35em]" style={labelStyle}>
+                  {kpi.label}
+                </p>
                 <p className="mt-2 text-4xl font-serifalt" style={headingStyle}>
                   {kpi.value}
                 </p>
-                <p className="text-xs text-white/60">
+                <p className="text-xs" style={labelStyle}>
                   {kpi.timeframe} · {kpi.source}
                 </p>
-                <p className="mt-4 text-sm text-white/75">{kpi.description}</p>
+                <p className="mt-4 text-sm" style={mutedStyle}>
+                  {kpi.description}
+                </p>
               </div>
             ))}
           </div>
@@ -270,24 +320,24 @@ export default function PortfolioCaseStudy({ slug, theme, mainTheme }) {
 
       <section className="px-6 py-16" style={heroStyle}>
         <div className="mx-auto max-w-6xl grid gap-8 lg:grid-cols-2">
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
-            <p className="font-accent text-xs uppercase tracking-[0.35em] text-white/60">
-              Tech Stack
+          <div className="rounded-3xl border p-6" style={dividerColor}>
+            <p className="text-xs font-accent uppercase tracking-[0.35em]" style={labelStyle}>
+              Tech stack
             </p>
             <div className="mt-4 flex flex-wrap gap-3">
-              {caseStudy.stack.map((item) => (
-                <span key={item} className="rounded-full border border-white/10 px-4 py-1 text-xs text-white/80">
+              {stackItems.map((item) => (
+                <span key={item} className="rounded-full border border-white/20 px-4 py-1 text-xs text-white/85">
                   {item}
                 </span>
               ))}
             </div>
           </div>
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
-            <p className="font-accent text-xs uppercase tracking-[0.35em] text-white/60">
-              Automations
+          <div className="rounded-3xl border p-6" style={dividerColor}>
+            <p className="text-xs font-accent uppercase tracking-[0.35em]" style={labelStyle}>
+              Tools & automations
             </p>
-            <ul className="mt-4 space-y-2 text-sm text-white/80">
-              {caseStudy.automations.map((item) => (
+            <ul className="mt-4 space-y-2 text-sm" style={mutedStyle}>
+              {automationItems.map((item) => (
                 <li key={item} className="flex items-center gap-2">
                   <span className="h-1.5 w-1.5 rounded-full bg-white/70" />
                   {item}
@@ -300,11 +350,11 @@ export default function PortfolioCaseStudy({ slug, theme, mainTheme }) {
 
       {caseStudy.testimonial && (
         <section className="px-6 py-16" style={heroStyle}>
-          <div className="mx-auto max-w-4xl rounded-3xl border border-white/10 bg-white/5 p-10 text-center">
+          <div className="mx-auto max-w-4xl space-y-4 rounded-3xl border px-10 py-12 text-center" style={dividerColor}>
             <p className="text-2xl font-serifalt text-white/90">
               “{caseStudy.testimonial.quote}”
             </p>
-            <p className="mt-4 text-sm text-white/70">
+            <p className="text-sm text-white/70">
               — {caseStudy.testimonial.name}, {caseStudy.testimonial.role} · {caseStudy.testimonial.company}
             </p>
           </div>
@@ -315,9 +365,11 @@ export default function PortfolioCaseStudy({ slug, theme, mainTheme }) {
         <div className="mx-auto max-w-6xl space-y-8">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <p className="font-accent text-xs uppercase tracking-[0.4em] text-white/70">Related work</p>
-              <h2 className="font-serifalt text-4xl" style={headingStyle}>
-                More projects in this lane.
+              <p className="font-accent text-xs uppercase tracking-[0.4em]" style={labelStyle}>
+                Related projects
+              </p>
+              <h2 className="mt-2 font-serifalt text-4xl" style={headingStyle}>
+                Explore similar work by industry or service.
               </h2>
             </div>
             <a
@@ -330,14 +382,18 @@ export default function PortfolioCaseStudy({ slug, theme, mainTheme }) {
           <div className="grid gap-6 md:grid-cols-2">
             {relatedStudies.map((study) => (
               <article key={study.slug} className="rounded-3xl border border-white/10 bg-white/5 p-6">
-                <p className="text-xs uppercase tracking-[0.35em] text-white/60">{study.heroSummary}</p>
+                <p className="text-xs font-accent uppercase tracking-[0.35em]" style={labelStyle}>
+                  {study.heroSummary}
+                </p>
                 <h3 className="mt-2 font-serifalt text-2xl">{study.title}</h3>
-                <p className="mt-3 text-sm text-white/80">{study.summary}</p>
+                <p className="mt-3 text-sm" style={mutedStyle}>
+                  {study.summary}
+                </p>
                 <a
                   href={`/portfolio/${study.slug}`}
                   className="mt-4 inline-flex rounded-full border border-white/30 px-4 py-2 text-xs font-accent uppercase tracking-[0.3em] text-white/80 transition hover:border-white hover:text-white"
                 >
-                  View case study
+                  View Case Study
                 </a>
               </article>
             ))}
@@ -346,17 +402,17 @@ export default function PortfolioCaseStudy({ slug, theme, mainTheme }) {
       </section>
 
       <section className="px-6 pb-24" style={heroStyle}>
-        <div className="mx-auto flex max-w-4xl flex-col items-center gap-4 rounded-3xl border border-white/10 bg-black/30 p-10 text-center">
+        <div className="mx-auto flex max-w-4xl flex-col items-center gap-4 rounded-3xl border border-white/10 bg-black/40 p-10 text-center">
           <p className="font-serifalt text-4xl" style={headingStyle}>
-            Let’s build your case study next.
+            Ready to make your project the next case study?
           </p>
-          <p className="text-white/80">
-            Conversion-ready CTAs at the top and bottom keep the path clear.
+          <p className="text-sm" style={mutedStyle}>
+            One partner across research, design, development, and automation—built with documented playbooks so your team can run it after launch.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="mailto:michaelhanna50@gmail.com">
+            <a href="mailto:michaelhanna50@gmail.com?subject=Project%20Inquiry">
               <Button className="rounded-full px-8 py-4 text-sm font-accent uppercase tracking-[0.3em]">
-                Start a Project
+                Start a Similar Project
               </Button>
             </a>
             <a

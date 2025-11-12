@@ -115,20 +115,17 @@ export default function AboutSection({ weather, theme }) {
                 style={cardMutedStyle}
               >
                 <p style={cardStyle?.color ? { color: cardStyle.color } : undefined}>
-                  I’m a multidisciplinary designer-developer who loves transforming brand stories into
-                  digital works. My work leans into the details—balancing typography, motion,
-                  and small interactions to create moments that feel smooth and intentional.
+                  I help business owners turn loose ideas into clear, confident websites. We talk through what makes
+                  your work valuable, write it in plain language, then design screens that guide people to call, book, or buy.
                 </p>
                 <p style={cardStyle?.color ? { color: cardStyle.color } : undefined}>
-                  Over the past few years, I’ve worked at the intersection of design and 
-                  development — blending UI/UX strategy, full-stack engineering, and hands-on QA. 
-                  Which means, I make sure every interface not only looks great but performs flawlessly, bridging 
-                  the gap between creative vision and real-world performance.
+                  Because I handle planning, design, development, and quality checks, you avoid juggling separate
+                  freelancers. Every decision ties back to the results you need—more booked consultations, smoother onboarding,
+                  stronger credibility.
                 </p>
                 <p style={cardStyle?.color ? { color: cardStyle.color } : undefined}>
-                  When I’m not piecing together new interfaces, I’m usually experimenting, 
-                  learning, or writing — chasing small discoveries in accessibility, creative coding, 
-                  or the craft of making products that stand the test of time.
+                  Outside of client work I’m constantly testing new tools, accessibility tweaks, and ways to explain tech steps
+                  in everyday words. That curiosity keeps your site modern without anyone feeling overwhelmed.
                 </p>
               </div>
             </motion.article>
@@ -151,15 +148,15 @@ export default function AboutSection({ weather, theme }) {
                     className="font-serifalt text-2xl text-black leading-tight"
                     style={headingStyle}
                   >
-                    Crafting empathetic design systems for fast-moving teams.
+                    Sharing the thinking behind stress-free launches.
                   </p>
                 </div>
                 <p
                   className="font-serifalt text-base leading-relaxed text-neutral-dark/80"
                   style={tertiaryCardMutedStyle}
                 >
-                  Drop in a short excerpt from your latest article to guide visitors deeper into your process,
-                  wins, and lessons learned.
+                  Quick notes from recent projects—what worked, what hiccups we fixed, and how you can apply the same
+                  lessons without learning new software.
                 </p>
                 <div className="mt-6">
                   <a href="/blog">

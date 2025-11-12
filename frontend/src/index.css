@@ -1,4 +1,6 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -20,6 +22,10 @@ body {
   margin: 0;
   box-sizing: border-box;
   @apply bg-[var(--bg)] text-[var(--fg)];
+}
+
+p {
+  font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
 }
 
 
@@ -63,6 +69,7 @@ a {
 
 .blog-post-body p {
   margin: 0;
+  font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
 }
 
 .blog-post-body h2,

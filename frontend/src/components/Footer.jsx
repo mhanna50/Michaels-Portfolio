@@ -65,11 +65,11 @@ export default function Footer({ mainTheme, theme }) {
               Michael Hanna · Portfolio
             </p>
             <h2 className="font-serifalt text-4xl leading-tight text-white md:text-[2.8rem]">
-              Lets connect - whether your a building a brand, business, or just exploring possibilities.
+              Let&apos;s connect—whether you&apos;re growing a business, refreshing a brand, or just exploring ideas.
             </h2>
             <p className="font-serifalt text-base leading-relaxed text-accent-light/80">
-              From UI/UX to deployment, I build digital products that feel human, refined,
-              and delightful to use.
+              I guide projects from brainstorming to launch, explaining every step so you always know how your website is
+              helping the business.
             </p>
           </div>
 

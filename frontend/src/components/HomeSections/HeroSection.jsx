@@ -168,7 +168,7 @@ export default function HeroSection({ mainTheme }) {
 
             <div className="h-[144px]">
               <p className="font-serifalt font-thin text-black text-left text-3xl leading-[1.15] tracking-tight h-full scale-y-110">
-                I build elegant, high-performance websites and digital experiences that merge creativity with clean code, SEO, and precise QA.
+                I design and code websites that explain what you do in plain language, look polished, and stay easy for you or your team to update.
               </p>
             </div>
 
@@ -196,24 +196,24 @@ export default function HeroSection({ mainTheme }) {
         >
           <StatCard
             heading="10+"
-            subtext="Websites Built"
-            detailBody="Built entirely with React components and styled using Tailwind CSS for a modern, responsive interface and clean developer workflow."
+            subtext="Websites Delivered"
+            detailBody="Each build comes with clear next steps, short walkthrough videos, and organized files so updates never feel overwhelming."
             isOpen={openCard === 'build'}
             onToggle={() => setOpenCard((prev) => (prev === 'build' ? null : 'build'))}
             delay={0.4}
           />
           <StatCard
             heading="3"
-            subtext="Live Websites"
-            detailBody="A scheduled cron job automatically summarizes monthly blog content using OpenAI, keeping site highlights fresh and up to date."
+            subtext="Live Websites Supported"
+            detailBody="I stay on call for quick tweaks and content refreshes, so you always have someone watching the details."
             isOpen={openCard === 'backend'}
             onToggle={() => setOpenCard((prev) => (prev === 'backend' ? null : 'backend'))}
             delay={0.6}
           />
           <StatCard
             heading="90+"
-            subtext="SEO score via Lighthouse"
-            detailBody="Optimized for performance, accessibility, and SEO — consistently achieving a 90+ Lighthouse score across key metrics."
+            subtext="Lighthouse SEO Score"
+            detailBody="Pages load quickly, follow accessibility best practices, and give Google the structure it needs to rank you."
             isOpen={openCard === 'lighthouse'}
             onToggle={() => setOpenCard((prev) => (prev === 'lighthouse' ? null : 'lighthouse'))}
             delay={0.8}
@@ -221,7 +221,7 @@ export default function HeroSection({ mainTheme }) {
           <StatCard
             heading="100%"
             subtext="Mobile Friendly Layouts"
-            detailBody="Integrated with OpenAI tooling and the OpenWeather API so the entire color system shifts with the sky."
+            detailBody="Layouts flex perfectly on phones and tablets, making it simple for customers to call, book, or buy from anywhere."
             isOpen={openCard === 'apis'}
             onToggle={() => setOpenCard((prev) => (prev === 'apis' ? null : 'apis'))}
             delay={1.0}
@@ -242,24 +242,24 @@ export default function HeroSection({ mainTheme }) {
             
             <ResultCard
               heading="Built Using"
-              subtext="React and styled with Tailwind CSS for a modern-clean interface."
+              subtext="Hand-built on a reliable modern stack, so updates are smooth and future changes stay affordable."
               delay={1.3}
             />
             <ResultCard
               heading="Under the Hood"
-              subtext="This site's color scheme is determined by the weather."
+              subtext="The color palette gently follows the local weather, giving visitors a fresh, timely feel."
               delay={1.4}
               showDivider
             />
             <ResultCard
               heading="AI is Used"
-              subtext="To automatically summarize my blog in the below section."
+              subtext="A lightweight AI recap keeps blog highlights tidy without replacing my own writing."
               delay={1.5}
               showDivider
             />
             <ResultCard
               heading="My Skillset"
-              subtext="Ensures you will have a well-performing and discoverable site."
+              subtext="You get a site that loads fast, shows up in search, and speaks to real people."
               delay={1.6}
               showDivider
             />

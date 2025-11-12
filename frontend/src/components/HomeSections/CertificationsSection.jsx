@@ -14,12 +14,12 @@ const educationHighlight = {
   degree: "B.S. Computer Science",
   graduation: "Class of 2025",
   focusAreas: [
-    "Software development fundamentals",
-    "Clean-Intuative design",
-    "Quality assurance",
+    "Software planning and delivery",
+    "Clean, intuitive design",
+    "Quality assurance and testing",
   ],
   description:
-    "Studied how software is planned, built, and improved — with a focus on problem-solving, clear logic, and creating useful digital solutions."
+    "Studied how software is planned, built, and improved—with emphasis on problem-solving, clear communication, and creating useful digital tools."
 };
 
 const sampleCertifications = [
