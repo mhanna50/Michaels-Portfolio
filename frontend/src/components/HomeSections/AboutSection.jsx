@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import WeatherBadge from '../weatherBadge';
 
@@ -159,11 +160,11 @@ export default function AboutSection({ weather, theme }) {
                   lessons without learning new software.
                 </p>
                 <div className="mt-6">
-                  <a href="/blog">
+                  <Link to="/blog">
                     <Button className="rounded-full bg-neutral px-7 py-2 text-base font-accent uppercase tracking-[0.2em] text-white hover:bg-primary transition-colors">
                       Read the Blog
                     </Button>
-                  </a>
+                  </Link>
 
                 </div>
               </motion.section>

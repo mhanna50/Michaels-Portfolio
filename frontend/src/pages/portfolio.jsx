@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import StickyHeader from "../components/StickyHeader";
 import { Button } from "@/components/ui/button";
@@ -72,13 +73,13 @@ function WorkCard({ study, styles }) {
           <p className="text-sm font-semibold" style={{ color: styles.headingColor }}>
             {study.outcome}
           </p>
-          <a
-            href={`/portfolio/${study.slug}`}
+          <Link
+            to={`/portfolio/${study.slug}`}
             className="inline-flex items-center rounded-full border px-4 py-2 text-xs font-accent uppercase tracking-[0.3em] transition hover:-translate-y-0.5"
             style={styles.linkStyle}
           >
             View Case Study
-          </a>
+          </Link>
         </div>
       </div>
     </article>
@@ -208,13 +209,13 @@ export default function PortfolioPage({ theme, mainTheme }) {
                 Book a Discovery Call
               </Button>
             </a>
-            <a
-              href="/services"
+            <Link
+              to="/services"
               className="rounded-full border px-8 py-4 text-sm font-accent uppercase tracking-[0.3em] transition"
               style={secondaryButtonStyle}
             >
               See Services
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -278,14 +279,14 @@ export default function PortfolioPage({ theme, mainTheme }) {
             ))}
           </div>
           <div className="flex w-full flex-wrap justify-center gap-4 pt-2">
-            <a href="/services">
+            <Link to="/services">
               <Button
                 className="rounded-full px-8 py-4 text-sm font-accent uppercase tracking-[0.3em]"
                 style={primaryButtonStyle}
               >
                 See what I can do for your business
               </Button>
-            </a>
+            </Link>
             <a
               href="mailto:michaelhanna50@gmail.com?subject=Project%20Inquiry"
               className="rounded-full border px-8 py-4 text-sm font-accent uppercase tracking-[0.3em] transition"

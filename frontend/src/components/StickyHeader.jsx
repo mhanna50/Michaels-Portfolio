@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function StickyHeader({ theme, forceVisible = false }) {
   const [visible, setVisible] = useState(forceVisible);
@@ -120,9 +121,9 @@ export default function StickyHeader({ theme, forceVisible = false }) {
           {navLinks.map((link) => {
             const active = link.isActive(normalizedPath);
             return (
-              <a
+              <Link
                 key={link.href}
-                href={link.href}
+                to={link.href}
                 className={`${navButtonClass} w-full text-center lg:w-auto`}
                 style={{
                   color: active ? accent : navText,
@@ -131,7 +132,7 @@ export default function StickyHeader({ theme, forceVisible = false }) {
                 onClick={handleNavClick}
               >
                 {link.label}
-              </a>
+              </Link>
             );
           })}
           <a

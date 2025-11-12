@@ -1,5 +1,6 @@
 import React from "react";
 import { ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 import { getPostBySlug } from "../../utils/loadposts";
 import { formatReadableDate } from "../../utils/formatDate";
 import Footer from "../Footer";
@@ -88,8 +89,8 @@ export default function BlogPost({ slug, mainTheme, theme }) {
             >
               It may have been renamed or archived. Head back to the journal to read the latest lessons and project notes.
             </p>
-            <a
-              href="/blog"
+            <Link
+              to="/blog"
               className={`mt-8 inline-flex items-center gap-3 rounded-full border px-6 py-2 font-accent text-xs uppercase tracking-[0.3em] transition-all duration-300 ${backButtonFallbackClass}`}
               style={backButtonStyle}
               onMouseEnter={(event) => handleButtonHover(event, true)}
@@ -97,7 +98,7 @@ export default function BlogPost({ slug, mainTheme, theme }) {
             >
               <ArrowLeft className="h-4 w-4" />
               <span>Back to blog</span>
-            </a>
+            </Link>
           </div>
         </main>
         <Footer theme={theme} mainTheme={mainTheme} />
@@ -111,8 +112,8 @@ export default function BlogPost({ slug, mainTheme, theme }) {
       <main className="min-h-[200dvh] px-6 py-24" style={pageStyle}>
         <div className="mx-auto flex max-w-4xl flex-col gap-8">
           <div>
-            <a
-              href="/blog"
+            <Link
+              to="/blog"
               className={`group inline-flex items-center gap-3 rounded-full border px-5 py-2 font-accent text-md uppercase tracking-[0.3em] transition-all duration-300 ${backButtonFallbackClass}`}
               style={backButtonStyle}
               onMouseEnter={(event) => handleButtonHover(event, true)}
@@ -120,7 +121,7 @@ export default function BlogPost({ slug, mainTheme, theme }) {
             >
               <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
               <span>Back to journal</span>
-            </a>
+            </Link>
           </div>
 
           <article

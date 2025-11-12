@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Check, ChevronsUpDown } from "lucide-react";
 import { getAllPosts } from "../../utils/loadposts";
@@ -218,8 +219,8 @@ export default function BlogList({ posts: incomingPosts, palette, themeColors })
                 )}
               </div>
 
-              <a
-                href={`/blog/${post.slug}`}
+              <Link
+                to={`/blog/${post.slug}`}
                 className={`relative inline-flex items-center gap-3 rounded-full border px-6 py-2.5 font-accent text-sm uppercase tracking-[0.3em] transition-all duration-300 ${linkButtonFallbackClass}`}
                 style={buttonStyle}
                 onMouseEnter={(event) => {
@@ -237,7 +238,7 @@ export default function BlogList({ posts: incomingPosts, palette, themeColors })
               >
                 <span>Read Article</span>
                 <ArrowUpRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-              </a>
+              </Link>
             </div>
           </motion.article>
         ))}

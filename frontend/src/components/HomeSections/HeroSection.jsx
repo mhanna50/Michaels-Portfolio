@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
 const detailVariants = {
@@ -103,11 +104,11 @@ export default function HeroSection({ mainTheme }) {
     >
 
       <div className="absolute right-4 top-4 z-30 sm:right-10 sm:top-8">
-        <a href="/portfolio">
+        <Link to="/portfolio">
           <Button className={heroPortfolioButtonClass} style={heroPortfolioButtonStyle}>
             View Portfolio
           </Button>
-        </a>
+        </Link>
       </div>
 
 

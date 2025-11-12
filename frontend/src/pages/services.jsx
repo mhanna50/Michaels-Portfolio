@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   CheckCircle2,
   Palette,
@@ -470,6 +471,15 @@ export default function ServicesPage({ theme, mainTheme }) {
           <div className="space-y-10">
             {services.map((service) => {
               const Icon = service.icon;
+              const ctaLink = service.detail.ctaLink;
+              const isInternalCta = typeof ctaLink === "string" && ctaLink.startsWith("/");
+              const CtaComponent = isInternalCta ? Link : "a";
+              const ctaProps = {
+                className:
+                  "inline-flex items-center rounded-full border px-5 py-2 text-xs font-accent uppercase tracking-[0.3em] transition",
+                style: secondaryButtonStyle,
+                ...(isInternalCta ? { to: ctaLink } : { href: ctaLink }),
+              };
               return (
                 <article
                   key={service.id}
@@ -509,13 +519,7 @@ export default function ServicesPage({ theme, mainTheme }) {
                           ))}
                         </ul>
                       </div>
-                      <a
-                        href={service.detail.ctaLink}
-                        className="inline-flex items-center rounded-full border px-5 py-2 text-xs font-accent uppercase tracking-[0.3em] transition"
-                        style={secondaryButtonStyle}
-                      >
-                        See it in action
-                      </a>
+                      <CtaComponent {...ctaProps}>See it in action</CtaComponent>
                     </div>
                     <div className="flex flex-col justify-between rounded-3xl border border-white/15 bg-transparent p-6">
                       <p className="font-accent text-xs uppercase tracking-[0.45em]" style={labelStyle}>

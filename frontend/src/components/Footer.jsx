@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Mail, Linkedin, Github, FileUser } from "lucide-react";
 
@@ -80,13 +81,13 @@ export default function Footer({ mainTheme, theme }) {
               </p>
               <nav className="flex flex-col gap-4 font-serifalt text-lg text-accent-light/90">
                 {navLinks.map(({ label, href }) => (
-                  <a
+                  <Link
                     key={label}
-                    href={href}
+                    to={href}
                     className="transition-colors duration-200 hover:text-white"
                   >
                     {label}
-                  </a>
+                  </Link>
                 ))}
               </nav>
             </div>

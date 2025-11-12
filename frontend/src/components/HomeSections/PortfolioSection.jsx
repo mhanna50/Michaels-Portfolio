@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import ProjectCard from './ProjectCard';
@@ -617,7 +618,7 @@ export default function PortfolioSection({ theme, showDeepDive = false }) {
                   Work Together
                 </Button>
               </a>
-              <a href="/portfolio">
+              <Link to="/portfolio">
                 <Button
                   className={`rounded-full border px-7 py-2 text-base font-accent uppercase tracking-[0.2em] transition-all duration-300 ${
                     buttonPalette.bg
@@ -631,7 +632,7 @@ export default function PortfolioSection({ theme, showDeepDive = false }) {
                 >
                   See Full Portfolio
                 </Button>
-              </a>
+              </Link>
             </div>
           </div>
         </motion.header>

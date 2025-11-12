@@ -1,27 +1,46 @@
-import React from "react";
-import Home from "./pages/home";
-import Blog from "./pages/blog";
-import Portfolio from "./pages/portfolio";
-import BlogPost from "./components/BlogTools/BlogPost";
-import useWeatherTheme from "./hooks/useWeatherTheme";
-import ThemeControl from "./components/ThemeControl";
-import PortfolioCaseStudy from "./pages/PortfolioCaseStudy";
-import ServicesPage from "./pages/services";
+import React, { Suspense, lazy } from "react";
+import { Routes, Route, useLocation, useParams } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
+import useWeatherTheme from "./hooks/useWeatherTheme";
+import ThemeControl from "./components/ThemeControl";
 
-function App() {
-  const { weather, theme, manualCondition, setManualOverride, mainTheme } = useWeatherTheme(); // keeps weather + theme in sync
+const Home = lazy(() => import("./pages/home"));
+const Blog = lazy(() => import("./pages/blog"));
+const Portfolio = lazy(() => import("./pages/portfolio"));
+const PortfolioCaseStudy = lazy(() => import("./pages/PortfolioCaseStudy"));
+const ServicesPage = lazy(() => import("./pages/services"));
+const BlogPost = lazy(() => import("./components/BlogTools/BlogPost"));
 
-  const pathname =
-    typeof window !== "undefined" ? window.location.pathname : "/";
+function Layout({ children, background, textColor, themeControl }) {
+  return (
+    <div
+      style={{
+        minHeight: "100vh",
+        background: background ?? "#0b1220",
+        color: textColor ?? "white",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      {themeControl}
+      <main style={{ flex: 1 }}>{children}</main>
+    </div>
+  );
+}
 
-  // Normalize path (remove trailing slash)
-  const cleanPath = pathname.replace(/\/+$/, "");
+function BlogPostRoute({ theme, mainTheme }) {
+  const { slug } = useParams();
+  return <BlogPost slug={slug} theme={theme} mainTheme={mainTheme} />;
+}
 
-  // Match single blog post like /blog/my-first-post
-  const blogPostMatch = cleanPath.match(/^\/blog\/([^/]+)$/);
-  const portfolioCaseMatch = cleanPath.match(/^\/portfolio\/([^/]+)$/);
+export default function App() {
+  const { weather, theme, manualCondition, setManualOverride, mainTheme } = useWeatherTheme();
+  const location = useLocation();
+  const showThemeControl = !/^\/blog\/[^/]+$/i.test(location.pathname);
+  const layoutBackground = mainTheme?.page?.bg ?? "#0b1220";
+  const layoutTextColor = mainTheme?.page?.text ?? "white";
+
   const themeControl = (
     <ThemeControl
       manualCondition={manualCondition}
@@ -29,72 +48,43 @@ function App() {
       theme={theme}
     />
   );
-  const tracking = (
+
+  return (
     <>
+      <Layout
+        background={layoutBackground}
+        textColor={layoutTextColor}
+        themeControl={showThemeControl ? themeControl : null}
+      >
+        <Suspense
+          fallback={
+            <div
+              style={{
+                minHeight: "60vh",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              Loading…
+            </div>
+          }
+        >
+          <Routes>
+            <Route path="/" element={<Home weather={weather} theme={theme} mainTheme={mainTheme} />} />
+            <Route path="/blog" element={<Blog theme={theme} mainTheme={mainTheme} />} />
+            <Route path="/blog/:slug" element={<BlogPostRoute theme={theme} mainTheme={mainTheme} />} />
+            <Route path="/portfolio" element={<Portfolio theme={theme} mainTheme={mainTheme} />} />
+            <Route
+              path="/portfolio/:slug"
+              element={<PortfolioCaseStudy theme={theme} mainTheme={mainTheme} />}
+            />
+            <Route path="/services" element={<ServicesPage theme={theme} mainTheme={mainTheme} />} />
+          </Routes>
+        </Suspense>
+      </Layout>
       <Analytics />
       <SpeedInsights />
     </>
   );
-
-  if (cleanPath === "/blog") {
-    return (
-      <>
-        {themeControl}
-        <Blog theme={theme} mainTheme={mainTheme} />
-        {tracking}
-      </>
-    );
-  }
-
-  if (blogPostMatch) {
-    const slug = blogPostMatch[1];
-    return (
-      <>
-        <BlogPost slug={slug} theme={theme} mainTheme={mainTheme} />
-        {tracking}
-      </>
-    );
-  }
-
-  if (portfolioCaseMatch) {
-    const slug = portfolioCaseMatch[1];
-    return (
-      <>
-        {themeControl}
-        <PortfolioCaseStudy slug={slug} theme={theme} mainTheme={mainTheme} />
-        {tracking}
-      </>
-    );
-  }
-
-  if (cleanPath === "/portfolio") {
-    return (
-      <>
-        {themeControl}
-        <Portfolio theme={theme} mainTheme={mainTheme} />
-        {tracking}
-      </>
-    );
-  }
-
-  if (cleanPath === "/services") {
-    return (
-      <>
-        {themeControl}
-        <ServicesPage theme={theme} mainTheme={mainTheme} />
-        {tracking}
-      </>
-    );
-  }
-
-  // Home route – pass weather-driven theme into sections
-  return (
-    <>
-      {themeControl}
-      <Home weather={weather} theme={theme} mainTheme={mainTheme} />
-      {tracking}
-    </>
-  );
 }
-
-export default App;

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import BlogList from "../components/BlogTools/BlogList";
@@ -139,8 +140,8 @@ export default function Blog({ theme, mainTheme }) {
             className={`flex items-center justify-between text-sm font-accent uppercase tracking-[0.28em] ${navFallbackClass}`}
             style={navStyle}
           >
-            <a
-              href="/"
+            <Link
+              to="/"
               className={`inline-flex items-center gap-3 rounded-full border px-6 py-3 text-base transition-all duration-300 ${heroButtonFallbackClass}`}
               style={buttonStyle}
               onMouseEnter={(event) => handleButtonHover(event, true)}
@@ -148,7 +149,7 @@ export default function Blog({ theme, mainTheme }) {
             >
               <span className="text-xl leading-none">←</span>
               <span>Back Home</span>
-            </a>
+            </Link>
             <a
               href="#all-posts"
               className={`hidden md:inline-flex items-center gap-3 rounded-full border px-6 py-3 text-base transition-all duration-300 ${heroButtonFallbackClass}`}
@@ -215,8 +216,8 @@ export default function Blog({ theme, mainTheme }) {
                   </p>
                 )}
 
-                <a
-                  href={`/blog/${featuredPost.slug}`}
+                <Link
+                  to={`/blog/${featuredPost.slug}`}
                   className={`group inline-flex items-center gap-3 self-start rounded-full border px-5 py-2 font-accent text-base uppercase tracking-[0.3em] transition-all duration-300 ${featuredButtonFallbackClass}`}
                   style={buttonStyle}
                   onMouseEnter={(event) => handleButtonHover(event, true)}
@@ -224,7 +225,7 @@ export default function Blog({ theme, mainTheme }) {
                 >
                   <span>Read the article</span>
                   <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                </a>
+                </Link>
               </div>
               <div
                 className={`flex w-full flex-col overflow-hidden rounded-[2.25rem] border text-sm font-serifalt transition-colors duration-500 ${secondaryCardFallbackClass}`}

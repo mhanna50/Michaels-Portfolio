@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import StickyHeader from "../components/StickyHeader";
 import { Button } from "@/components/ui/button";
@@ -75,12 +76,12 @@ export default function PortfolioCaseStudy({ slug, theme, mainTheme }) {
         <StickyHeader theme={theme} forceVisible />
         <h1 className="font-serifalt text-4xl">Case study coming soon.</h1>
         <p className="text-white/80">Check the portfolio index for available projects.</p>
-        <a
-          href="/portfolio"
+        <Link
+          to="/portfolio"
           className="rounded-full border border-white/30 px-8 py-3 text-xs font-accent uppercase tracking-[0.3em]"
         >
           Back to Portfolio
-        </a>
+        </Link>
       </div>
     );
   }
@@ -159,12 +160,12 @@ export default function PortfolioCaseStudy({ slug, theme, mainTheme }) {
                     Start a Similar Project
                   </Button>
                 </a>
-                <a
-                  href="/services"
+                <Link
+                  to="/services"
                   className="rounded-full border border-white/30 px-8 py-4 text-sm font-accent uppercase tracking-[0.3em] text-white/80 transition hover:text-white"
                 >
                   View Services
-                </a>
+                </Link>
               </div>
             </div>
             <div className="relative overflow-hidden rounded-3xl border border-white/10">
@@ -372,12 +373,12 @@ export default function PortfolioCaseStudy({ slug, theme, mainTheme }) {
                 Explore similar work by industry or service.
               </h2>
             </div>
-            <a
-              href="/portfolio"
+            <Link
+              to="/portfolio"
               className="rounded-full border border-white/30 px-8 py-3 text-xs font-accent uppercase tracking-[0.3em] text-white/80"
             >
               Back to Portfolio
-            </a>
+            </Link>
           </div>
           <div className="grid gap-6 md:grid-cols-2">
             {relatedStudies.map((study) => (
@@ -389,12 +390,12 @@ export default function PortfolioCaseStudy({ slug, theme, mainTheme }) {
                 <p className="mt-3 text-sm" style={mutedStyle}>
                   {study.summary}
                 </p>
-                <a
-                  href={`/portfolio/${study.slug}`}
+                <Link
+                  to={`/portfolio/${study.slug}`}
                   className="mt-4 inline-flex rounded-full border border-white/30 px-4 py-2 text-xs font-accent uppercase tracking-[0.3em] text-white/80 transition hover:border-white hover:text-white"
                 >
                   View Case Study
-                </a>
+                </Link>
               </article>
             ))}
           </div>
@@ -415,12 +416,12 @@ export default function PortfolioCaseStudy({ slug, theme, mainTheme }) {
                 Start a Similar Project
               </Button>
             </a>
-            <a
-              href="/services"
+            <Link
+              to="/services"
               className="rounded-full border border-white/30 px-8 py-4 text-sm font-accent uppercase tracking-[0.3em] text-white/80 transition hover:text-white"
             >
               See Services
-            </a>
+            </Link>
           </div>
         </div>
       </section>
