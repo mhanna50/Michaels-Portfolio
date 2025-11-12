@@ -7,8 +7,8 @@ import useWeatherTheme from "./hooks/useWeatherTheme";
 import ThemeControl from "./components/ThemeControl";
 import PortfolioCaseStudy from "./pages/PortfolioCaseStudy";
 import ServicesPage from "./pages/services";
-import { Analytics } from "@vercel/analytics/next"
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 function App() {
   const { weather, theme, manualCondition, setManualOverride, mainTheme } = useWeatherTheme(); // keeps weather + theme in sync
@@ -29,19 +29,31 @@ function App() {
       theme={theme}
     />
   );
+  const tracking = (
+    <>
+      <Analytics />
+      <SpeedInsights />
+    </>
+  );
 
   if (cleanPath === "/blog") {
     return (
       <>
         {themeControl}
         <Blog theme={theme} mainTheme={mainTheme} />
+        {tracking}
       </>
     );
   }
 
   if (blogPostMatch) {
     const slug = blogPostMatch[1];
-    return <BlogPost slug={slug} theme={theme} mainTheme={mainTheme} />;
+    return (
+      <>
+        <BlogPost slug={slug} theme={theme} mainTheme={mainTheme} />
+        {tracking}
+      </>
+    );
   }
 
   if (portfolioCaseMatch) {
@@ -50,6 +62,7 @@ function App() {
       <>
         {themeControl}
         <PortfolioCaseStudy slug={slug} theme={theme} mainTheme={mainTheme} />
+        {tracking}
       </>
     );
   }
@@ -59,6 +72,7 @@ function App() {
       <>
         {themeControl}
         <Portfolio theme={theme} mainTheme={mainTheme} />
+        {tracking}
       </>
     );
   }
@@ -68,6 +82,7 @@ function App() {
       <>
         {themeControl}
         <ServicesPage theme={theme} mainTheme={mainTheme} />
+        {tracking}
       </>
     );
   }
@@ -77,6 +92,7 @@ function App() {
     <>
       {themeControl}
       <Home weather={weather} theme={theme} mainTheme={mainTheme} />
+      {tracking}
     </>
   );
 }
