@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createRequire } from "node:module";
@@ -11,16 +12,18 @@ const __dirname = path.dirname(__filename);
 dotenv.config({ path: path.resolve(__dirname, "../.env") });
 const require = createRequire(import.meta.url);
 
-function resolveRouterAsset(request) {
+function resolvePackageEntry(pkgName, entry = "dist/index.js") {
   try {
-    return require.resolve(request);
-  } catch (error) {
-    throw new Error(`Failed to resolve "${request}" from vite.config.mjs: ${error.message}`);
+    const pkgJson = require.resolve(`${pkgName}/package.json`);
+    const candidate = path.resolve(path.dirname(pkgJson), entry);
+    return fs.existsSync(candidate) ? candidate : null;
+  } catch {
+    return null;
   }
 }
 
-const reactRouterEntry = resolveRouterAsset("react-router/dist/index.js");
-const reactRouterDomEntry = resolveRouterAsset("react-router-dom/dist/index.js");
+const reactRouterEntry = resolvePackageEntry("react-router");
+const reactRouterDomEntry = resolvePackageEntry("react-router-dom");
 
 function weatherDevProxy() {
   return {
@@ -66,11 +69,14 @@ function weatherDevProxy() {
 export default defineConfig({
   plugins: [react(), weatherDevProxy()],
   resolve: {
-    alias: {
+    alias: Object.entries({
       "@": path.resolve(__dirname, "./src"),
       "react-router": reactRouterEntry,
       "react-router-dom": reactRouterDomEntry,
-    },
+    }).reduce((acc, [key, value]) => {
+      if (value) acc[key] = value;
+      return acc;
+    }, {}),
   },
   // If you deploy to a subpath, set `base`. Otherwise leave as default.
   // base: "/",
