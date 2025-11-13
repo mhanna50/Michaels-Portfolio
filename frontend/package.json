@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node ./scripts/ensureSchedulerCjs.mjs",
     "build": "vite build",
+    "postinstall": "node ./scripts/ensureSchedulerCjs.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },
