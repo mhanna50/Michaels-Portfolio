@@ -97,13 +97,11 @@ export default function Blog({ theme, mainTheme }) {
     : buttonStyle;
   const featureCardFallbackClass = featureCardStyle ? "" : "border-primary-dark/20 bg-white/70";
   const secondaryCardFallbackClass = secondaryCardStyle ? "" : "border-secondary-dark/30 bg-gradient-to-br from-white/90 via-white/70 to-secondary-light/50 text-neutral/70";
-  const navFallbackClass = navStyle ? "" : "text-primary-dark/70";
   const navMutedFallbackClass = navMutedStyle ? "" : "text-primary-dark/70";
   const headingFallbackClass = headingStyle ? "" : "text-black";
   const bodyFallbackClass = bodyStyle ? "" : "text-neutral/75";
   const mutedFallbackClass = mutedStyle ? "" : "text-neutral/75";
   const dividerFallbackClass = dividerStyle ? "" : "bg-primary-dark/60";
-  const heroButtonFallbackClass = buttonStyle ? "" : "border-primary-dark/30 bg-white/65 text-primary-dark hover:border-primary hover:bg-primary hover:text-white";
   const featuredButtonFallbackClass = buttonStyle ? "" : "border-primary-dark/30 bg-neutral/5 text-primary-dark hover:border-primary hover:bg-primary hover:text-white";
 
   const handleButtonHover = (event, entering) => {
@@ -126,7 +124,7 @@ export default function Blog({ theme, mainTheme }) {
         }}
       >
       <section
-        className="relative px-6 pt-10 pb-12 md:pt-12 md:pb-16 transition-colors duration-500"
+        className="relative px-6 pt-32 pb-12 md:pt-44 md:pb-16 transition-colors duration-500"
         style={mainStyle}
       >
         <motion.div
@@ -135,33 +133,6 @@ export default function Blog({ theme, mainTheme }) {
           variants={heroContainer}
           className="relative mx-auto max-w-6xl space-x-2 space-y-10"
         >
-          <motion.nav
-            variants={heroItem}
-            className={`flex items-center justify-between text-sm font-accent uppercase tracking-[0.28em] ${navFallbackClass}`}
-            style={navStyle}
-          >
-            <Link
-              to="/"
-              className={`inline-flex items-center gap-3 rounded-full border px-6 py-3 text-base transition-all duration-300 ${heroButtonFallbackClass}`}
-              style={buttonStyle}
-              onMouseEnter={(event) => handleButtonHover(event, true)}
-              onMouseLeave={(event) => handleButtonHover(event, false)}
-            >
-              <span className="text-xl leading-none">←</span>
-              <span>Back Home</span>
-            </Link>
-            <a
-              href="#all-posts"
-              className={`hidden md:inline-flex items-center gap-3 rounded-full border px-6 py-3 text-base transition-all duration-300 ${heroButtonFallbackClass}`}
-              style={buttonStyle}
-              onMouseEnter={(event) => handleButtonHover(event, true)}
-              onMouseLeave={(event) => handleButtonHover(event, false)}
-            >
-              <span>All Articles</span>
-              <ArrowUpRight className="h-5 w-5" />
-            </a>
-          </motion.nav>
-
           <motion.header variants={heroItem} className="max-w-4xl space-y-6">
             <p
               className={`font-accent uppercase tracking-[0.35em] text-md ${navMutedFallbackClass}`}
@@ -175,14 +146,8 @@ export default function Blog({ theme, mainTheme }) {
             >
               Plain-language updates on building websites, content systems, and helpful automations.
             </h1>
-            <div className={`h-1 w-24 rounded-full ${dividerFallbackClass}`} style={dividerStyle} />
-            <p
-              className={`font-serifalt text-xl leading-relaxed ${bodyFallbackClass}`}
-              style={bodyStyle}
-            >
-              Each entry explains what we tried, what changed, and how you can apply the same ideas without learning new
-              jargon. It&apos;s practical storytelling for business owners who want the highlights.
-            </p>
+            <div className={`h-1 w-24  rounded-full ${dividerFallbackClass}`} style={dividerStyle} />
+            
           </motion.header>
 
           {featuredPost && (
@@ -283,19 +248,21 @@ export default function Blog({ theme, mainTheme }) {
         </motion.div>
       </section>
 
-      <motion.section
+      <section
         className="relative overflow-hidden px-6 pb-24 pt-12 sm:pt-16 md:pt-24"
         id="all-posts"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2, margin: "0px 0px -80px 0px" }}
-        variants={sectionReveal}
         style={listSectionStyle || mainStyle}
       >
-        <div className="relative mx-auto max-w-6xl">
+        <motion.div
+          className="relative mx-auto max-w-6xl"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2, margin: "0px 0px -80px 0px" }}
+          variants={sectionReveal}
+        >
           <BlogList posts={posts} palette={blogPalette} themeColors={blogTheme} />
-        </div>
-      </motion.section>
+        </motion.div>
+      </section>
       </main>
       <Footer theme={theme} mainTheme={mainTheme} />
     </>

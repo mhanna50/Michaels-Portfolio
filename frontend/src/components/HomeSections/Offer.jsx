@@ -1,15 +1,42 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, LineChart, Layers } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
-const planVariants = {
-  initial: { opacity: 0, y: 30 },
-  animate: (index) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut", delay: index * 0.08 },
-  }),
+const parseColor = (color) => {
+  if (!color || typeof color !== "string") return null;
+  const trimmed = color.trim();
+  if (trimmed.startsWith("#")) {
+    const hex =
+      trimmed.length === 4
+        ? `#${trimmed[1]}${trimmed[1]}${trimmed[2]}${trimmed[2]}${trimmed[3]}${trimmed[3]}`
+        : trimmed;
+    if (hex.length !== 7) return null;
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    if ([r, g, b].some((val) => Number.isNaN(val))) return null;
+    return { r, g, b };
+  }
+  const rgbMatch = trimmed.match(/rgba?\(([^)]+)\)/i);
+  if (rgbMatch) {
+    const [r, g, b] = rgbMatch[1]
+      .split(",")
+      .slice(0, 3)
+      .map((val) => parseInt(val.trim(), 10));
+    if ([r, g, b].some((val) => Number.isNaN(val))) return null;
+    return { r, g, b };
+  }
+  return null;
+};
+
+const isColorLight = (color) => {
+  const rgb = parseColor(color);
+  if (!rgb) return false;
+  const { r, g, b } = rgb;
+  const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+  return luminance > 0.6;
 };
 
 const marqueeVariants = {
@@ -22,64 +49,6 @@ const marqueeVariants = {
     },
   },
 };
-
-const hexToRgba = (hex, alpha = 1) => {
-  if (!hex) return `rgba(0,0,0,${alpha})`;
-  let normalized = hex.replace("#", "");
-  if (normalized.length === 3) {
-    normalized = normalized
-      .split("")
-      .map((char) => char + char)
-      .join("");
-  }
-  const numeric = parseInt(normalized, 16);
-  const r = (numeric >> 16) & 255;
-  const g = (numeric >> 8) & 255;
-  const b = numeric & 255;
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-};
-
-const plans = [
-  {
-    title: "SEO & Visibility",
-    price: "Custom scopes",
-    icon: LineChart,
-    duration: "Audits + retainers",
-    scope: "Clear, plain-language audits so the right people can find you online and quickly grasp what you offer.",
-    highlights: [
-      "Full site health review with a simple priority checklist",
-      "Keyword map translated into copy prompts your team can use",
-      "Analytics dashboards focused on leads and calls, not vanity stats",
-      "Follow-up sessions so fixes and new content actually ship",
-    ],
-  },
-  {
-    title: "Signature Web Builds",
-    price: "4–6 week builds",
-    icon: Layers,
-    duration: "React · WP · Framer",
-    scope: "Done-for-you design and development so you can keep running the business while the new site takes shape.",
-    highlights: [
-      "Kickoff workshop to unpack goals, offers, and proof",
-      "Design approval before any code is written",
-      "Content entry, forms, and SEO essentials handled for you",
-      "Launch support plus short video tutorials for future edits",
-    ],
-  },
-  {
-    title: "AI Business Automations",
-    price: "Sprint-based",
-    icon: Sparkles,
-    duration: "2-week pilots",
-    scope: "Small experiments that remove repetitive tasks like reporting, follow-ups, or FAQs without replacing your team.",
-    highlights: [
-      "Map the current process and pick the clearest win",
-      "Build and test a lightweight assistant or automation",
-      "Gather feedback in plain language to keep it useful",
-      "Leave behind simple docs so anyone can adjust it later",
-    ],
-  },
-];
 
 export default function OffersSection({ theme }) {
   const sectionTheme = theme?.sections?.contact;
@@ -96,37 +65,37 @@ export default function OffersSection({ theme }) {
   const headerAccent = palette.heading || sectionTheme?.text || "#F9FBF9";
   const muted = palette.body || palette.muted || "rgba(244, 249, 246, 0.75)";
 
-  const baseCardPalette = sectionTheme
-    ? {
-        bg: "rgba(255, 255, 255, 0.9)",
-        border: "rgba(15, 23, 42, 0.1)",
-        text: sectionTheme.text || "#1F2933",
-        subtext: muted,
-        bullet: palette.divider || "rgba(148,163,184,0.45)",
-        icon: palette.buttonBg || accent,
-        shadow: "0 18px 60px rgba(15, 23, 20, 0.18)",
-      }
-    : {
-        bg: "rgba(255, 255, 255, 0.9)",
-        border: "rgba(15, 23, 42, 0.1)",
-        text: "#1F2933",
-        subtext: "rgba(71, 85, 105, 0.85)",
-        bullet: "rgba(148,163,184,0.45)",
-        icon: accent,
-        shadow: "0 18px 60px rgba(15, 23, 20, 0.18)",
-      };
+  const serviceCards = [
+    {
+      title: "Websites + Branding",
+      summary:
+        "Research-led messaging, modular layouts, and weather-aware theming that keep every page, proof point, and CTA consistent.",
+      hook: "Keeps launches calm so you spend more time with customers—not chasing broken links or briefs.",
+      highlights: ["Brand + web kits in one place", "Async reviews and clear QA checklists"],
+      href: "/services#deep-dive",
+    },
+    {
+      title: "Automation & Ops",
+      summary:
+        "Low-code workflows plus light custom scripts that sync CRMs, prep reports, and send nudges exactly when teams need them.",
+      hook: "Clears the busywork so your calendar is open for sales calls, not status updates.",
+      highlights: ["Zapier/Make blueprints with docs", "Dashboards tuned for leads and fulfillment"],
+      href: "/services#deep-dive",
+    },
+  ];
 
-  const cardOverrides = palette.card || {};
-  const themedCardBg = palette.serviceCardBg || palette.buttonBg || palette.cardBg || accent;
-  const cardPalette = {
-    ...baseCardPalette,
-    ...cardOverrides,
-    bg: themedCardBg,
-    text: cardOverrides.text || sectionTheme?.buttonContrast || sectionTheme?.text || baseCardPalette.text,
-    subtext: cardOverrides.subtext || palette.body || palette.muted || baseCardPalette.subtext,
-  };
-  const cardShadow = cardPalette.shadow || `0 18px 60px ${hexToRgba(accent, 0.25)}`;
-  const hoverShadow = cardPalette.hoverShadow || `0 22px 60px ${hexToRgba(accent, 0.35)}`;
+  const cardBorderColor = palette.card?.border || palette.divider || "rgba(255,255,255,0.18)";
+  const cardBackground =
+    palette.card?.bg ||
+    sectionTheme?.bg ||
+    "linear-gradient(135deg, rgba(4,4,4,0.85), rgba(10,10,10,0.7))";
+  const cardTextColor = palette.card?.text || sectionTheme?.text || "#F6F8F6";
+  const cardMuted = palette.card?.subtext || palette.body || palette.muted || "rgba(246,248,246,0.75)";
+  const cardAccent = palette.accent || accent;
+  const cardTextIsLight = isColorLight(cardTextColor);
+  const cardHighlightBg =
+    palette.card?.highlightBg ||
+    (cardTextIsLight ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.08)");
 
   const baseButtonPalette = sectionTheme
     ? {
@@ -163,16 +132,13 @@ export default function OffersSection({ theme }) {
             >
               Website help that stays clear, collaborative, and on schedule.
             </h2>
-            <p className="mt-6 text-lg leading-relaxed" style={{ color: muted }}>
-              We start with business goals, then map the design, copy, and tech needed to reach them. You’ll always know
-              what we’re working on, what’s coming next, and how each step supports sales, bookings, or brand trust.
-            </p>
+            <div className="mt-6 h-px w-full" style={{ backgroundColor: palette.divider || "rgba(246,248,246,0.25)" }} />
           </div>
 
           <div className="flex flex-col items-start gap-4 lg:items-end">
             <a href="mailto:michaelhanna50@gmail.com">
               <Button
-                className="inline-flex min-w-[280px] items-center justify-between rounded-full px-10 py-5 text-sm font-accent uppercase tracking-[0.25em] border transition-transform hover:-translate-y-0.5 hover:opacity-90 focus-visible:ring-2 focus-visible:ring-offset-2"
+                className="inline-flex min-w-[220px] items-center justify-between rounded-full px-8 py-5 text-sm font-accent uppercase tracking-[0.25em] border transition-transform hover:-translate-y-0.5 hover:opacity-90 focus-visible:ring-2 focus-visible:ring-offset-2"
                 style={buttonStyle}
               >
                 <span>Start a project</span>
@@ -182,60 +148,54 @@ export default function OffersSection({ theme }) {
           </div>
         </div>
 
-        <div className="relative mt-16">
-          <motion.div
-            className="relative flex gap-6 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-hide"
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true, margin: "-120px" }}
-          >
-            {plans.map((plan, index) => {
-              const Icon = plan.icon;
-              return (
-                <motion.article
-                  key={plan.title}
-                  className="group relative min-w-[19rem] max-w-[22rem] snap-center rounded-3xl border p-7 backdrop-blur-sm transition-all"
-                  custom={index}
-                  variants={planVariants}
-                  whileHover={{ y: -4, boxShadow: hoverShadow }}
-                  style={{
-                    background: cardPalette.bg,
-                    color: cardPalette.text,
-                    borderColor: cardPalette.border,
-                    boxShadow: cardShadow,
-                  }}
-                >
-                  <div className="flex items-center gap-3">
-                    <Icon className="h-5 w-5" style={{ color: cardPalette.icon }} />
-                    <h3 className="font-serifalt text-2xl">{plan.title}</h3>
-                  </div>
-                  <div className="mt-4 flex items-baseline gap-3">
-                    <span className="text-3xl font-semibold">{plan.price}</span>
+        <div className="mt-16 grid gap-6 md:grid-cols-2">
+          {serviceCards.map((card) => (
+            <Link
+              key={card.title}
+              to={card.href}
+              className="group flex h-full flex-col rounded-3xl border p-8 transition-all hover:-translate-y-1 hover:shadow-2xl"
+              style={{
+                borderColor: cardBorderColor,
+                background: cardBackground,
+                color: cardTextColor,
+              }}
+            >
+              <p className="text-sm font-accent uppercase tracking-[0.35em]" style={{ color: cardMuted }}>
+                Featured service
+              </p>
+              <h3 className="mt-3 font-serifalt text-3xl">{card.title}</h3>
+              <p className="mt-4 text-base leading-relaxed" style={{ color: cardMuted }}>
+                {card.summary}
+              </p>
+              <div
+                className="mt-6 rounded-2xl border px-4 py-3 text-sm"
+                style={{
+                  borderColor: cardBorderColor,
+                  background: cardHighlightBg,
+                }}
+              >
+                <p style={{ color: cardTextColor }}>{card.hook}</p>
+              </div>
+              <ul className="mt-5 space-y-2 text-sm" style={{ color: cardMuted }}>
+                {card.highlights.map((highlight) => (
+                  <li key={highlight} className="flex items-start gap-2">
                     <span
-                      className="text-sm uppercase tracking-[0.25em]"
-                      style={{ color: cardPalette.subtext }}
-                    >
-                      {plan.duration}
-                    </span>
-                  </div>
-                  <p className="mt-4 text-sm leading-relaxed" style={{ color: cardPalette.subtext }}>
-                    {plan.scope}
-                  </p>
-                  <ul className="mt-5 space-y-3 text-sm" style={{ color: cardPalette.subtext }}>
-                    {plan.highlights.map((highlight) => (
-                      <li key={highlight} className="flex items-start gap-2">
-                        <span
-                          className="mt-1 h-1.5 w-1.5 rounded-full"
-                          style={{ backgroundColor: cardPalette.bullet }}
-                        />
-                        <span>{highlight}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </motion.article>
-              );
-            })}
-          </motion.div>
+                      className="mt-1 h-1.5 w-1.5 rounded-full"
+                      style={{ backgroundColor: cardAccent }}
+                    />
+                    <span>{highlight}</span>
+                  </li>
+                ))}
+              </ul>
+              <span
+                className="mt-8 inline-flex items-center gap-3 text-sm font-accent uppercase tracking-[0.35em]"
+                style={{ color: cardAccent }}
+              >
+                View details
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </span>
+            </Link>
+          ))}
         </div>
 
         <div className="relative mt-14 overflow-hidden rounded-3xl border border-white/10 bg-white/6">

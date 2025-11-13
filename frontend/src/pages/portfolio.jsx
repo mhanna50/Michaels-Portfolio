@@ -191,36 +191,29 @@ export default function PortfolioPage({ theme, mainTheme }) {
     <div className="min-h-screen" style={pageStyle}>
       <StickyHeader theme={theme} forceVisible />
 
-      <section className="relative overflow-hidden px-6 pt-28 pb-16 lg:pt-36" style={heroStyle}>
+      <section className="relative flex min-h-[75vh] flex-col justify-center overflow-hidden px-6 pt-32 pb-24 lg:pt-40 lg:pb-36" style={heroStyle}>
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.08),_transparent_65%)]" />
-        <div className="relative mx-auto flex max-w-5xl flex-col gap-6 text-left">
-          <p className="font-accent text-sm uppercase tracking-[0.45em] sm:text-base" style={labelStyle}>
+        <div className="relative mx-auto flex max-w-5xl flex-col gap-12 text-left">
+          <p className="font-accent text-lg uppercase tracking-[0.45em] sm:text-2xl" style={labelStyle}>
             Selected Work
           </p>
           <h1 className="font-serifalt text-5xl leading-tight md:text-6xl" style={headingStyle}>
             Design, development, and automation that drive measurable growth.
           </h1>
           <div className="flex flex-wrap gap-4">
-            <a href="mailto:michaelhanna50@gmail.com?subject=Start%20a%20Project">
+            <Link to="/services">
               <Button
                 className="rounded-full px-8 py-4 text-sm font-accent uppercase tracking-[0.3em]"
                 style={primaryButtonStyle}
               >
-                Book a Discovery Call
+                Explore Services
               </Button>
-            </a>
-            <Link
-              to="/services"
-              className="rounded-full border px-8 py-4 text-sm font-accent uppercase tracking-[0.3em] transition"
-              style={secondaryButtonStyle}
-            >
-              See Services
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="px-6 pb-10 lg:pb-12 lg:pt-12" style={heroStyle}>
+      <section className="px-6 pt-20 pb-20 lg:pt-28 lg:pb-24" style={heroStyle}>
         <div
           className="mx-auto flex max-w-6xl min-h-[520px] flex-col items-center justify-center gap-10 rounded-3xl border px-6 py-12 text-center md:px-12"
           style={dividerColor}
@@ -241,7 +234,7 @@ export default function PortfolioPage({ theme, mainTheme }) {
             {headlineStats.map((stat) => (
               <div
                 key={stat.label}
-                className="rounded-2xl border px-5 py-4 text-center"
+                className="rounded-2xl border px-5 py-6 text-center"
                 style={{
                   borderColor: dividerColor.borderColor,
                   background: getTone("rgba(246,248,246,0.04)", "rgba(15,23,42,0.03)"),
@@ -299,7 +292,7 @@ export default function PortfolioPage({ theme, mainTheme }) {
       </section>
 
       {marqueeItems.length > 0 && (
-        <section className="px-0 py-4" style={heroStyle}>
+        <section className="px-0 py-0" style={heroStyle}>
           <div className="relative overflow-hidden border-y" style={dividerColor}>
             <div className="marquee-track gap-10 py-6">
               {marqueeLoop.map((item, idx) => {
@@ -333,10 +326,10 @@ export default function PortfolioPage({ theme, mainTheme }) {
         </section>
       )}
 
-      <section className="px-6 pt-10 pb-16 lg:pt-12 lg:pb-24" style={heroStyle}>
+      <section className="px-6 pt-20 pb-16 lg:pt-24 lg:pb-24" style={heroStyle}>
         <div className="mx-auto max-w-6xl space-y-10">
           <div>
-            <p className="font-accent text-xs uppercase tracking-[0.45em]" style={labelStyle}>
+            <p className="font-accent text-lg uppercase tracking-[0.45em]" style={labelStyle}>
               Work gallery
             </p>
             <h2 className="mt-3 font-serifalt text-4xl leading-tight md:text-5xl" style={headingStyle}>

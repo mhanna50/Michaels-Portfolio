@@ -14,7 +14,7 @@ const featuredProjects = [
       'My own site built to mirror the process clients experience—from kickoff chat to hand-off videos and training clips.',
     highlights: ['4-week build with weekly owner check-ins', 'Fully custom coded with easy-to-edit content blocks'],
     liveUrl: 'https://search-symphony.example.com',
-    caseStudyUrl: 'https://search-symphony.example.com/strategy',
+    caseStudyUrl: '/portfolio/personal-portfolio',
     cover: 'https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=1400&q=80',
     testimonial: {
       type: 'quote',
@@ -29,7 +29,7 @@ const featuredProjects = [
       'Plain-language service pages and direct booking links for a med spa, paired with a calming new visual identity.',
     highlights: ['3-week build with shared Trello board', 'WordPress + drag-and-drop editor for quick updates'],
     liveUrl: 'https://studio-palette.example.com',
-    caseStudyUrl: 'https://studio-palette.example.com/case-study',
+    caseStudyUrl: '/portfolio/millie-aesthetics',
     cover: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1400&q=80',
     testimonial: {
       type: 'video',
@@ -44,7 +44,7 @@ const featuredProjects = [
       'Refreshed brand story, SEO basics, and a portfolio-forward site for a local contractor focused on craftsmanship.',
     highlights: ['5-week project with on-site photo support', 'Built in Framer with copy blocks the team can update'],
     liveUrl: 'https://americancraftsmanllc.com',
-    caseStudyUrl: 'https://code-atlas.example.com/build-notes',
+    caseStudyUrl: '/portfolio/american-craftsman',
     cover: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1400&q=80',
     testimonial: {
       type: 'quote',
@@ -357,30 +357,50 @@ function FeaturedProjectCard({ project, index, palette }) {
           </div>
         )}
         <div className="mt-8 flex flex-wrap gap-3">
-          {project.liveUrl && (
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border px-6 py-2 font-accent uppercase tracking-[0.2em] transition-colors"
-              style={primaryLinkStyle}
-            >
-              Live Site
-              <ArrowUpRight className="h-4 w-4" />
-            </a>
-          )}
-          {project.caseStudyUrl && (
-            <a
-              href={project.caseStudyUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border px-6 py-2 font-accent uppercase tracking-[0.2em] transition-colors"
-              style={secondaryLinkStyle}
-            >
-              Case Study
-              <ArrowUpRight className="h-4 w-4" />
-            </a>
-          )}
+          {project.liveUrl &&
+            (project.liveUrl.startsWith("/") ? (
+              <Link
+                to={project.liveUrl}
+                className="inline-flex items-center gap-2 rounded-full border px-6 py-2 font-accent uppercase tracking-[0.2em] transition-colors"
+                style={primaryLinkStyle}
+              >
+                Live Site
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            ) : (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border px-6 py-2 font-accent uppercase tracking-[0.2em] transition-colors"
+                style={primaryLinkStyle}
+              >
+                Live Site
+                <ArrowUpRight className="h-4 w-4" />
+              </a>
+            ))}
+          {project.caseStudyUrl &&
+            (project.caseStudyUrl.startsWith("/") ? (
+              <Link
+                to={project.caseStudyUrl}
+                className="inline-flex items-center gap-2 rounded-full border px-6 py-2 font-accent uppercase tracking-[0.2em] transition-colors"
+                style={secondaryLinkStyle}
+              >
+                Case Study
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            ) : (
+              <a
+                href={project.caseStudyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border px-6 py-2 font-accent uppercase tracking-[0.2em] transition-colors"
+                style={secondaryLinkStyle}
+              >
+                Case Study
+                <ArrowUpRight className="h-4 w-4" />
+              </a>
+            ))}
         </div>
       </div>
     </motion.article>

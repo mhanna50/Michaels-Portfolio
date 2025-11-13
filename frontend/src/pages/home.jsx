@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import HeroSection from '../components/HomeSections/HeroSection';
 import AboutSection from '../components/HomeSections/AboutSection';
 import PortfolioSection from '../components/HomeSections/PortfolioSection';
@@ -9,6 +9,13 @@ import Footer from '../components/Footer';
 import StickyHeader from '../components/StickyHeader';
 
 export default function Home({ weather, theme, mainTheme }) {
+  const [forceHeaderVisible, setForceHeaderVisible] = useState(() => {
+    if (typeof window === 'undefined') {
+      return false;
+    }
+    return window.innerWidth <= 1199;
+  });
+
   useEffect(() => {
     // Smooth scroll behavior
     document.documentElement.style.scrollBehavior = 'smooth';
@@ -16,6 +23,21 @@ export default function Home({ weather, theme, mainTheme }) {
     return () => {
       document.documentElement.style.scrollBehavior = 'auto';
     };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+
+    const handleResize = () => {
+      setForceHeaderVisible(window.innerWidth <= 1199);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const pageStyle = mainTheme?.page
@@ -27,7 +49,7 @@ export default function Home({ weather, theme, mainTheme }) {
 
   return (
     <div className="min-h-screen" style={pageStyle}>
-      <StickyHeader theme={theme} />
+      <StickyHeader theme={theme} forceVisible={forceHeaderVisible} />
       <HeroSection mainTheme={mainTheme} />
       <AboutSection weather={weather} theme={theme} />
       <PortfolioSection theme={theme} />

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   CheckCircle2,
@@ -26,18 +26,18 @@ const services = [
     summary:
       "Systems-driven design that translates your brand voice into flexible UI libraries, messaging, and content blocks.",
     deliverables: ["Brand + UI systems", "Responsive layouts & prototypes", "Accessibility + QA"],
-    detail: {
-      problem: "Most marketing sites feel disjointed because design sprints stop at pretty mockups.",
-      solution:
-        "I audit the journey, map decisions, and build annotated Figma systems so every page, state, and component is reusable.",
-      benefit: "Your team ships faster with visual consistency and messaging that mirrors what customers actually need.",
-      useCases: [
-        "Launch-ready marketing site with modular hero, offer, and proof sections.",
-        "Design ops cleanup covering tokens, typography, and QA workflows for distributed teams.",
-        "Brand refresh with playbooks for content, imagery, and motion.",
-      ],
-      ctaLink: "/portfolio/millie-aesthetics",
-    },
+      detail: {
+        problem: "Most marketing sites feel disjointed because design sprints stop at pretty mockups.",
+        solution:
+          "I audit the journey, map decisions, and build annotated Figma systems so every page, state, and component is reusable.",
+        benefit: "Your team ships faster with visual consistency and messaging that mirrors what customers actually need.",
+        useCases: [
+          "Launch-ready marketing site with modular hero, offer, and proof sections.",
+          "Design ops cleanup covering tokens, typography, and QA workflows for distributed teams.",
+          "Brand refresh with playbooks for content, imagery, and motion.",
+        ],
+        ctaLink: "/portfolio/millie-aesthetics",
+      },
     pricing: [
       { label: "Brand system intensive", value: "$4.5K+" },
       { label: "Launch-ready site build", value: "$8K–$12K" },
@@ -50,19 +50,19 @@ const services = [
     summary:
       "Low-code plus custom scripts that remove busywork, sync data, and trigger actions when teams need them.",
     deliverables: ["Process mapping", "Zapier/Make builds", "Analytics & AI copilots"],
-    detail: {
-      problem: "Teams waste hours updating CRMs, compiling reports, and nudging stakeholders manually.",
-      solution:
-        "We blueprint the workflow, set guardrails, then wire the right mix of Zapier, Make, Supabase, and light APIs.",
-      benefit:
-        "Ops, sales, and marketing see the same data, automations stay documented, and leadership gets real-time dashboards.",
-      useCases: [
-        "Nurture automation that syncs leads, Slack alerts, and personalized follow-ups.",
-        "Revenue dashboard pulling GA4, Stripe, and warehouse data into one command center.",
-        "Internal AI copilots that summarize briefs, QA pull requests, or prep reports.",
-      ],
-      ctaLink: "/portfolio/ops-automation-suite",
-    },
+      detail: {
+        problem: "Teams waste hours updating CRMs, compiling reports, and nudging stakeholders manually.",
+        solution:
+          "We blueprint the workflow, set guardrails, then wire the right mix of Zapier, Make, Supabase, and light APIs.",
+        benefit:
+          "Ops, sales, and marketing see the same data, automations stay documented, and leadership gets real-time dashboards.",
+        useCases: [
+          "Nurture automation that syncs leads, Slack alerts, and personalized follow-ups.",
+          "Revenue dashboard pulling GA4, Stripe, and warehouse data into one command center.",
+          "Internal AI copilots that summarize briefs, QA pull requests, or prep reports.",
+        ],
+        ctaLink: "/portfolio/personal-portfolio",
+      },
     pricing: [
       { label: "Automation sprint", value: "$3K+" },
       { label: "Ops enablement retainer", value: "$2K+/mo" },
@@ -158,13 +158,15 @@ const testimonials = [
     quote:
       "Michael rebuilt our entire funnel—brand, site, and automations—without ever needing to re-explain the vision. Leads tripled in six weeks.",
     author: "Arianna Lopez",
-    role: "Founder, Millie Aesthetics",
+    title: "Founder",
+    company: "Millie Aesthetics",
   },
   {
     quote:
       "He delivered dashboards, playbooks, and code. We finally have one source of truth and a partner who can adjust it in real time.",
     author: "Marcus Reed",
-    role: "COO, Atlas Robotics",
+    title: "COO",
+    company: "Atlas Robotics",
   },
 ];
 
@@ -213,6 +215,8 @@ const faqs = [
 export default function ServicesPage({ theme, mainTheme }) {
   const [origin, setOrigin] = useState("");
   const [testimonialIndex, setTestimonialIndex] = useState(0);
+  const testimonialRefs = useRef([]);
+  const [testimonialHeight, setTestimonialHeight] = useState(360);
   const totalTestimonials = testimonials.length;
 
   useEffect(() => {
@@ -220,6 +224,26 @@ export default function ServicesPage({ theme, mainTheme }) {
       setOrigin(window.location.origin);
     }
   }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return undefined;
+    }
+
+    const updateHeight = () => {
+      const nodes = testimonialRefs.current || [];
+      const heights = nodes.map((node) => node?.scrollHeight || 0).filter((height) => height > 0);
+      const tallest = heights.length ? Math.max(...heights) : 320;
+      setTestimonialHeight((prev) => {
+        if (Math.abs(prev - tallest) <= 2) return prev;
+        return tallest;
+      });
+    };
+
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    return () => window.removeEventListener("resize", updateHeight);
+  }, [totalTestimonials]);
 
   useEffect(() => {
     document.documentElement.style.scrollBehavior = "smooth";
@@ -262,6 +286,13 @@ export default function ServicesPage({ theme, mainTheme }) {
   };
   const subtleTextStyle = {
     color: getTone("rgba(246,248,246,0.62)", "#4b5563"),
+  };
+  const borderColors = {
+    strong: getTone("rgba(255,255,255,0.28)", "rgba(47,42,36,0.35)"),
+    base: getTone("rgba(255,255,255,0.2)", "rgba(47,42,36,0.28)"),
+    soft: getTone("rgba(255,255,255,0.14)", "rgba(47,42,36,0.22)"),
+    faint: getTone("rgba(255,255,255,0.1)", "rgba(47,42,36,0.18)"),
+    dashed: getTone("rgba(255,255,255,0.24)", "rgba(47,42,36,0.32)"),
   };
 
   const buttonBg = palette?.buttonBg || palette?.button?.bg || palette?.accent || "#111827";
@@ -329,30 +360,23 @@ export default function ServicesPage({ theme, mainTheme }) {
     <div className="min-h-screen" style={pageStyle}>
       <StickyHeader theme={theme} forceVisible />
 
-      <section className="px-6 pt-28 pb-20 lg:pt-36" style={heroStyle}>
-        <div className="mx-auto flex max-w-5xl flex-col gap-8 text-left">
-          <p className="font-accent text-base uppercase tracking-[0.5em] md:text-lg" style={labelStyle}>
+      <section className="flex min-h-[70vh] flex-col justify-center px-6 pt-28 pb-20 lg:pt-36 lg:pb-24" style={heroStyle}>
+        <div className="mx-auto flex max-w-5xl flex-col gap-12 text-left">
+          <p className="font-accent text-lg uppercase tracking-[0.5em] md:text-2xl" style={labelStyle}>
             Services
           </p>
           <h1 className="font-serifalt text-5xl leading-tight md:text-6xl" style={headingStyle}>
             Design, development, and automation — all in one partner.
           </h1>
           <div className="flex flex-wrap gap-4">
-            <a href="mailto:michaelhanna50@gmail.com?subject=Project%20Proposal">
+            <Link to="/portfolio">
               <Button
                 className="rounded-full px-8 py-4 text-sm font-accent uppercase tracking-[0.3em]"
                 style={primaryButtonStyle}
               >
-                Get a Proposal
+                View Portfolio
               </Button>
-            </a>
-            <a
-              href="mailto:michaelhanna50@gmail.com?subject=Discovery%20Call"
-              className="rounded-full border px-8 py-4 text-sm font-accent uppercase tracking-[0.3em] transition"
-              style={secondaryButtonStyle}
-            >
-              Book a Discovery Call
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -377,6 +401,7 @@ export default function ServicesPage({ theme, mainTheme }) {
                   <article
                     key={service.id}
                     className="flex h-full flex-col rounded-[32px] border border-white/20 bg-white/5 p-8 shadow-2xl backdrop-blur"
+                    style={{ borderColor: borderColors.strong }}
                   >
                     <div className="flex items-center justify-between gap-4">
                       <div className="flex items-center gap-4">
@@ -385,7 +410,10 @@ export default function ServicesPage({ theme, mainTheme }) {
                         </span>
                         <h3 className="font-serifalt text-3xl">{service.title}</h3>
                       </div>
-                      <span className="rounded-full border px-4 py-1 text-[10px] font-accent uppercase tracking-[0.4em]" style={labelStyle}>
+                      <span
+                        className="rounded-full border px-4 py-1 text-[10px] font-accent uppercase tracking-[0.4em]"
+                        style={{ ...labelStyle, borderColor: borderColors.soft }}
+                      >
                         Flagship
                       </span>
                     </div>
@@ -419,6 +447,7 @@ export default function ServicesPage({ theme, mainTheme }) {
                     <article
                       key={service.id}
                       className="flex h-full flex-col rounded-[28px] border border-dashed border-white/30 bg-transparent p-6"
+                      style={{ borderColor: borderColors.dashed }}
                     >
                       <div className="flex items-center gap-3">
                         <span className="rounded-full bg-white/10 p-2">
@@ -445,7 +474,7 @@ export default function ServicesPage({ theme, mainTheme }) {
                       <a
                         href={`#${service.id}-deep-dive`}
                         className="mt-auto inline-flex items-center justify-center rounded-full border px-5 py-2 text-xs font-accent uppercase tracking-[0.3em] transition"
-                        style={secondaryButtonStyle}
+                        style={{ ...secondaryButtonStyle, borderColor: borderColors.soft }}
                       >
                         View delivery details
                       </a>
@@ -485,18 +514,23 @@ export default function ServicesPage({ theme, mainTheme }) {
                   key={service.id}
                   id={`${service.id}-deep-dive`}
                   className="rounded-3xl border border-white/15 bg-transparent p-8 shadow-2xl backdrop-blur"
+                  style={{ borderColor: borderColors.base }}
                 >
                   <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-stretch">
                     <div className="space-y-6">
                       <div className="flex items-center gap-3">
-                        <span className="rounded-full border border-white/20 p-3">
+                        <span className="rounded-full border border-white/20 p-3" style={{ borderColor: borderColors.soft }}>
                           <Icon className="h-6 w-6" style={labelStyle} />
                         </span>
                         <h3 className="font-serifalt text-3xl">{service.title}</h3>
                       </div>
                       <div className="grid gap-4 sm:grid-cols-3">
                         {["problem", "solution", "benefit"].map((key) => (
-                          <div key={key} className="rounded-2xl border border-white/15 bg-transparent p-4">
+                          <div
+                            key={key}
+                            className="rounded-2xl border border-white/15 bg-transparent p-4"
+                            style={{ borderColor: borderColors.base }}
+                          >
                             <p className="text-xs font-accent uppercase tracking-[0.35em]" style={labelStyle}>
                               {key}
                             </p>
@@ -521,13 +555,20 @@ export default function ServicesPage({ theme, mainTheme }) {
                       </div>
                       <CtaComponent {...ctaProps}>See it in action</CtaComponent>
                     </div>
-                    <div className="flex flex-col justify-between rounded-3xl border border-white/15 bg-transparent p-6">
+                    <div
+                      className="flex flex-col justify-between rounded-3xl border border-white/15 bg-transparent p-6"
+                      style={{ borderColor: borderColors.base }}
+                    >
                       <p className="font-accent text-xs uppercase tracking-[0.45em]" style={labelStyle}>
                         Pricing snapshot
                       </p>
                       <div className="mt-4 space-y-4">
                         {service.pricing.map((price) => (
-                          <div key={price.label} className="rounded-2xl border border-white/15 p-4">
+                          <div
+                            key={price.label}
+                            className="rounded-2xl border border-white/15 p-4"
+                            style={{ borderColor: borderColors.base }}
+                          >
                             <p className="text-xs uppercase tracking-[0.35em]" style={labelStyle}>
                               {price.label}
                             </p>
@@ -562,9 +603,13 @@ export default function ServicesPage({ theme, mainTheme }) {
             {valueProps.map((prop) => {
               const Icon = prop.icon;
               return (
-                <div key={prop.title} className="rounded-3xl border border-white/15 bg-transparent p-6">
+                <div
+                  key={prop.title}
+                  className="rounded-3xl border border-white/15 bg-transparent p-6"
+                  style={{ borderColor: borderColors.base }}
+                >
                   <div className="flex items-center gap-4">
-                    <span className="rounded-full border border-white/20 p-3">
+                    <span className="rounded-full border border-white/20 p-3" style={{ borderColor: borderColors.soft }}>
                       <Icon className="h-5 w-5" style={labelStyle} />
                     </span>
                     <div>
@@ -581,17 +626,27 @@ export default function ServicesPage({ theme, mainTheme }) {
               );
             })}
           </div>
-          <div className="rounded-3xl border border-white/15 bg-transparent p-6">
+          <div
+            className="rounded-3xl border border-white/15 bg-transparent p-6"
+            style={{ borderColor: borderColors.base }}
+          >
             <div className="grid gap-6 md:grid-cols-2">
               {comparisonPoints.map((point) => (
-                <div key={point.attribute} className="rounded-2xl border border-white/15 bg-transparent p-5">
+                <div
+                  key={point.attribute}
+                  className="rounded-2xl border border-white/15 bg-transparent p-5"
+                  style={{ borderColor: borderColors.base }}
+                >
                   <p className="text-xs font-accent uppercase tracking-[0.35em]" style={labelStyle}>
                     {point.attribute}
                   </p>
                   <p className="mt-2 text-sm font-semibold" style={headingStyle}>
                     You get: <span className="font-normal" style={mutedStyle}>{point.me}</span>
                   </p>
-                  <div className="mt-3 rounded-xl border border-white/15 p-3 text-sm" style={subtleTextStyle}>
+                  <div
+                    className="mt-3 rounded-xl border border-white/15 p-3 text-sm"
+                    style={{ ...subtleTextStyle, borderColor: borderColors.soft }}
+                  >
                     Typical alternative: {point.others}
                   </div>
                 </div>
@@ -615,7 +670,11 @@ export default function ServicesPage({ theme, mainTheme }) {
             {processSteps.map((step, index) => {
               const Icon = step.icon;
               return (
-                <div key={step.title} className="rounded-3xl border border-white/10 bg-white/5 p-5">
+                <div
+                  key={step.title}
+                  className="rounded-3xl border border-white/10 bg-white/5 p-5"
+                  style={{ borderColor: borderColors.soft }}
+                >
                   <p className="text-xs uppercase tracking-[0.35em]" style={labelStyle}>
                     {String(index + 1).padStart(2, "0")}
                   </p>
@@ -644,19 +703,30 @@ export default function ServicesPage({ theme, mainTheme }) {
                 Testimonials
               </p>
               <div className="space-y-4">
-                <div className="relative h-[380px] overflow-hidden rounded-3xl border border-white/15">
+                <div
+                  className="relative overflow-hidden rounded-3xl border border-white/15"
+                  style={{
+                    borderColor: borderColors.base,
+                    height: `${testimonialHeight}px`,
+                    minHeight: `${testimonialHeight}px`,
+                    transition: "height 250ms ease",
+                  }}
+                >
                   <div
                     className="absolute inset-0 flex flex-col transition-transform duration-700 ease-in-out"
                     style={{
-                      height: `${Math.max(totalTestimonials, 1) * 100}%`,
-                      transform: `translateY(-${totalTestimonials ? (testimonialIndex / totalTestimonials) * 100 : 0}%)`,
+                      height: `${testimonialHeight * Math.max(totalTestimonials, 1)}px`,
+                      transform: `translateY(-${testimonialIndex * testimonialHeight}px)`,
                     }}
                   >
-                    {testimonials.map((testimonial) => (
+                    {testimonials.map((testimonial, index) => (
                       <blockquote
                         key={testimonial.author}
+                        ref={(el) => {
+                          testimonialRefs.current[index] = el;
+                        }}
                         className="flex h-full flex-col justify-between gap-4 p-8"
-                        style={{ minHeight: "100%" }}
+                        style={{ height: `${testimonialHeight}px` }}
                       >
                         <p className="text-lg leading-relaxed" style={headingStyle}>
                           “{testimonial.quote}”
@@ -664,7 +734,10 @@ export default function ServicesPage({ theme, mainTheme }) {
                         <div>
                           <p className="text-sm font-semibold">{testimonial.author}</p>
                           <p className="text-xs uppercase tracking-[0.35em]" style={labelStyle}>
-                            {testimonial.role}
+                            {testimonial.title}
+                          </p>
+                          <p className="text-xs uppercase tracking-[0.35em]" style={labelStyle}>
+                            {testimonial.company}
                           </p>
                         </div>
                       </blockquote>
@@ -699,7 +772,10 @@ export default function ServicesPage({ theme, mainTheme }) {
                 </div>
               </div>
             </div>
-            <div className="rounded-3xl border border-white/15 bg-transparent p-6">
+            <div
+              className="rounded-3xl border border-white/15 bg-transparent p-6"
+              style={{ borderColor: borderColors.base }}
+            >
               <p className="font-accent text-xs uppercase tracking-[0.45em]" style={labelStyle}>
                 Trusted by small businesses & creators
               </p>
@@ -708,6 +784,7 @@ export default function ServicesPage({ theme, mainTheme }) {
                   <div
                     key={client}
                     className="rounded-2xl border border-dashed border-white/20 px-4 py-3 text-center"
+                    style={{ borderColor: borderColors.dashed }}
                   >
                     {client}
                   </div>
@@ -730,7 +807,11 @@ export default function ServicesPage({ theme, mainTheme }) {
           </div>
           <div className="space-y-4">
             {faqs.map((faq) => (
-              <details key={faq.question} className="rounded-3xl border border-white/10 bg-white/5 p-5">
+              <details
+                key={faq.question}
+                className="rounded-3xl border border-white/10 bg-white/5 p-5"
+                style={{ borderColor: borderColors.soft }}
+              >
                 <summary className="cursor-pointer list-none font-serifalt text-xl">
                   {faq.question}
                 </summary>

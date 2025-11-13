@@ -3,6 +3,29 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Mail, Linkedin, Github, FileUser } from "lucide-react";
 
+const parseHex = (color) => {
+  if (typeof color !== "string") return null;
+  const hex = color.trim();
+  if (!hex.startsWith("#")) return null;
+  const normalized = hex.length === 4
+    ? `#${hex[1]}${hex[1]}${hex[2]}${hex[2]}${hex[3]}${hex[3]}`
+    : hex;
+  if (normalized.length !== 7) return null;
+  const r = parseInt(normalized.slice(1, 3), 16);
+  const g = parseInt(normalized.slice(3, 5), 16);
+  const b = parseInt(normalized.slice(5, 7), 16);
+  if ([r, g, b].some((value) => Number.isNaN(value))) return null;
+  return { r, g, b };
+};
+
+const isColorLight = (color) => {
+  const rgb = parseHex(color);
+  if (!rgb) return true;
+  const { r, g, b } = rgb;
+  const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+  return luminance > 0.6;
+};
+
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
@@ -18,7 +41,7 @@ const socialLinks = [
   },
   {
     label: "LinkedIn",
-    href: "https://linkedin.com/in/yourprofile",
+    href: "https://www.linkedin.com/feed/?trk=guest_homepage-basic_google-one-tap-submit",
     icon: Linkedin,
   },
   {
@@ -41,6 +64,32 @@ export default function Footer({ mainTheme, theme }) {
         color: footerTheme.text,
       }
     : undefined;
+  const accentColor = footerTheme?.accent || theme?.accent || mainTheme?.accent || "#F6F8F6";
+  const footerTextIsLight = isColorLight(footerTheme?.text);
+  const connectButtonColors = {
+    baseBg: footerTheme?.buttonBg || "rgba(255,255,255,0.05)",
+    baseBorder: footerTheme?.buttonBorder || "rgba(255,255,255,0.15)",
+    baseText: footerTheme?.buttonText || footerTheme?.text || "rgba(246,248,246,0.9)",
+    hoverBg: footerTheme?.buttonHoverBg || accentColor,
+    hoverBorder: footerTheme?.buttonHoverBorder || accentColor,
+    hoverText: footerTheme?.buttonHoverText || (footerTextIsLight ? "#050505" : "#F6F8F6"),
+    iconBg: footerTheme?.iconBg || "rgba(255,255,255,0.1)",
+    iconText: footerTheme?.iconText || footerTheme?.text || "rgba(246,248,246,0.9)",
+    iconHoverBg: footerTheme?.iconHoverBg || (footerTextIsLight ? "#050505" : "#F6F8F6"),
+    iconHoverText: footerTheme?.iconHoverText || (footerTextIsLight ? accentColor : "#050505"),
+  };
+  const connectButtonVars = {
+    "--footer-btn-bg": connectButtonColors.baseBg,
+    "--footer-btn-border": connectButtonColors.baseBorder,
+    "--footer-btn-text": connectButtonColors.baseText,
+    "--footer-btn-hover-bg": connectButtonColors.hoverBg,
+    "--footer-btn-hover-border": connectButtonColors.hoverBorder,
+    "--footer-btn-hover-text": connectButtonColors.hoverText,
+    "--footer-icon-bg": connectButtonColors.iconBg,
+    "--footer-icon-text": connectButtonColors.iconText,
+    "--footer-icon-hover-bg": connectButtonColors.iconHoverBg,
+    "--footer-icon-hover-text": connectButtonColors.iconHoverText,
+  };
 
   return (
     <footer
@@ -75,11 +124,11 @@ export default function Footer({ mainTheme, theme }) {
           </div>
 
           <div className="grid gap-12 sm:grid-cols-2 lg:gap-16">
-            <div className="space-y-5">
+            <div className="space-y-5 text-left">
               <p className="font-accent uppercase tracking-[0.3em] text-base text-accent-light/70">
                 Navigate
               </p>
-              <nav className="flex flex-col gap-4 font-serifalt text-lg text-accent-light/90">
+              <nav className="flex flex-col items-start gap-4 font-serifalt text-xl text-accent-light/90 md:text-2xl">
                 {navLinks.map(({ label, href }) => (
                   <Link
                     key={label}
@@ -101,12 +150,13 @@ export default function Footer({ mainTheme, theme }) {
                   <a
                     key={label}
                     href={href}
-                    className="group inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-5 py-3 font-serifalt text-sm text-accent-light/90 transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:bg-accent hover:text-primary-dark"
+                    className="group inline-flex items-center gap-3 rounded-full border px-5 py-3 font-serifalt text-sm transition-all duration-300 hover:-translate-y-1 border-[var(--footer-btn-border)] bg-[var(--footer-btn-bg)] text-[var(--footer-btn-text)] hover:border-[var(--footer-btn-hover-border)] hover:bg-[var(--footer-btn-hover-bg)] hover:text-[var(--footer-btn-hover-text)]"
                     target={href.startsWith("http") ? "_blank" : undefined}
                     rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
                     aria-label={label}
+                    style={connectButtonVars}
                   >
-                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-accent-light transition-colors duration-300 group-hover:bg-primary-dark group-hover:text-accent">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--footer-icon-bg)] text-[var(--footer-icon-text)] transition-colors duration-300 group-hover:bg-[var(--footer-icon-hover-bg)] group-hover:text-[var(--footer-icon-hover-text)]">
                       <Icon className="h-4 w-4" />
                     </span>
                     <span className="text-base">{label}</span>

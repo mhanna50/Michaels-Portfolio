@@ -6,6 +6,11 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        phone: { min: "425px", max: "767px" },
+        tablet: { min: "768px", max: "1199px" },
+        desktop: "1200px",
+      },
       fontFamily: {
         accent: ['"Bebas Neue"', 'sans-serif'],
         body: ['Lato', 'sans-serif'],
