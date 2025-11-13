@@ -1,5 +1,6 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { createRequire } from "node:module";
 import dotenv from "dotenv";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
@@ -8,6 +9,18 @@ import { fetchWeatherData } from "./api/weatherService.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 dotenv.config({ path: path.resolve(__dirname, "../.env") });
+const require = createRequire(import.meta.url);
+
+function resolveRouterAsset(request) {
+  try {
+    return require.resolve(request);
+  } catch (error) {
+    throw new Error(`Failed to resolve "${request}" from vite.config.mjs: ${error.message}`);
+  }
+}
+
+const reactRouterEntry = resolveRouterAsset("react-router/dist/index.js");
+const reactRouterDomEntry = resolveRouterAsset("react-router-dom/dist/index.js");
 
 function weatherDevProxy() {
   return {
@@ -47,14 +60,16 @@ function weatherDevProxy() {
   };
 }
 
-// Do NOT import or alias react-router/react-router-dom here.
-// Keep the config minimal and framework-agnostic.
+// Force Vite to hit the ESM builds directly so CI installs that strip package
+// entry metadata (seen on Vercel) do not break the resolver.
 
 export default defineConfig({
   plugins: [react(), weatherDevProxy()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      "react-router": reactRouterEntry,
+      "react-router-dom": reactRouterDomEntry,
     },
   },
   // If you deploy to a subpath, set `base`. Otherwise leave as default.
