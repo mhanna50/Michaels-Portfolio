@@ -13,13 +13,21 @@ dotenv.config({ path: path.resolve(__dirname, "../.env") });
 const require = createRequire(import.meta.url);
 
 function resolvePackageEntry(pkgName, entry = "dist/index.js") {
+  const packageHint = `Ensure "${pkgName}" is installed (npm install ${pkgName}) and its "${entry}" file ships with the package.`;
+  let pkgJsonPath;
+
   try {
-    const pkgJson = require.resolve(`${pkgName}/package.json`);
-    const candidate = path.resolve(path.dirname(pkgJson), entry);
-    return fs.existsSync(candidate) ? candidate : null;
+    pkgJsonPath = require.resolve(`${pkgName}/package.json`);
   } catch {
-    return null;
+    throw new Error(`[router-alias] Unable to locate ${pkgName} package.json. ${packageHint}`);
   }
+
+  const candidate = path.resolve(path.dirname(pkgJsonPath), entry);
+  if (!fs.existsSync(candidate)) {
+    throw new Error(`[router-alias] Found ${pkgName} but missing "${entry}". ${packageHint}`);
+  }
+
+  return candidate;
 }
 
 const reactRouterEntry = resolvePackageEntry("react-router");
@@ -69,14 +77,11 @@ function weatherDevProxy() {
 export default defineConfig({
   plugins: [react(), weatherDevProxy()],
   resolve: {
-    alias: Object.entries({
+    alias: {
       "@": path.resolve(__dirname, "./src"),
       "react-router": reactRouterEntry,
       "react-router-dom": reactRouterDomEntry,
-    }).reduce((acc, [key, value]) => {
-      if (value) acc[key] = value;
-      return acc;
-    }, {}),
+    },
   },
   // If you deploy to a subpath, set `base`. Otherwise leave as default.
   // base: "/",
