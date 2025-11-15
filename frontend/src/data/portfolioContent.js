@@ -21,13 +21,13 @@ export const portfolioCaseStudies = [
     services: ["Design", "Development"],
     platform: ["Framer"],
     summary:
-      "Modernized the brand, built a conversion-focused site, and wired automations that send qualified requests directly to the crew’s field tablets.",
+      "Refreshed the brand, rebuilt the site in Framer, and wired automations so scoped leads hit the right foreman without extra calls.",
     heroSummary: "Construction · Design & Development",
     heroKpis: [
       { label: "Lead submissions", value: "+47%", timeframe: "60 days post-launch" },
       { label: "Bounce rate", value: "-32%", timeframe: "Site-wide" },
     ],
-    outcome: "+47% lead submissions in 60 days",
+    outcome: "Lead submissions up 47% within 60 days",
     coverImage: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1400&auto=format&fit=crop&q=80",
     coverImageAlt: "American Craftsman marketing site displayed on laptop and phone",
     articlePhotos: [
@@ -48,11 +48,11 @@ export const portfolioCaseStudies = [
       },
     ],
     challenge:
-      "Leads were coming through word-of-mouth and an outdated Wix site. They needed a credible experience that highlighted craftsmanship while capturing real project requirements.",
+      "Referrals and an aging Wix site were the entire funnel, so prospects couldn’t see proof of work and the crew spent hours digging for real project details.",
     strategy:
-      "Ran a design audit, defined their differentiators, and built a modular Framer system with proof points, social validation, and scoped intake forms.",
+      "Interviewed the team, rewrote messaging around their build process, and mapped dual intake flows—residential vs commercial—before touching high-fidelity design.",
     solution:
-      "Delivered a fast-loading site with component-based case highlights, dynamic service menus, and dual-path CTAs that route residential and commercial work into separate pipelines.",
+      "Launched a component-based Framer build with proof strips, cost cues, and automation logic that tags each request, routes it into HubSpot, and pings Slack instantly.",
     gallery: {
       wireframes: [
         {
@@ -119,13 +119,13 @@ export const portfolioCaseStudies = [
     services: ["Design", "Development", "Automation"],
     platform: ["WordPress"],
     summary:
-      "Built a premium brand system, migrated content into a lean WordPress build, and automated consult bookings so staff could stay focused on clients.",
+      "Created a calm brand system, rebuilt the site on lean WordPress blocks, and automated consult bookings so staff stay with clients instead of inboxes.",
     heroSummary: "Beauty & Wellness · Design, Development, Automation",
     heroKpis: [
       { label: "Consult requests", value: "+61%", timeframe: "Quarter over quarter" },
       { label: "Manual follow-ups", value: "-70%", timeframe: "Front desk workload" },
     ],
-    outcome: "+61% consult requests after relaunch",
+    outcome: "Consult requests climbed 61% after relaunch",
     coverImage: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=1400&auto=format&fit=crop&q=80",
     coverImageAlt: "Millie Aesthetics responsive website mockups",
     articlePhotos: [
@@ -146,11 +146,11 @@ export const portfolioCaseStudies = [
       },
     ],
     challenge:
-      "Their DIY site didn’t reflect the in-studio experience and staff spent hours coordinating appointments by email.",
+      "A DIY template undersold the in-studio experience and every appointment still required back-and-forth emails.",
     strategy:
-      "Defined a flexible visual identity, structured service content for SEO, and mapped an automation layer across intake, reminders, and post-visit care.",
+      "Documented tone, palette, and service hierarchy, outlined SEO copy, and mapped intake-to-reminder flows to know what needed automation from day one.",
     solution:
-      "Launched a content-rich WordPress experience with reusable sections, CMS-driven service detail pages, and Make.com workflows that sync bookings to the CRM.",
+      "Delivered a WordPress build with reusable sections, treatment landing pages, and Make.com workflows that sync bookings, reminders, and CRM notes automatically.",
     gallery: {
       wireframes: [
         {
@@ -217,13 +217,13 @@ export const portfolioCaseStudies = [
     services: ["Design", "Development", "Automation"],
     platform: ["React", "Vite", "Vercel"],
     summary:
-      "Documented every part of my process in a single property: weather-reactive theming, Markdown-driven publishing, schema-rich case studies, and Vercel hosting with built-in analytics.",
+      "Turned this site into a working playbook—weather-aware themes, Markdown publishing, and automation touchpoints that show how I run client work end to end.",
     heroSummary: "Creative Services · Design, Development & Automation",
     heroKpis: [
       { label: "Reusable components", value: "45+", timeframe: "Shared UI library" },
       { label: "Lighthouse mobile", value: "98", timeframe: "Performance score" },
     ],
-    outcome: "Weather-aware system powering blog, services, and case studies in one codebase deployed to Vercel",
+    outcome: "Weather-aware system powering blog, services, and case studies from one Vercel deploy",
     coverImage: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=1400&auto=format&fit=crop&q=80",
     coverImageAlt: "Multiple devices showing the Michael Hanna portfolio",
     articlePhotos: [
@@ -244,11 +244,11 @@ export const portfolioCaseStudies = [
       },
     ],
     challenge:
-      "I needed one flagship experience that proved my end-to-end delivery—strategy, UX, DX, automation, and hosting—while staying simple to update between launches.",
+      "Needed a single property that proves strategy through automation without juggling multiple microsites or brittle CMS stacks.",
     strategy:
-      "Mapped journeys for home, services, blog, portfolio, and contact. Built a component system in Tailwind/Framer Motion, wired Markdown loaders for posts, and designed weather-aware palettes controlled through OpenWeather + manual overrides.",
+      "Mapped every page type, wrote modular copy, and designed a shared component kit in Tailwind + Framer Motion before hooking up data sources.",
     solution:
-      "Shipped a React/Vite app deployed on Vercel with Speed Insights + Analytics, sticky navigation, CTA ribbons, weather-driven theming, Markdown blog tooling, and schema-backed case studies. Contact flows trigger mailto templates and schema metadata so outreach stays traceable.",
+      "Built a React/Vite system deployed to Vercel with weather-aware theming, Markdown loaders, sticky navigation, and schema-backed case studies so updates stay fast.",
     gallery: {
       wireframes: [
         {
@@ -322,18 +322,18 @@ export const portfolioCaseStudies = [
 
 export const portfolioStats = [
   {
-    label: "Average inquiry lift",
-    value: "+38%",
-    description: "Typical increase in form submissions after a relaunch.",
+    label: "New clients post-launch",
+    value: "10 in 3 months",
+    description: "Client jumped from zero inbound leads on their old site to ten within the first quarter.",
   },
   {
-    label: "Hours handed back to teams",
-    value: "240+",
-    description: "Quarterly hours saved once reminders and follow-ups run automatically.",
+    label: "Hands-on build hours",
+    value: "90-120",
+    description: "Typical mix of strategy, design, development, and QA time poured into each project.",
   },
   {
     label: "Sites & automations shipped",
-    value: "28",
+    value: "5+",
     description: "Web, product, and automation engagements delivered since 2021.",
   },
   {

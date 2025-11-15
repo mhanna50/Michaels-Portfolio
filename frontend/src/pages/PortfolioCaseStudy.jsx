@@ -225,7 +225,7 @@ export default function PortfolioCaseStudy({ theme, mainTheme }) {
     <div className="min-h-screen" style={pageStyle}>
       <StickyHeader theme={theme} forceVisible />
 
-      <section className="px-6 pt-24 pb-16 lg:pt-32" style={heroStyle}>
+      <section className="px-6 pb-16 pt-36 md:pt-44 lg:pt-32" style={heroStyle}>
         <div className="mx-auto max-w-6xl space-y-12">
           <div className="grid gap-12 lg:grid-cols-[1.8fr_1fr] lg:items-center">
             <div className="flex flex-col items-center justify-center gap-6 text-center">

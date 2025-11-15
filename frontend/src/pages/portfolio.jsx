@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import Footer from "../components/Footer";
 import StickyHeader from "../components/StickyHeader";
 import { Button } from "@/components/ui/button";
@@ -23,12 +24,13 @@ const marqueePhrases = [
   "Calm project rhythms",
 ];
 
-function WorkCard({ study, styles }) {
+function WorkCard({ study, styles, motionProps = {} }) {
   const tags = [...(study.industry || []), ...(study.services || [])];
   return (
-    <article
+    <motion.article
       className="flex h-full flex-col overflow-hidden rounded-3xl border shadow-xl"
       style={{ background: styles.cardBg, borderColor: styles.cardBorder }}
+      {...motionProps}
     >
       <div className="relative h-60 w-full overflow-hidden">
         <img
@@ -82,7 +84,7 @@ function WorkCard({ study, styles }) {
           </Link>
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 }
 
@@ -187,13 +189,27 @@ export default function PortfolioPage({ theme, mainTheme }) {
     jsonLd: collectionJsonLd,
   });
 
+  const createRevealProps = (delay = 0, distance = 48) => ({
+    initial: { opacity: 0, y: distance },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.2 },
+    transition: { duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] },
+  });
+
+  const createItemRevealProps = (index = 0, distance = 28) => ({
+    initial: { opacity: 0, y: distance },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.2 },
+    transition: { duration: 0.55, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] },
+  });
+
   return (
     <div className="min-h-screen" style={pageStyle}>
       <StickyHeader theme={theme} forceVisible />
 
       <section className="relative flex min-h-[75vh] flex-col justify-center overflow-hidden px-6 pt-32 pb-24 lg:pt-40 lg:pb-36" style={heroStyle}>
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.08),_transparent_65%)]" />
-        <div className="relative mx-auto flex max-w-5xl flex-col gap-12 text-left">
+        <motion.div className="relative mx-auto flex max-w-5xl flex-col gap-12 text-left" {...createRevealProps()}>
           <p className="font-accent text-lg uppercase tracking-[0.45em] sm:text-2xl" style={labelStyle}>
             Selected Work
           </p>
@@ -210,7 +226,7 @@ export default function PortfolioPage({ theme, mainTheme }) {
               </Button>
             </Link>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       <section className="px-6 pt-20 pb-20 lg:pt-28 lg:pb-24" style={heroStyle}>
@@ -218,7 +234,7 @@ export default function PortfolioPage({ theme, mainTheme }) {
           className="mx-auto flex max-w-6xl min-h-[520px] flex-col items-center justify-center gap-10 rounded-3xl border px-6 py-12 text-center md:px-12"
           style={dividerColor}
         >
-          <div className="space-y-3">
+          <motion.div className="space-y-3" {...createRevealProps(0.05)}>
             <p className="font-accent text-base uppercase tracking-[0.45em] sm:text-lg" style={labelStyle}>
               Highlights
             </p>
@@ -228,11 +244,12 @@ export default function PortfolioPage({ theme, mainTheme }) {
             <p className="text-base" style={mutedStyle}>
               Every project blends messaging, design, development, and light automations so new leads, bookings, and follow-ups stay on track without extra staff.
             </p>
-          </div>
+          </motion.div>
           <div className="grid w-full gap-6 md:grid-cols-3">
-            {headlineStats.map((stat) => (
-              <div
+            {headlineStats.map((stat, index) => (
+              <motion.div
                 key={stat.label}
+                {...createItemRevealProps(index)}
                 className="rounded-2xl border px-5 py-6 text-center"
                 style={{
                   borderColor: dividerColor.borderColor,
@@ -245,13 +262,14 @@ export default function PortfolioPage({ theme, mainTheme }) {
                 <p className="text-xs uppercase tracking-[0.35em]" style={labelStyle}>
                   {stat.label}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
           <div className="grid w-full gap-6 text-left md:grid-cols-2">
-            {portfolioStats.map((stat) => (
-              <div
+            {portfolioStats.map((stat, index) => (
+              <motion.div
                 key={stat.label}
+                {...createItemRevealProps(index)}
                 className="rounded-3xl border p-6"
                 style={{
                   borderColor: dividerColor.borderColor,
@@ -267,10 +285,10 @@ export default function PortfolioPage({ theme, mainTheme }) {
                 <p className="mt-2 text-sm" style={mutedStyle}>
                   {stat.description}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
-          <div className="flex w-full flex-wrap justify-center gap-4 pt-2">
+          <motion.div className="flex w-full flex-wrap justify-center gap-4 pt-2" {...createRevealProps(0.12)}>
             <Link to="/services">
               <Button
                 className="rounded-full px-8 py-4 text-sm font-accent uppercase tracking-[0.3em]"
@@ -286,13 +304,13 @@ export default function PortfolioPage({ theme, mainTheme }) {
             >
               Book a quick intro call
             </a>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {marqueeItems.length > 0 && (
         <section className="px-0 py-0" style={heroStyle}>
-          <div className="relative overflow-hidden border-y" style={dividerColor}>
+          <motion.div className="relative overflow-hidden border-y" style={dividerColor} {...createRevealProps(0.18)}>
             <div className="marquee-track gap-10 py-6">
               {marqueeLoop.map((item, idx) => {
                 const isDuplicate = idx >= marqueeItems.length;
@@ -321,23 +339,28 @@ export default function PortfolioPage({ theme, mainTheme }) {
                 );
               })}
             </div>
-          </div>
+          </motion.div>
         </section>
       )}
 
       <section className="px-6 pt-20 pb-16 lg:pt-24 lg:pb-24" style={heroStyle}>
         <div className="mx-auto max-w-6xl space-y-10">
-          <div>
+          <motion.div {...createRevealProps(0.22)}>
             <p className="font-accent text-lg uppercase tracking-[0.45em]" style={labelStyle}>
               Project library
             </p>
             <h2 className="mt-3 font-serifalt text-4xl leading-tight md:text-5xl" style={headingStyle}>
               Recent builds that pair polished web experiences with simple automations.
             </h2>
-          </div>
+          </motion.div>
           <div className="grid gap-8 md:grid-cols-2">
-            {portfolioCaseStudies.map((study) => (
-              <WorkCard key={study.slug} study={study} styles={workCardStyles} />
+            {portfolioCaseStudies.map((study, index) => (
+              <WorkCard
+                key={study.slug}
+                study={study}
+                styles={workCardStyles}
+                motionProps={createItemRevealProps(index)}
+              />
             ))}
           </div>
         </div>

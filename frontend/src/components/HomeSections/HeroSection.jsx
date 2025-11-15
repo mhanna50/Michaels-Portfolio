@@ -205,14 +205,14 @@ export default function HeroSection({ mainTheme }) {
               Developer
             </h1>
 
-            <div className="h-[144px] tablet:h-auto tablet:w-full tablet:max-w-[720px] tablet:pr-2">
-              <p className="font-serifalt font-thin text-black text-left text-3xl tablet:text-[clamp(1.7rem,2.8vw,1.9rem)] leading-[1.15] tracking-tight h-full scale-y-110 tablet:text-left tablet:line-clamp-3 tablet:break-normal">
-                That design's websites and automates systems to help businesses grow while erasing <br></br>busy work.
+            <div className="w-full max-w-[360px] tablet:max-w-[660px] tablet:w-full tablet:pr-4">
+              <p className="font-serifalt font-thin text-black text-left text-3xl tablet:text-[clamp(1.7rem,2.8vw,2rem)] leading-[1.15] tracking-tight scale-y-110 tablet:text-left tablet:leading-tight tablet:break-normal">
+                That design's websites and automates systems to help businesses grow while erasing busy work.
               </p>
             </div>
 
             <a href="mailto:michael.email@example.com" className="self-start">
-              <Button className=" bg-neutral hover:bg-primary text-lg text-white font-accent px-8 py-3 pr-1.5 rounded-full mt-2 inline-flex items-center justify-start uppercase gap-5 group transition-colors duration-300">
+              <Button className=" bg-neutral hover:bg-primary text-lg text-white font-accent px-8 py-3 pr-1.5 rounded-full mt-6 tablet:mt-2 inline-flex items-center justify-start uppercase gap-5 group transition-colors duration-300">
                 <span>Contact Me</span>
 
                 {/* Arrow wrapper (circle) */}

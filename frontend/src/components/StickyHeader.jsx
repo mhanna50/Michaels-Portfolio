@@ -72,6 +72,7 @@ export default function StickyHeader({ theme, forceVisible = false }) {
     typeof window !== 'undefined'
       ? (window.location.pathname.replace(/\/+$/, '') || '/')
       : '/';
+  const navLeftOffset = 'clamp(0.75rem, 0.45rem + 0.65vw, 2.4rem)';
   const navDynamicStyle = {
     gap: 'clamp(0.45rem, 0.35rem + 0.5vw, 1.25rem)',
   };
@@ -94,14 +95,14 @@ export default function StickyHeader({ theme, forceVisible = false }) {
       isActive: (path) => path === '/services',
     },
     {
-      label: 'Blog',
-      href: '/blog',
-      isActive: (path) => path === '/blog' || path.startsWith('/blog/'),
-    },
-    {
       label: 'Portfolio',
       href: '/portfolio',
       isActive: (path) => path === '/portfolio' || path.startsWith('/portfolio/'),
+    },
+    {
+      label: 'Blog',
+      href: '/blog',
+      isActive: (path) => path === '/blog' || path.startsWith('/blog/'),
     },
   ];
 
@@ -122,17 +123,17 @@ export default function StickyHeader({ theme, forceVisible = false }) {
         className="flex flex-col gap-5 border px-6 py-4 shadow-[0_25px_60px_rgba(0,0,0,0.45)] backdrop-blur-2xl lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center lg:px-8 lg:py-5"
         style={{ background: bg, color: text, borderColor: softBorder, borderRadius: 0 }}
       >
-        <div className="order-1 flex w-full items-center justify-between gap-3 lg:order-2 lg:col-start-2 lg:flex lg:w-full lg:justify-center">
+        <div className="order-1 flex min-h-[4rem] w-full items-center justify-between gap-3 lg:order-2 lg:col-start-2 lg:flex lg:w-full lg:items-center lg:justify-center">
           <img
             src={logoSrc}
             alt="Michael Hanna logo"
-            className="h-16 w-auto object-contain"
+            className="h-16 w-auto object-contain self-center"
             loading="lazy"
           />
-          <div className="flex items-center gap-2 lg:hidden">
+          <div className="flex items-center gap-2 self-center lg:hidden">
             <a
               href="mailto:michaelhanna50@gmail.com"
-              className={`${ctaButtonClass} inline-flex`}
+              className={`${ctaButtonClass} inline-flex items-center justify-center`}
               style={{ background: accent, color: contactTextColor, border: `1px solid ${accent}` }}
             >
               Contact
@@ -171,8 +172,8 @@ export default function StickyHeader({ theme, forceVisible = false }) {
         </div>
         <nav
           id="sticky-header-nav"
-          className={`order-3 flex w-full flex-col items-center gap-1 sm:gap-1.5 transition-all duration-300 ease-out overflow-hidden ${mobileNavStateClasses} lg:order-1 lg:col-start-1 lg:col-end-2 lg:flex lg:w-full lg:flex-1 lg:max-w-none lg:flex-row lg:flex-nowrap lg:items-center lg:justify-start lg:gap-2 xl:gap-4 2xl:gap-6 lg:border-none lg:pt-0 lg:max-h-none lg:opacity-100 lg:translate-y-0 lg:pointer-events-auto lg:overflow-x-auto lg:overflow-y-visible`}
-          style={{ ...navDynamicStyle, borderColor: softBorder }}
+          className={`order-3 flex w-full flex-col items-center justify-center gap-3 text-center transition-all duration-300 ease-out overflow-hidden ${mobileNavStateClasses} lg:order-1 lg:col-start-1 lg:col-end-2 lg:flex lg:w-full lg:flex-1 lg:max-w-none lg:flex-row lg:flex-nowrap lg:items-center lg:justify-start lg:gap-1.5 xl:gap-3 2xl:gap-4 lg:border-none lg:pt-0 lg:max-h-none lg:opacity-100 lg:translate-y-0 lg:pointer-events-auto lg:min-w-0 lg:overflow-x-auto lg:overflow-y-visible`}
+          style={{ ...navDynamicStyle, borderColor: softBorder, paddingInlineStart: menuOpen ? 0 : navLeftOffset }}
         >
           {navLinks.map((link) => {
             const active = link.isActive(normalizedPath);
@@ -194,7 +195,7 @@ export default function StickyHeader({ theme, forceVisible = false }) {
           })}
           <a
             href="mailto:michaelhanna50@gmail.com"
-            className={`${ctaButtonClass} w-full text-center lg:hidden`}
+            className={`${ctaButtonClass} inline-flex w-full items-center justify-center text-center lg:hidden`}
             style={{ background: accent, color: contactTextColor, border: `1px solid ${accent}` }}
             onClick={handleNavClick}
           >

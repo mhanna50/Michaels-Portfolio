@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Mail, Linkedin, Github, FileUser } from "lucide-react";
+import { Mail, Linkedin, Github } from "lucide-react";
 
 const parseHex = (color) => {
   if (typeof color !== "string") return null;
@@ -48,11 +48,6 @@ const socialLinks = [
     label: "GitHub",
     href: "https://github.com/mhanna50",
     icon: Github,
-  },
-  {
-    label: "Resume",
-    href: "https://github.com/yourusername",
-    icon: FileUser,
   },
 ];
 
@@ -109,8 +104,8 @@ export default function Footer({ mainTheme, theme }) {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="relative mx-auto max-w-6xl px-6 py-16 md:py-20"
       >
-        <div className="flex flex-col gap-14 lg:flex-row lg:items-start lg:justify-between">
-          <div className="max-w-xl space-y-5">
+        <div className="flex flex-col gap-14 md:items-center lg:flex-row lg:items-start lg:justify-between">
+          <div className="max-w-3xl space-y-5 text-left">
             <p className="font-accent uppercase tracking-[0.35em] text-base text-accent-light/70">
               Michael Hanna · Designer & Developer
             </p>
@@ -123,8 +118,8 @@ export default function Footer({ mainTheme, theme }) {
             </p>
           </div>
 
-          <div className="grid gap-12 sm:grid-cols-2 lg:gap-16">
-            <div className="space-y-5 text-left">
+          <div className="grid grid-cols-2 gap-8 sm:gap-12 md:w-full md:max-w-3xl md:gap-12 md:items-stretch md:justify-between md:justify-items-stretch md:mx-auto lg:mx-0 lg:max-w-none lg:gap-16 lg:pl-10">
+            <div className="space-y-5 text-left md:mx-0 md:flex md:h-full md:w-full md:flex-col md:justify-between md:space-y-6 md:py-6">
               <p className="font-accent uppercase tracking-[0.3em] text-base text-accent-light/70">
                 Navigate
               </p>
@@ -141,11 +136,11 @@ export default function Footer({ mainTheme, theme }) {
               </nav>
             </div>
 
-            <div className="space-y-5">
+            <div className="space-y-5 text-left md:mx-0 md:flex md:h-full md:w-full md:flex-col md:justify-between md:space-y-6 md:py-6">
               <p className="font-accent uppercase tracking-[0.3em] text-base text-accent-light/70">
                 Connect
               </p>
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col items-start gap-3">
                 {socialLinks.map(({ label, href, icon: Icon }) => (
                   <a
                     key={label}

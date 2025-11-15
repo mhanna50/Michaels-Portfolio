@@ -18,12 +18,16 @@ export default function BlogPost({ slug, mainTheme, theme }) {
   const activePageTheme = theme?.page ? theme : mainTheme;
   const blogTheme = theme?.blog || mainTheme?.blog;
   const palette = blogTheme?.palette || {};
-  const pageStyle = activePageTheme?.page
-    ? {
-        background: activePageTheme.page.bg,
-        color: activePageTheme.page.text,
-      }
-    : undefined;
+  const pageBackground = blogTheme?.listBg || blogTheme?.bg || activePageTheme?.page?.bg;
+  const pageText = blogTheme?.text || activePageTheme?.page?.text;
+  const pageStyle = withTransition(
+    pageBackground || pageText
+      ? {
+          background: pageBackground,
+          color: pageText,
+        }
+      : undefined,
+  );
   const articleStyle = blogTheme?.cardBg
     ? withTransition({
         background: blogTheme.cardBg,
@@ -75,7 +79,7 @@ export default function BlogPost({ slug, mainTheme, theme }) {
     return (
       <>
         <StickyHeader theme={theme} forceVisible />
-        <main className="min-h-[200dvh] px-6 py-24" style={pageStyle}>
+        <main className="min-h-[200dvh] px-6 pb-24 pt-36 md:pt-44" style={pageStyle}>
           <div
             className={`mx-auto max-w-3xl rounded-[2.5rem] border p-12 text-center shadow-2xl backdrop-blur-sm ${articleFallbackClass}`}
             style={articleStyle}
@@ -109,7 +113,7 @@ export default function BlogPost({ slug, mainTheme, theme }) {
   return (
     <>
       <StickyHeader theme={theme} forceVisible />
-      <main className="min-h-[200dvh] px-6 py-24" style={pageStyle}>
+      <main className="min-h-[200dvh] px-6 pb-24 pt-36 md:pt-44" style={pageStyle}>
         <div className="mx-auto flex max-w-4xl flex-col gap-8">
           <div>
             <Link

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import {
   CheckCircle2,
   Palette,
@@ -40,7 +41,7 @@ const services = [
       ctaLink: "/portfolio/millie-aesthetics",
     },
     pricing: [
-      { label: "Custom website projects", value: "Start at $1,500 (final scope tailored to your needs)" },
+      { label: "Custom website projects", value: "Start at $1,000 (final scope tailored to your needs)" },
     ],
   },
   {
@@ -64,7 +65,7 @@ const services = [
       ctaLink: "/portfolio/personal-portfolio",
     },
     pricing: [
-      { label: "Automation packages", value: "Start at $299/month + one-time setup for custom workflows" },
+      { label: "Automation packages", value: "Start at $199/month + one-time setup for custom workflows" },
     ],
   },
 ];
@@ -345,6 +346,20 @@ export default function ServicesPage({ theme, mainTheme }) {
     jsonLd,
   });
 
+  const createRevealProps = (delay = 0, distance = 48) => ({
+    initial: { opacity: 0, y: distance },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.2 },
+    transition: { duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] },
+  });
+
+  const createItemRevealProps = (index = 0, distance = 28) => ({
+    initial: { opacity: 0, y: distance },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.2 },
+    transition: { duration: 0.55, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] },
+  });
+
   const flagshipServiceIds = ["design", "automation"];
   const flagshipServices = services.filter((service) => flagshipServiceIds.includes(service.id));
   const supportingServices = services.filter((service) => !flagshipServiceIds.includes(service.id));
@@ -363,7 +378,7 @@ export default function ServicesPage({ theme, mainTheme }) {
       <StickyHeader theme={theme} forceVisible />
 
       <section className="flex min-h-[70vh] flex-col justify-center px-6 pt-28 pb-20 lg:pt-36 lg:pb-24" style={heroStyle}>
-        <div className="mx-auto flex max-w-5xl flex-col gap-12 text-left">
+        <motion.div className="mx-auto flex max-w-5xl flex-col gap-12 text-left" {...createRevealProps()}>
           <p className="font-accent text-lg uppercase tracking-[0.5em] md:text-2xl" style={labelStyle}>
             Services
           </p>
@@ -380,28 +395,29 @@ export default function ServicesPage({ theme, mainTheme }) {
               </Button>
             </Link>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       <section className="px-6 py-16 lg:py-20" style={heroStyle} id="services">
         <div className="mx-auto max-w-6xl space-y-12">
-          <div>
+          <motion.div {...createRevealProps(0.05)}>
             <p className="font-accent text-sm uppercase tracking-[0.45em] md:text-base" style={labelStyle}>
               Service overview
             </p>
             <h2 className="mt-3 font-serifalt text-4xl leading-tight md:text-5xl" style={headingStyle}>
               Brand and automation packages tailored to each launch.
             </h2>
-          </div>
+          </motion.div>
           <div
             className={`grid gap-10 ${hasSupportingServices ? "lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)]" : ""}`}
           >
             <div className="grid gap-8 md:grid-cols-2">
-              {flagshipServices.map((service) => {
+              {flagshipServices.map((service, index) => {
                 const Icon = service.icon;
                 return (
-                  <article
+                  <motion.article
                     key={service.id}
+                    {...createItemRevealProps(index)}
                     className="flex h-full flex-col rounded-[32px] border border-white/20 bg-white/5 p-8 shadow-2xl backdrop-blur"
                     style={{ borderColor: borderColors.strong }}
                   >
@@ -429,17 +445,18 @@ export default function ServicesPage({ theme, mainTheme }) {
                     >
                       Explore the deep dive
                     </a>
-                  </article>
+                  </motion.article>
                 );
               })}
             </div>
             {hasSupportingServices && (
               <div className="space-y-8">
-                {supportingServices.map((service) => {
+                {supportingServices.map((service, index) => {
                   const Icon = service.icon;
                   return (
-                    <article
+                    <motion.article
                       key={service.id}
+                      {...createItemRevealProps(index)}
                       className="flex h-full flex-col rounded-[28px] border border-dashed border-white/30 bg-transparent p-6"
                       style={{ borderColor: borderColors.dashed }}
                     >
@@ -472,7 +489,7 @@ export default function ServicesPage({ theme, mainTheme }) {
                       >
                         View delivery details
                       </a>
-                    </article>
+                    </motion.article>
                   );
                 })}
               </div>
@@ -483,16 +500,16 @@ export default function ServicesPage({ theme, mainTheme }) {
 
       <section className="px-6 py-16 lg:py-24" style={heroStyle} id="deep-dive">
         <div className="mx-auto max-w-6xl space-y-12">
-          <div>
+          <motion.div {...createRevealProps(0.08)}>
             <p className="font-accent text-sm uppercase tracking-[0.45em] md:text-base" style={labelStyle}>
               Deep dives
             </p>
             <h2 className="mt-3 font-serifalt text-4xl leading-tight md:text-5xl" style={headingStyle}>
               Problem → solution → benefit for every service.
             </h2>
-          </div>
+          </motion.div>
           <div className="space-y-10">
-            {services.map((service) => {
+            {services.map((service, index) => {
               const Icon = service.icon;
               const portfolioCtaProps = {
                 className:
@@ -501,20 +518,21 @@ export default function ServicesPage({ theme, mainTheme }) {
                 to: "/portfolio",
               };
               return (
-                <article
+                <motion.article
                   key={service.id}
+                  {...createItemRevealProps(index)}
                   id={`${service.id}-deep-dive`}
                   className="rounded-3xl border border-white/15 bg-transparent p-8 shadow-2xl backdrop-blur"
                   style={{ borderColor: borderColors.base }}
                 >
+                  <div className="flex items-center gap-3 pb-6">
+                    <span className="rounded-full border border-white/20 p-3" style={{ borderColor: borderColors.soft }}>
+                      <Icon className="h-6 w-6" style={labelStyle} />
+                    </span>
+                    <h3 className="font-serifalt text-3xl">{service.title}</h3>
+                  </div>
                   <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-stretch">
                     <div className="space-y-6">
-                      <div className="flex items-center gap-3">
-                        <span className="rounded-full border border-white/20 p-3" style={{ borderColor: borderColors.soft }}>
-                          <Icon className="h-6 w-6" style={labelStyle} />
-                        </span>
-                        <h3 className="font-serifalt text-3xl">{service.title}</h3>
-                      </div>
                       <div className="grid gap-4 sm:grid-cols-3">
                         {["problem", "solution", "benefit"].map((key) => (
                           <div
@@ -573,7 +591,7 @@ export default function ServicesPage({ theme, mainTheme }) {
                       </p>
                     </div>
                   </div>
-                </article>
+                </motion.article>
               );
             })}
           </div>
@@ -582,20 +600,21 @@ export default function ServicesPage({ theme, mainTheme }) {
 
       <section className="px-6 py-16 lg:py-20" style={heroStyle} id="value">
         <div className="mx-auto max-w-6xl space-y-10">
-          <div>
+          <motion.div {...createRevealProps(0.1)}>
             <p className="font-accent text-sm uppercase tracking-[0.45em] md:text-base" style={labelStyle}>
               Why choose me
             </p>
             <h2 className="mt-3 font-serifalt text-4xl leading-tight md:text-5xl" style={headingStyle}>
               End-to-end delivery, automation expertise, and measurable outcomes.
             </h2>
-          </div>
+          </motion.div>
           <div className="grid gap-6 md:grid-cols-2">
-            {valueProps.map((prop) => {
+            {valueProps.map((prop, index) => {
               const Icon = prop.icon;
               return (
-                <div
+                <motion.div
                   key={prop.title}
+                  {...createItemRevealProps(index)}
                   className="rounded-3xl border border-white/15 bg-transparent p-6"
                   style={{ borderColor: borderColors.base }}
                 >
@@ -613,18 +632,20 @@ export default function ServicesPage({ theme, mainTheme }) {
                   <p className="mt-3 text-sm" style={mutedStyle}>
                     {prop.description}
                   </p>
-                </div>
+                </motion.div>
               );
             })}
           </div>
-          <div
+          <motion.div
             className="rounded-3xl border border-white/15 bg-transparent p-6"
             style={{ borderColor: borderColors.base }}
+            {...createRevealProps(0.18)}
           >
             <div className="grid gap-6 md:grid-cols-2">
-              {comparisonPoints.map((point) => (
-                <div
+              {comparisonPoints.map((point, index) => (
+                <motion.div
                   key={point.attribute}
+                  {...createItemRevealProps(index)}
                   className="rounded-2xl border border-white/15 bg-transparent p-5"
                   style={{ borderColor: borderColors.base }}
                 >
@@ -640,29 +661,30 @@ export default function ServicesPage({ theme, mainTheme }) {
                   >
                     Typical alternative: {point.others}
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       <section className="px-6 py-16 lg:py-20" style={heroStyle} id="process">
         <div className="mx-auto max-w-6xl space-y-10">
-          <div>
-            <p className="font-accent text-xs uppercase tracking-[0.45em]" style={labelStyle}>
+          <motion.div {...createRevealProps(0.15)}>
+            <p className="font-accent text-sm uppercase tracking-[0.45em] md:text-base" style={labelStyle}>
               Process
             </p>
             <h2 className="mt-3 font-serifalt text-4xl leading-tight md:text-5xl" style={headingStyle}>
               One five-step playbook that adapts to every service.
             </h2>
-          </div>
+          </motion.div>
           <div className="grid gap-6 md:grid-cols-5">
             {processSteps.map((step, index) => {
               const Icon = step.icon;
               return (
-                <div
+                <motion.div
                   key={step.title}
+                  {...createItemRevealProps(index)}
                   className="rounded-3xl border border-white/10 bg-white/5 p-5"
                   style={{ borderColor: borderColors.soft }}
                 >
@@ -679,7 +701,7 @@ export default function ServicesPage({ theme, mainTheme }) {
                   <p className="mt-3 text-xs font-accent uppercase tracking-[0.35em]" style={labelStyle}>
                     {step.timeframe}
                   </p>
-                </div>
+                </motion.div>
               );
             })}
           </div>
@@ -688,8 +710,8 @@ export default function ServicesPage({ theme, mainTheme }) {
 
       <section className="px-6 py-16 lg:py-20" style={heroStyle}>
         <div className="mx-auto max-w-6xl space-y-12">
-          <div className="space-y-6">
-            <p className="font-accent text-xs uppercase tracking-[0.45em]" style={labelStyle}>
+          <motion.div className="space-y-6" {...createRevealProps(0.2)}>
+            <p className="font-accent text-sm uppercase tracking-[0.45em] md:text-base" style={labelStyle}>
               Testimonials
             </p>
             <div className="space-y-4">
@@ -715,7 +737,7 @@ export default function ServicesPage({ theme, mainTheme }) {
                       ref={(el) => {
                         testimonialRefs.current[index] = el;
                       }}
-                      className="flex h-full flex-col gap-3 p-8"
+                      className="flex h-full flex-col justify-center gap-3 p-8"
                       style={{ height: `${testimonialHeight}px` }}
                     >
                       <p className="text-lg leading-relaxed" style={headingStyle}>
@@ -760,26 +782,27 @@ export default function ServicesPage({ theme, mainTheme }) {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       <section className="px-6 py-16 lg:py-20" style={heroStyle} id="faq">
         <div className="mx-auto max-w-5xl space-y-6">
-          <div>
-            <p className="font-accent text-xs uppercase tracking-[0.45em]" style={labelStyle}>
+          <motion.div {...createRevealProps(0.25)}>
+            <p className="font-accent text-sm uppercase tracking-[0.45em] md:text-base" style={labelStyle}>
               FAQ
             </p>
             <h2 className="mt-3 font-serifalt text-4xl leading-tight md:text-5xl" style={headingStyle}>
               Answers before we even hop on a call.
             </h2>
-          </div>
+          </motion.div>
           <div className="space-y-4">
-            {faqs.map((faq) => (
-              <details
+            {faqs.map((faq, index) => (
+              <motion.details
                 key={faq.question}
                 className="group rounded-3xl border border-white/10 bg-white/5 p-5"
                 style={{ borderColor: borderColors.soft }}
+                {...createItemRevealProps(index)}
               >
                 <summary className="flex cursor-pointer list-none items-center justify-between font-serifalt text-xl">
                   <span>{faq.question}</span>
@@ -788,17 +811,21 @@ export default function ServicesPage({ theme, mainTheme }) {
                     <span className="hidden group-open:inline">-</span>
                   </span>
                 </summary>
-                <p className="mt-3 text-sm leading-relaxed" style={mutedStyle}>
-                  {faq.answer}
-                </p>
-              </details>
+                <div className="grid grid-rows-[0fr] transition-all duration-300 ease-in-out group-open:grid-rows-[1fr]">
+                  <div className="overflow-hidden">
+                    <p className="mt-3 text-sm leading-relaxed" style={mutedStyle}>
+                      {faq.answer}
+                    </p>
+                  </div>
+                </div>
+              </motion.details>
             ))}
           </div>
         </div>
       </section>
 
       <section className="flex items-center px-6 py-24 lg:py-32" style={heroStyle}>
-        <div className="mx-auto flex max-w-4xl flex-col items-center justify-center gap-5 text-center">
+        <motion.div className="mx-auto flex max-w-4xl flex-col items-center justify-center gap-5 text-center" {...createRevealProps(0.3)}>
           <p className="font-serifalt text-4xl leading-tight md:text-5xl" style={headingStyle}>
             Ready to start your project?
           </p>
@@ -823,7 +850,7 @@ export default function ServicesPage({ theme, mainTheme }) {
               Book a Call
             </a>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       <Footer theme={theme} mainTheme={mainTheme} />

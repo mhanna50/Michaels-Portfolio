@@ -12,11 +12,17 @@ const chunkHighlights = (items) => {
 };
 
 const HighlightCard = ({ heading, subtext, headingColor, bodyColor }) => (
-  <div className="space-y-2 text-left px-2 py-3">
-    <p className="font-serifalt text-3xl leading-tight" style={{ color: headingColor }}>
+  <div className="w-full leading-tight space-y-0.5 text-left px-2 py-3">
+    <p
+      className="font-accent uppercase text-xl text-black scale-y-100"
+      style={{ color: headingColor }}
+    >
       {heading}
     </p>
-    <p className="font-serifalt text-base leading-relaxed" style={{ color: bodyColor }}>
+    <p
+      className="font-serifalt text-base text-neutral line-clamp-2"
+      style={{ color: bodyColor }}
+    >
       {subtext}
     </p>
   </div>
