@@ -207,7 +207,6 @@ export default function ServicesPage({ theme, mainTheme }) {
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const testimonialRefs = useRef([]);
   const [testimonialHeight, setTestimonialHeight] = useState(320);
-  const [expandedFaq, setExpandedFaq] = useState(null);
   const totalTestimonials = testimonials.length;
 
   useEffect(() => {
@@ -716,7 +715,8 @@ export default function ServicesPage({ theme, mainTheme }) {
                       ref={(el) => {
                         testimonialRefs.current[index] = el;
                       }}
-                      className="flex h-full flex-col justify-center gap-4 p-8"
+                      className="flex h-full flex-col gap-3 p-8"
+                      style={{ height: `${testimonialHeight}px` }}
                     >
                       <p className="text-lg leading-relaxed" style={headingStyle}>
                         “{testimonial.quote}”
@@ -775,46 +775,25 @@ export default function ServicesPage({ theme, mainTheme }) {
             </h2>
           </div>
           <div className="space-y-4">
-            {faqs.map((faq) => {
-              const faqId = `faq-${faq.question.replace(/\s+/g, "-").toLowerCase()}`;
-              return (
-              <div
+            {faqs.map((faq) => (
+              <details
                 key={faq.question}
-                className="rounded-3xl border border-white/10 bg-white/5 p-5"
+                className="group rounded-3xl border border-white/10 bg-white/5 p-5"
                 style={{ borderColor: borderColors.soft }}
               >
-                <button
-                  type="button"
-                  className="flex w-full cursor-pointer items-center justify-between font-serifalt text-xl"
-                  onClick={() =>
-                    setExpandedFaq((prev) => (prev === faq.question ? null : faq.question))
-                  }
-                  style={{ color: headingStyle.color }}
-                  aria-expanded={expandedFaq === faq.question}
-                  aria-controls={faqId}
-                >
+                <summary className="flex cursor-pointer list-none items-center justify-between font-serifalt text-xl">
                   <span>{faq.question}</span>
                   <span className="ml-4 text-2xl font-semibold leading-none">
-                    {expandedFaq === faq.question ? "-" : "+"}
+                    <span className="inline group-open:hidden">+</span>
+                    <span className="hidden group-open:inline">-</span>
                   </span>
-                </button>
-                <div
-                  id={faqId}
-                  className="grid transition-[grid-template-rows] duration-300 ease-out"
-                  style={{
-                    gridTemplateRows: expandedFaq === faq.question ? "1fr" : "0fr",
-                  }}
-                >
-                  <div className="overflow-hidden">
-                    <p className="mt-3 text-sm leading-relaxed" style={mutedStyle}>
-                      {faq.answer}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            );
-            })}
-         </div>
+                </summary>
+                <p className="mt-3 text-sm leading-relaxed" style={mutedStyle}>
+                  {faq.answer}
+                </p>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
 
