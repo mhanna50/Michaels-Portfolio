@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import heroHighlights from '@/data/heroHighlights';
 
 const detailVariants = {
   open: { height: 'auto', opacity: 1, transition: { duration: 0.35, ease: 'easeOut' } },
@@ -17,7 +18,7 @@ const statCards = [
   {
     id: 'build',
     heading: '10+',
-    subtext: 'Websites Delivered',
+    subtext: 'Websites Built',
     detailBody:
       'Each build comes with clear next steps, short walkthrough videos, and organized files so updates never feel overwhelming.',
     delay: 0.4,
@@ -109,38 +110,6 @@ const StatCard = ({
   );
 };
 
-const bottomBannerCards = [
-  {
-    id: 'built',
-    heading: 'Built Using',
-    subtext:
-      'Hand-built on a reliable modern stack, so updates are smooth and future changes stay affordable.',
-    delay: 1.3,
-  },
-  {
-    id: 'hood',
-    heading: 'Under the Hood',
-    subtext:
-      'The color palette gently follows the local weather, giving visitors a fresh, timely feel.',
-    delay: 1.4,
-    showDivider: true,
-  },
-  {
-    id: 'ai',
-    heading: 'AI is Used',
-    subtext: 'A lightweight AI recap keeps blog highlights tidy without replacing my own writing.',
-    delay: 1.5,
-    showDivider: true,
-  },
-  {
-    id: 'skills',
-    heading: 'My Skillset',
-    subtext: 'You get a site that loads fast, shows up in search, and speaks to real people.',
-    delay: 1.6,
-    showDivider: true,
-  },
-];
-
 const ResultCard = ({ heading, subtext, delay, showDivider = false }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
@@ -154,7 +123,7 @@ const ResultCard = ({ heading, subtext, delay, showDivider = false }) => (
   >
     <div className="w-full leading-tight space-y-0.5 text-left">
       <p className="font-accent uppercase text-xl md:text-xl text-black scale-y-100">{heading}</p>
-      <p className="font-serifalt text-md text-neutral line-clamp-2">{subtext}</p>
+      <p className="font-serifalt text-base text-neutral line-clamp-2">{subtext}</p>
     </div>
   </motion.div>
 );
@@ -164,10 +133,10 @@ const BottomBanner = ({ wrapperClass = '' }) => (
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.8, delay: 1.2 }}
-    className={`w-full max-w-[1250px] ${wrapperClass}`}
+    className={`w-full max-w-full desktop:w-[1200px] desktop:max-w-[1200px] desktop:min-w-[1200px] mx-auto ${wrapperClass}`}
   >
     <div className="grid grid-cols-2 phone:grid-cols-2 tablet:grid-cols-4 desktop:grid-cols-4 gap-8 phone:gap-6 tablet:gap-4 desktop:gap-0 items-stretch text-left phone:divide-y phone:divide-primary-dark/40 tablet:divide-y-0 tablet:divide-x tablet:divide-primary-dark/40 desktop:divide-x desktop:divide-primary-dark/40">
-      {bottomBannerCards.map((card) => (
+      {heroHighlights.map((card) => (
         <ResultCard
           key={card.id}
           heading={card.heading}
@@ -237,8 +206,8 @@ export default function HeroSection({ mainTheme }) {
             </h1>
 
             <div className="h-[144px] tablet:h-auto tablet:w-full tablet:max-w-[720px] tablet:pr-2">
-              <p className="font-serifalt font-thin text-black text-left text-3xl tablet:text-[clamp(1.7rem,2.8vw,1.9rem)] leading-[1.15] tracking-tight h-full scale-y-110 tablet:text-left tablet:line-clamp-4 tablet:break-normal">
-                That design's websites and automates systems to help businesses grow while eliminating busy work.
+              <p className="font-serifalt font-thin text-black text-left text-3xl tablet:text-[clamp(1.7rem,2.8vw,1.9rem)] leading-[1.15] tracking-tight h-full scale-y-110 tablet:text-left tablet:line-clamp-3 tablet:break-normal">
+                That design's websites and automates systems to help businesses grow while erasing <br></br>busy work.
               </p>
             </div>
 
@@ -349,7 +318,7 @@ export default function HeroSection({ mainTheme }) {
 
       {/* Bottom Banner for desktop */}
       <div className="w-full hidden desktop:flex justify-center z-20 mt-auto pt-6">
-        <BottomBanner wrapperClass="px-6 pt-6 pb-0" />
+        <BottomBanner wrapperClass="px-6 pt-6 pb-0 desktop:px-0" />
       </div>
     </section>
   );

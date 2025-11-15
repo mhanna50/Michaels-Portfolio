@@ -112,13 +112,13 @@ export default function Footer({ mainTheme, theme }) {
         <div className="flex flex-col gap-14 lg:flex-row lg:items-start lg:justify-between">
           <div className="max-w-xl space-y-5">
             <p className="font-accent uppercase tracking-[0.35em] text-base text-accent-light/70">
-              Michael Hanna · Portfolio
+              Michael Hanna · Designer & Developer
             </p>
             <h2 className="font-serifalt text-4xl leading-tight text-white md:text-[2.8rem]">
               Let&apos;s connect—whether you&apos;re growing a business, refreshing a brand, or just exploring ideas.
             </h2>
             <p className="font-serifalt text-base leading-relaxed text-accent-light/80">
-              I guide projects from brainstorming to launch, explaining every step so you always know how your website is
+              I guide projects from brainstorming to launch, explaining every step so you always know how your website and automations are
               helping the business.
             </p>
           </div>

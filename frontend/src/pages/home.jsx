@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import HeroSection from '../components/HomeSections/HeroSection';
+import HeroHighlightsSlider from '../components/HeroHighlightsSlider';
 import AboutSection from '../components/HomeSections/AboutSection';
 import PortfolioSection from '../components/HomeSections/PortfolioSection';
 import CertificationsSection from '../components/HomeSections/CertificationsSection';
@@ -51,6 +52,7 @@ export default function Home({ weather, theme, mainTheme }) {
     <div className="min-h-screen" style={pageStyle}>
       <StickyHeader theme={theme} forceVisible={forceHeaderVisible} />
       <HeroSection mainTheme={mainTheme} />
+      <HeroHighlightsSlider heroTheme={mainTheme?.hero} />
       <AboutSection weather={weather} theme={theme} />
       <PortfolioSection theme={theme} />
       <CertificationsSection theme={theme} />

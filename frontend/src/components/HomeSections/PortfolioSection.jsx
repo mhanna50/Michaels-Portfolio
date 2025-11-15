@@ -11,14 +11,14 @@ const featuredProjects = [
     title: 'This Portfolio',
     category: 'Website Design & Launch',
     description:
-      'My own site built to mirror the process clients experience—from kickoff chat to hand-off videos and training clips.',
-    highlights: ['4-week build with weekly owner check-ins', 'Fully custom coded with easy-to-edit content blocks'],
+      'A personal business site that offers website and automation services, showcases past work, and partner testimonials.',
+    highlights: ['4-week build time', 'Fully custom coded with content blocks and themes'],
     liveUrl: 'https://search-symphony.example.com',
     caseStudyUrl: '/portfolio/personal-portfolio',
     cover: 'https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=1400&q=80',
     testimonial: {
       type: 'quote',
-      quote: 'Building my own site reminded me to explain every decision in simple steps—just like I do with clients.',
+      quote: 'Building my own website helps me better support clients by understanding their perspective.',
       author: 'Michael Hanna · Designer & Developer',
     },
   },
@@ -26,8 +26,8 @@ const featuredProjects = [
     title: 'Millie Aesthetics',
     category: 'Website Design & Launch',
     description:
-      'Plain-language service pages and direct booking links for a med spa, paired with a calming new visual identity.',
-    highlights: ['3-week build with shared Trello board', 'WordPress + drag-and-drop editor for quick updates'],
+      'A clean, graytoned site for a medical spa that highlights their restorative and grounded services with updated branding',
+    highlights: ['2-week build', 'WordPress site with SEO setup'],
     liveUrl: 'https://studio-palette.example.com',
     caseStudyUrl: '/portfolio/millie-aesthetics',
     cover: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1400&q=80',
@@ -41,14 +41,14 @@ const featuredProjects = [
     title: 'American Craftsman LLC',
     category: 'Website Design & Launch',
     description:
-      'Refreshed brand story, SEO basics, and a portfolio-forward site for a local contractor focused on craftsmanship.',
-    highlights: ['5-week project with on-site photo support', 'Built in Framer with copy blocks the team can update'],
+      'Refreshed brand story, SEO optimization, and a portfolio-forward site for a local contractor focused on craftsmanship.',
+    highlights: ['5-week project', 'Framer built with a fully custom design'],
     liveUrl: 'https://americancraftsmanllc.com',
     caseStudyUrl: '/portfolio/american-craftsman',
     cover: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1400&q=80',
     testimonial: {
       type: 'quote',
-      quote: 'Prospects finally understand what we do before we even pick up the phone.',
+      quote: 'Our new website looks great. Mike was fun to work with. He is creative, and his work is meticulous. I’m looking forward to future projects together.',
       author: 'American Craftsman · Owner & Lead Contractor',
     },
   },
@@ -625,7 +625,7 @@ export default function PortfolioSection({ theme, showDeepDive = false }) {
               className={`max-w-3xl font-serifalt text-lg ${mutedFallbackClass}`}
               style={mutedStyle}
             >
-              Each example pairs thoughtful design with practical steps like content planning, testing, and training so you can run the site with confidence.
+              
             </p>
             <div className="flex flex-col gap-3 md:ml-5 md:flex-row md:items-center md:self-end">
               <a href="mailto:michaelhanna@gmail.com">

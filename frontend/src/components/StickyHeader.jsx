@@ -146,22 +146,22 @@ export default function StickyHeader({ theme, forceVisible = false }) {
               style={{ color: text, borderColor: softBorder }}
               onClick={toggleMenu}
             >
-              <span className="relative flex h-5 w-6 flex-col justify-between">
+              <span className="relative block h-5 w-6">
                 <span
-                  className={`block h-[2px] w-full rounded-full transition-all duration-300 ${
-                    menuOpen ? 'translate-y-[6px] rotate-45' : ''
+                  className={`absolute left-0 block h-[2px] w-full rounded-full transition-all duration-300 ${
+                    menuOpen ? 'top-1/2 -translate-y-1/2 rotate-45' : 'top-0'
                   }`}
                   style={{ backgroundColor: text }}
                 />
                 <span
-                  className={`block h-[2px] w-full rounded-full transition-all duration-300 ${
+                  className={`absolute left-0 block h-[2px] w-full rounded-full transition-all duration-300 top-1/2 -translate-y-1/2 ${
                     menuOpen ? 'opacity-0' : 'opacity-100'
                   }`}
                   style={{ backgroundColor: text }}
                 />
                 <span
-                  className={`block h-[2px] w-full rounded-full transition-all duration-300 ${
-                    menuOpen ? '-translate-y-[6px] -rotate-45' : ''
+                  className={`absolute left-0 block h-[2px] w-full rounded-full transition-all duration-300 ${
+                    menuOpen ? 'top-1/2 -translate-y-1/2 -rotate-45' : 'bottom-0'
                   }`}
                   style={{ backgroundColor: text }}
                 />
@@ -171,7 +171,7 @@ export default function StickyHeader({ theme, forceVisible = false }) {
         </div>
         <nav
           id="sticky-header-nav"
-          className={`order-3 flex w-full flex-col items-center gap-1 sm:gap-1.5 transition-all duration-300 ease-out overflow-hidden ${mobileNavStateClasses} lg:order-1 lg:col-start-1 lg:col-end-2 lg:flex lg:w-full lg:flex-1 lg:max-w-none lg:flex-row lg:flex-wrap lg:items-center lg:justify-start lg:gap-2 xl:gap-4 2xl:gap-6 lg:border-none lg:pt-0 lg:max-h-none lg:opacity-100 lg:translate-y-0 lg:pointer-events-auto lg:overflow-visible`}
+          className={`order-3 flex w-full flex-col items-center gap-1 sm:gap-1.5 transition-all duration-300 ease-out overflow-hidden ${mobileNavStateClasses} lg:order-1 lg:col-start-1 lg:col-end-2 lg:flex lg:w-full lg:flex-1 lg:max-w-none lg:flex-row lg:flex-nowrap lg:items-center lg:justify-start lg:gap-2 xl:gap-4 2xl:gap-6 lg:border-none lg:pt-0 lg:max-h-none lg:opacity-100 lg:translate-y-0 lg:pointer-events-auto lg:overflow-x-auto lg:overflow-y-visible`}
           style={{ ...navDynamicStyle, borderColor: softBorder }}
         >
           {navLinks.map((link) => {

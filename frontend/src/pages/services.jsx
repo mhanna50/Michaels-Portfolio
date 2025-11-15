@@ -21,51 +21,50 @@ import usePageMetadata from "@/hooks/usePageMetadata";
 const services = [
   {
     id: "design",
-    title: "Brand & Web Design",
+    title: "Web Design & Branding & SEO",
     icon: Palette,
     summary:
-      "Systems-driven design that translates your brand voice into flexible UI libraries, messaging, and content blocks.",
-    deliverables: ["Brand + UI systems", "Responsive layouts & prototypes", "Accessibility + QA"],
-      detail: {
-        problem: "Most marketing sites feel disjointed because design sprints stop at pretty mockups.",
-        solution:
-          "I audit the journey, map decisions, and build annotated Figma systems so every page, state, and component is reusable.",
-        benefit: "Your team ships faster with visual consistency and messaging that mirrors what customers actually need.",
-        useCases: [
-          "Launch-ready marketing site with modular hero, offer, and proof sections.",
-          "Design ops cleanup covering tokens, typography, and QA workflows for distributed teams.",
-          "Brand refresh with playbooks for content, imagery, and motion.",
-        ],
-        ctaLink: "/portfolio/millie-aesthetics",
-      },
+      "Design that translates your brand voice into visually appealing UI, messaging, and content.",
+    deliverables: ["Brand + UI systems", "Responsive layouts", "Accessibility + Discoverability"],
+    detail: {
+      problem:
+        "An outdated or DIY site, inconsistent branding, or zero Google visibility chips away at trust so leads leave before reaching out.",
+      solution:
+        "I create a modern, custom site with clear messaging, cohesive branding, and SEO basics so people can find you and know exactly how to contact you.",
+      benefit:
+        "You look professional, attract better-fit clients, build trust quickly, and turn more visitors into inquiries or bookings.",
+      useCases: [
+        "Med spa upgrades a basic template into a polished site with services, proof, and online booking—resulting in steady inquiries.",
+        "Local contractor refreshes branding and adds SEO-friendly service pages so nearby homeowners call without needing referrals.",
+      ],
+      ctaLink: "/portfolio/millie-aesthetics",
+    },
     pricing: [
-      { label: "Brand system intensive", value: "$4.5K+" },
-      { label: "Launch-ready site build", value: "$8K–$12K" },
+      { label: "Custom website projects", value: "Start at $1,500 (final scope tailored to your needs)" },
     ],
   },
   {
     id: "automation",
-    title: "Automations & Ops",
+    title: "Automations",
     icon: Workflow,
     summary:
-      "Low-code plus custom scripts that remove busywork, sync data, and trigger actions when teams need them.",
-    deliverables: ["Process mapping", "Zapier/Make builds", "Analytics & AI copilots"],
-      detail: {
-        problem: "Teams waste hours updating CRMs, compiling reports, and nudging stakeholders manually.",
-        solution:
-          "We blueprint the workflow, set guardrails, then wire the right mix of Zapier, Make, Supabase, and light APIs.",
-        benefit:
-          "Ops, sales, and marketing see the same data, automations stay documented, and leadership gets real-time dashboards.",
-        useCases: [
-          "Nurture automation that syncs leads, Slack alerts, and personalized follow-ups.",
-          "Revenue dashboard pulling GA4, Stripe, and warehouse data into one command center.",
-          "Internal AI copilots that summarize briefs, QA pull requests, or prep reports.",
-        ],
-        ctaLink: "/portfolio/personal-portfolio",
-      },
+      "Low-code plus custom workflows that remove busywork, perform tasks, and trigger actions when teams need them.",
+    deliverables: ["General Autmations", "Zapier/Make builds", "Analytics & AI copilots"],
+    detail: {
+      problem:
+        "You're juggling calls, leads, reminders, and admin tasks manually, so follow-ups slip and the to-do list keeps you up at night.",
+      solution:
+        "I set up always-on automations—AI receptionist, follow-up flows, reminders, and admin workflows—that quietly handle the busywork for you.",
+      benefit:
+        "You get more time, less stress, fewer missed opportunities, and a clearer view of what's happening inside your business.",
+      useCases: [
+        "Contractor automatically responds to every inquiry, books estimates without phone tag, and keeps clients updated through each step.",
+        "Med spa greets website leads instantly, confirms appointments, and nudges no-shows without anyone on the team chasing them.",
+      ],
+      ctaLink: "/portfolio/personal-portfolio",
+    },
     pricing: [
-      { label: "Automation sprint", value: "$3K+" },
-      { label: "Ops enablement retainer", value: "$2K+/mo" },
+      { label: "Automation packages", value: "Start at $299/month + one-time setup for custom workflows" },
     ],
   },
 ];
@@ -73,81 +72,81 @@ const services = [
 const valueProps = [
   {
     icon: Sparkles,
-    title: "Conversion-led creative",
-    description: "Messaging, UX, and art direction stay rooted in research so every design move ties back to revenue.",
-    stat: "98% satisfaction",
+    title: "One partner start to finish",
+    description: "Strategy, copy, design, build, and automation happen with the same point of contact—no juggling agencies.",
+    stat: "Hands-on partner",
   },
   {
     icon: ShieldCheck,
-    title: "Documented delivery",
-    description: "Every engagement ships with artifacts—Figma kits, repos, SOPs—so your team can own the work on day one.",
-    stat: "24-hour response",
+    title: "Documented systems",
+    description: "Loom walk-throughs, checklists, and editable files mean you own the site and automations on day one.",
+    stat: "Own it all",
   },
   {
     icon: Gauge,
-    title: "Performance obsessed",
-    description: "Budgets for speed, accessibility, and SEO live in the scope, not the backlog.",
-    stat: "<1s LCP targets",
+    title: "Steady progress",
+    description: "Weekly updates and quick replies keep the work moving without long pauses or guesswork.",
+    stat: "Weekly check-ins",
   },
   {
     icon: Users,
-    title: "Embedded collaboration",
-    description: "I partner directly with founders, marketing, or ops teams—no account managers or hand-offs.",
-    stat: "20+ launches",
+    title: "Plain-language collaboration",
+    description: "We talk like real people, focus on outcomes, and make decisions without jargon.",
+    stat: "No jargon",
   },
 ];
 
 const comparisonPoints = [
   {
-    attribute: "Team structure",
-    me: "One partner handling design, code, and automation loops with shared context.",
-    others: "Multiple freelancers + extra project management overhead.",
+    attribute: "Communication",
+    me: "Weekly Loom recaps and a shared task board so you always know what's done and what's next.",
+    others: "Long silences and vague updates until you chase someone down.",
   },
   {
-    attribute: "Strategy",
-    me: "Discovery, measurement planning, and experimentation are baked into the engagement.",
-    others: "Strategy sold separately or skipped entirely.",
+    attribute: "Scope",
+    me: "Design, build, and automations are scoped together so nothing falls between teams.",
+    others: "Different vendors for each task, which means slower timelines and extra costs.",
   },
   {
-    attribute: "Speed",
-    me: "Weekly sprints with live Loom updates, async stand-ups, and transparent backlog.",
-    others: "Bi-weekly check-ins and surprise scope creep.",
+    attribute: "Handoff",
+    me: "Every workflow ships with SOPs, logins, and documentation stored in your accounts.",
+    others: "You get screenshots and a goodbye email with no clear way to maintain the work.",
   },
   {
-    attribute: "Automation",
-    me: "Delivery includes Zapier/Make blueprints, AI copilots, and monitoring.",
-    others: "Manual hand-offs that require new tools later.",
+    attribute: "Support",
+    me: "Fast answers and small fixes even after launch so momentum continues.",
+    others: "Support tickets and delays for even tiny changes.",
   },
 ];
 
 const processSteps = [
   {
-    title: "Align",
-    detail: "Kickoff workshop that defines goals, guardrails, and KPIs for design, dev, and ops in one brief.",
-    timeframe: "Days 1–3",
+    title: "Kickoff roadmap",
+    detail: "We spend a focused session clarifying offers, goals, and what success looks like in plain language.",
+    timeframe: "Days 1-2",
     icon: Compass,
   },
   {
-    title: "Blueprint",
-    detail: "Journey maps, system architecture, and automation diagrams so every service shares the same playbook.",
+    title: "Blueprint & content",
+    detail: "I map site structure, messaging, and workflow steps so you can react quickly without digging through docs.",
     timeframe: "Week 1",
     icon: PenTool,
   },
   {
-    title: "Co-create",
-    detail: "Async reviews on copy, UI, and workflow logic so decisions stick before we ever open the code editor.",
-    timeframe: "Week 1–2",
+    title: "Co-create visuals",
+    detail: "You review real layouts, copy, and automation diagrams through async Looms or short calls.",
+    timeframe: "Week 1-2",
     icon: Users,
   },
   {
-    title: "Build & Automate",
-    detail: "Components, integrations, and automations stand up together with QA and documentation baked in.",
-    timeframe: "Week 2–4",
+    title: "Build & automate",
+    detail: "I handle the site, components, and automations while you track progress in one shared checklist.",
+    timeframe: "Weeks 2-3",
     icon: Code2,
   },
   {
-    title: "Launch & Optimize",
-    detail: "Instrumentation, training, and experiment plans keep improvements rolling long after hand-off.",
+    title: "Launch & support",
+    detail: "Testing, training, and light support help you run everything confidently after go-live.",
     timeframe: "Week 4+",
     icon: Rocket,
   },
@@ -170,45 +169,36 @@ const testimonials = [
   },
 ];
 
-const clientLogos = [
-  "Millie Aesthetics",
-  "Atlas Robotics",
-  "Northwind Commerce",
-  "Harbor Studio",
-  "Loop Collective",
-  "Beacon Ops",
-];
-
 const faqs = [
   {
     question: "How do projects kick off?",
     answer:
-      "We start with a discovery call, then a focused workshop to confirm goals, KPIs, and deliverables. A detailed plan follows within 3 business days.",
+      "We start with a planning call to confirm your goals, audience, and priorities. Within a couple of days you get a simple roadmap so you know what happens first.",
   },
   {
-    question: "What are your pricing models?",
+    question: "How long does everything take?",
     answer:
-      "Most work is project-based or on a monthly retainer. Sprints for audits or prototypes start at $3K, multi-channel launches typically range $8–25K.",
+      "Most website plus automation builds wrap in 4-6 weeks. Smaller automation-only packages can launch sooner. You get weekly updates either way.",
   },
   {
-    question: "How many revisions are included?",
+    question: "Do I need to be technical?",
     answer:
-      "Each milestone has a feedback window with structured async reviews plus one live session. Because we iterate together, revisions stay tight.",
+      "Nope. I translate every decision into plain language and show you short Looms so you can review without wading through jargon.",
   },
   {
-    question: "Who owns the files and code?",
+    question: "How many revisions do we get?",
     answer:
-      "You do. Figma, repos, automation diagrams, and SOPs are transferred to your accounts with documentation and walk-through Looms.",
+      "Each milestone includes async comments plus at least one live session. We keep adjusting until the agreed scope matches what you need.",
   },
   {
-    question: "Which tools and stacks do you use?",
+    question: "Who owns the files and logins?",
     answer:
-      "React/Vite, WordPress/Elementor, Framer, Supabase, Zapier, Make, Airtable, GA4, and OpenAI-powered copilots depending on the brief.",
+      "You do. Sites, automations, brand files, and SOPs live in your accounts with notes on how to make updates later.",
   },
   {
-    question: "Can you work with in-house teams?",
+    question: "Can you work with my existing team?",
     answer:
-      "Absolutely. I regularly embed with marketing, product, and ops teams as an extension of the crew—Slack, stand-ups, and all.",
+      "Absolutely. I'm comfortable joining your Slack, meeting cadence, or project tools so everything feels like one team instead of another vendor.",
   },
 ];
 
@@ -216,7 +206,8 @@ export default function ServicesPage({ theme, mainTheme }) {
   const [origin, setOrigin] = useState("");
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const testimonialRefs = useRef([]);
-  const [testimonialHeight, setTestimonialHeight] = useState(360);
+  const [testimonialHeight, setTestimonialHeight] = useState(320);
+  const [expandedFaq, setExpandedFaq] = useState(null);
   const totalTestimonials = testimonials.length;
 
   useEffect(() => {
@@ -233,7 +224,7 @@ export default function ServicesPage({ theme, mainTheme }) {
     const updateHeight = () => {
       const nodes = testimonialRefs.current || [];
       const heights = nodes.map((node) => node?.scrollHeight || 0).filter((height) => height > 0);
-      const tallest = heights.length ? Math.max(...heights) : 320;
+      const tallest = heights.length ? Math.max(...heights) : 300;
       setTestimonialHeight((prev) => {
         if (Math.abs(prev - tallest) <= 2) return prev;
         return tallest;
@@ -267,6 +258,8 @@ export default function ServicesPage({ theme, mainTheme }) {
 
   const isNightTheme =
     theme?.page?.bg && mainTheme?.page?.bg ? theme.page.bg === mainTheme.page.bg : false;
+  const themeAccentHex = (theme?.accent || "").toLowerCase();
+  const isCloudyTheme = themeAccentHex === "#7a8896";
 
   const getTone = (nightValue, dayValue) => (isNightTheme ? nightValue : dayValue);
 
@@ -287,13 +280,23 @@ export default function ServicesPage({ theme, mainTheme }) {
   const subtleTextStyle = {
     color: getTone("rgba(246,248,246,0.62)", "#4b5563"),
   };
-  const borderColors = {
+  const defaultBorderColors = {
     strong: getTone("rgba(255,255,255,0.28)", "rgba(47,42,36,0.35)"),
     base: getTone("rgba(255,255,255,0.2)", "rgba(47,42,36,0.28)"),
     soft: getTone("rgba(255,255,255,0.14)", "rgba(47,42,36,0.22)"),
     faint: getTone("rgba(255,255,255,0.1)", "rgba(47,42,36,0.18)"),
     dashed: getTone("rgba(255,255,255,0.24)", "rgba(47,42,36,0.32)"),
   };
+  const cloudyBorderOverrides = isCloudyTheme
+    ? {
+        strong: "rgba(255,255,255,0.55)",
+        base: "rgba(255,255,255,0.4)",
+        soft: "rgba(255,255,255,0.28)",
+        faint: "rgba(255,255,255,0.22)",
+        dashed: "rgba(255,255,255,0.45)",
+      }
+    : {};
+  const borderColors = { ...defaultBorderColors, ...cloudyBorderOverrides };
 
   const buttonBg = palette?.buttonBg || palette?.button?.bg || palette?.accent || "#111827";
   const buttonText =
@@ -388,7 +391,7 @@ export default function ServicesPage({ theme, mainTheme }) {
               Service overview
             </p>
             <h2 className="mt-3 font-serifalt text-4xl leading-tight md:text-5xl" style={headingStyle}>
-              Flagship brand and automation packages tailored to each launch.
+              Brand and automation packages tailored to each launch.
             </h2>
           </div>
           <div
@@ -403,19 +406,11 @@ export default function ServicesPage({ theme, mainTheme }) {
                     className="flex h-full flex-col rounded-[32px] border border-white/20 bg-white/5 p-8 shadow-2xl backdrop-blur"
                     style={{ borderColor: borderColors.strong }}
                   >
-                    <div className="flex items-center justify-between gap-4">
-                      <div className="flex items-center gap-4">
-                        <span className="rounded-full bg-white/10 p-3">
-                          <Icon className="h-5 w-5" style={labelStyle} />
-                        </span>
-                        <h3 className="font-serifalt text-3xl">{service.title}</h3>
-                      </div>
-                      <span
-                        className="rounded-full border px-4 py-1 text-[10px] font-accent uppercase tracking-[0.4em]"
-                        style={{ ...labelStyle, borderColor: borderColors.soft }}
-                      >
-                        Flagship
+                    <div className="flex items-center gap-4">
+                      <span className="rounded-full bg-white/10 p-3">
+                        <Icon className="h-5 w-5" style={labelStyle} />
                       </span>
+                      <h3 className="font-serifalt text-3xl">{service.title}</h3>
                     </div>
                     <p className="mt-4 text-base leading-relaxed" style={mutedStyle}>
                       {service.summary}
@@ -490,7 +485,7 @@ export default function ServicesPage({ theme, mainTheme }) {
       <section className="px-6 py-16 lg:py-24" style={heroStyle} id="deep-dive">
         <div className="mx-auto max-w-6xl space-y-12">
           <div>
-            <p className="font-accent text-xs uppercase tracking-[0.45em]" style={labelStyle}>
+            <p className="font-accent text-sm uppercase tracking-[0.45em] md:text-base" style={labelStyle}>
               Deep dives
             </p>
             <h2 className="mt-3 font-serifalt text-4xl leading-tight md:text-5xl" style={headingStyle}>
@@ -500,14 +495,11 @@ export default function ServicesPage({ theme, mainTheme }) {
           <div className="space-y-10">
             {services.map((service) => {
               const Icon = service.icon;
-              const ctaLink = service.detail.ctaLink;
-              const isInternalCta = typeof ctaLink === "string" && ctaLink.startsWith("/");
-              const CtaComponent = isInternalCta ? Link : "a";
-              const ctaProps = {
+              const portfolioCtaProps = {
                 className:
                   "inline-flex items-center rounded-full border px-5 py-2 text-xs font-accent uppercase tracking-[0.3em] transition",
                 style: secondaryButtonStyle,
-                ...(isInternalCta ? { to: ctaLink } : { href: ctaLink }),
+                to: "/portfolio",
               };
               return (
                 <article
@@ -553,7 +545,7 @@ export default function ServicesPage({ theme, mainTheme }) {
                           ))}
                         </ul>
                       </div>
-                      <CtaComponent {...ctaProps}>See it in action</CtaComponent>
+                      <Link {...portfolioCtaProps}>See it in action</Link>
                     </div>
                     <div
                       className="flex flex-col justify-between rounded-3xl border border-white/15 bg-transparent p-6"
@@ -592,7 +584,7 @@ export default function ServicesPage({ theme, mainTheme }) {
       <section className="px-6 py-16 lg:py-20" style={heroStyle} id="value">
         <div className="mx-auto max-w-6xl space-y-10">
           <div>
-            <p className="font-accent text-xs uppercase tracking-[0.45em]" style={labelStyle}>
+            <p className="font-accent text-sm uppercase tracking-[0.45em] md:text-base" style={labelStyle}>
               Why choose me
             </p>
             <h2 className="mt-3 font-serifalt text-4xl leading-tight md:text-5xl" style={headingStyle}>
@@ -697,98 +689,75 @@ export default function ServicesPage({ theme, mainTheme }) {
 
       <section className="px-6 py-16 lg:py-20" style={heroStyle}>
         <div className="mx-auto max-w-6xl space-y-12">
-          <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
-            <div className="space-y-6">
-              <p className="font-accent text-xs uppercase tracking-[0.45em]" style={labelStyle}>
-                Testimonials
-              </p>
-              <div className="space-y-4">
+          <div className="space-y-6">
+            <p className="font-accent text-xs uppercase tracking-[0.45em]" style={labelStyle}>
+              Testimonials
+            </p>
+            <div className="space-y-4">
+              <div
+                className="relative overflow-hidden rounded-3xl border border-white/15"
+                style={{
+                  borderColor: borderColors.base,
+                  height: `${testimonialHeight}px`,
+                  minHeight: `${testimonialHeight}px`,
+                  transition: "height 250ms ease",
+                }}
+              >
                 <div
-                  className="relative overflow-hidden rounded-3xl border border-white/15"
+                  className="absolute inset-0 flex flex-col transition-transform duration-700 ease-in-out"
                   style={{
-                    borderColor: borderColors.base,
-                    height: `${testimonialHeight}px`,
-                    minHeight: `${testimonialHeight}px`,
-                    transition: "height 250ms ease",
+                    height: `${testimonialHeight * Math.max(totalTestimonials, 1)}px`,
+                    transform: `translateY(-${testimonialIndex * testimonialHeight}px)`,
                   }}
                 >
-                  <div
-                    className="absolute inset-0 flex flex-col transition-transform duration-700 ease-in-out"
-                    style={{
-                      height: `${testimonialHeight * Math.max(totalTestimonials, 1)}px`,
-                      transform: `translateY(-${testimonialIndex * testimonialHeight}px)`,
-                    }}
-                  >
-                    {testimonials.map((testimonial, index) => (
-                      <blockquote
-                        key={testimonial.author}
-                        ref={(el) => {
-                          testimonialRefs.current[index] = el;
-                        }}
-                        className="flex h-full flex-col justify-between gap-4 p-8"
-                        style={{ height: `${testimonialHeight}px` }}
-                      >
-                        <p className="text-lg leading-relaxed" style={headingStyle}>
-                          “{testimonial.quote}”
+                  {testimonials.map((testimonial, index) => (
+                    <blockquote
+                      key={testimonial.author}
+                      ref={(el) => {
+                        testimonialRefs.current[index] = el;
+                      }}
+                      className="flex h-full flex-col justify-center gap-4 p-8"
+                    >
+                      <p className="text-lg leading-relaxed" style={headingStyle}>
+                        “{testimonial.quote}”
+                      </p>
+                      <div className="space-y-1 text-sm">
+                        <p className="font-semibold">{testimonial.author}</p>
+                        <p className="text-xs uppercase tracking-[0.35em]" style={labelStyle}>
+                          {testimonial.title}
                         </p>
-                        <div>
-                          <p className="text-sm font-semibold">{testimonial.author}</p>
-                          <p className="text-xs uppercase tracking-[0.35em]" style={labelStyle}>
-                            {testimonial.title}
-                          </p>
-                          <p className="text-xs uppercase tracking-[0.35em]" style={labelStyle}>
-                            {testimonial.company}
-                          </p>
-                        </div>
-                      </blockquote>
-                    ))}
-                  </div>
-                </div>
-                <div className="flex items-center justify-between">
-                  <p className="text-xs font-accent uppercase tracking-[0.35em]" style={labelStyle}>
-                    {String(testimonialIndex + 1).padStart(2, "0")} /{" "}
-                    {String(totalTestimonials).padStart(2, "0")}
-                  </p>
-                  <div className="flex gap-2">
-                    <button
-                      type="button"
-                      aria-label="View previous testimonial"
-                      className="rounded-full border px-4 py-2 text-xs font-accent uppercase tracking-[0.3em]"
-                      style={secondaryButtonStyle}
-                      onClick={handlePrevTestimonial}
-                    >
-                      Up
-                    </button>
-                    <button
-                      type="button"
-                      aria-label="View next testimonial"
-                      className="rounded-full border px-4 py-2 text-xs font-accent uppercase tracking-[0.3em]"
-                      style={secondaryButtonStyle}
-                      onClick={handleNextTestimonial}
-                    >
-                      Down
-                    </button>
-                  </div>
+                        <p className="text-xs uppercase tracking-[0.35em]" style={labelStyle}>
+                          {testimonial.company}
+                        </p>
+                      </div>
+                    </blockquote>
+                  ))}
                 </div>
               </div>
-            </div>
-            <div
-              className="rounded-3xl border border-white/15 bg-transparent p-6"
-              style={{ borderColor: borderColors.base }}
-            >
-              <p className="font-accent text-xs uppercase tracking-[0.45em]" style={labelStyle}>
-                Trusted by small businesses & creators
-              </p>
-              <div className="mt-6 grid grid-cols-2 gap-4 text-sm font-semibold" style={subtleTextStyle}>
-                {clientLogos.map((client) => (
-                  <div
-                    key={client}
-                    className="rounded-2xl border border-dashed border-white/20 px-4 py-3 text-center"
-                    style={{ borderColor: borderColors.dashed }}
+              <div className="flex items-center justify-between">
+                <p className="text-xs font-accent uppercase tracking-[0.35em]" style={labelStyle}>
+                  {String(testimonialIndex + 1).padStart(2, "0")} / {String(totalTestimonials).padStart(2, "0")}
+                </p>
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    aria-label="View previous testimonial"
+                    className="rounded-full border px-4 py-2 text-xs font-accent uppercase tracking-[0.3em]"
+                    style={secondaryButtonStyle}
+                    onClick={handlePrevTestimonial}
                   >
-                    {client}
-                  </div>
-                ))}
+                    Up
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="View next testimonial"
+                    className="rounded-full border px-4 py-2 text-xs font-accent uppercase tracking-[0.3em]"
+                    style={secondaryButtonStyle}
+                    onClick={handleNextTestimonial}
+                  >
+                    Down
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -806,21 +775,46 @@ export default function ServicesPage({ theme, mainTheme }) {
             </h2>
           </div>
           <div className="space-y-4">
-            {faqs.map((faq) => (
-              <details
+            {faqs.map((faq) => {
+              const faqId = `faq-${faq.question.replace(/\s+/g, "-").toLowerCase()}`;
+              return (
+              <div
                 key={faq.question}
                 className="rounded-3xl border border-white/10 bg-white/5 p-5"
                 style={{ borderColor: borderColors.soft }}
               >
-                <summary className="cursor-pointer list-none font-serifalt text-xl">
-                  {faq.question}
-                </summary>
-                <p className="mt-3 text-sm leading-relaxed" style={mutedStyle}>
-                  {faq.answer}
-                </p>
-              </details>
-            ))}
-          </div>
+                <button
+                  type="button"
+                  className="flex w-full cursor-pointer items-center justify-between font-serifalt text-xl"
+                  onClick={() =>
+                    setExpandedFaq((prev) => (prev === faq.question ? null : faq.question))
+                  }
+                  style={{ color: headingStyle.color }}
+                  aria-expanded={expandedFaq === faq.question}
+                  aria-controls={faqId}
+                >
+                  <span>{faq.question}</span>
+                  <span className="ml-4 text-2xl font-semibold leading-none">
+                    {expandedFaq === faq.question ? "-" : "+"}
+                  </span>
+                </button>
+                <div
+                  id={faqId}
+                  className="grid transition-[grid-template-rows] duration-300 ease-out"
+                  style={{
+                    gridTemplateRows: expandedFaq === faq.question ? "1fr" : "0fr",
+                  }}
+                >
+                  <div className="overflow-hidden">
+                    <p className="mt-3 text-sm leading-relaxed" style={mutedStyle}>
+                      {faq.answer}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            );
+            })}
+         </div>
         </div>
       </section>
 

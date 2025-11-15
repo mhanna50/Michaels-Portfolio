@@ -322,24 +322,24 @@ export const portfolioCaseStudies = [
 
 export const portfolioStats = [
   {
-    label: "Average conversion lift",
+    label: "Average inquiry lift",
     value: "+38%",
-    description: "Median increase across the last 4 launches.",
+    description: "Typical increase in form submissions after a relaunch.",
   },
   {
-    label: "Manual hours automated",
+    label: "Hours handed back to teams",
     value: "240+",
-    description: "Quarterly hours handed back to client teams.",
+    description: "Quarterly hours saved once reminders and follow-ups run automatically.",
   },
   {
-    label: "Projects shipped",
+    label: "Sites & automations shipped",
     value: "28",
-    description: "Web, product, and automation engagements since 2021.",
+    description: "Web, product, and automation engagements delivered since 2021.",
   },
   {
-    label: "Avg. build timeline",
-    value: "4–6 weeks",
-    description: "From kickoff through QA for most engagements.",
+    label: "Most builds launch within",
+    value: "4-6 weeks",
+    description: "From kickoff through QA for the majority of projects.",
   },
 ];
 

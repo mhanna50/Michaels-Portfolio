@@ -70,6 +70,8 @@ const skillHighlights = [
   },
 ];
 
+const SHOW_CERTIFICATIONS = false;
+
 export default function CertificationsSection({ theme }) {
   const sectionTheme = theme?.sections?.certifications;
   const palette = sectionTheme?.palette || {};
@@ -246,80 +248,82 @@ export default function CertificationsSection({ theme }) {
             </div>
           </motion.section>
 
-          <motion.section
-            initial={{ opacity: 0, x: 24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.6 }}
-            className="space-y-8"
-          >
-            <div className="flex items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <span
-                  className="rounded-full px-4 py-1 text-xs font-semibold tracking-[0.3em]"
-                  style={accentStyle}
-                >
-                  CERTIFICATIONS
-                </span>
-                <span className="h-1 w-16 rounded-full" style={dividerStyle} />
-              </div>
-              <p
-                className="text-xs uppercase tracking-[0.3em]"
-                style={mutedStyle}
-              >
-                Verified Skills
-              </p>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {sampleCertifications.map((cert) => (
-                <motion.a
-                  key={cert.title}
-                  href={cert.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ y: -12, scale: 1.01 }}
-                  transition={{ duration: 0.35, ease: 'easeOut' }}
-                  className="group flex items-center gap-4 rounded-2xl border px-5 py-4 shadow-sm transition-transform transform-gpu duration-500 ease-out"
-                  style={cardAltStyle}
-                >
-                  <div
-                    className={`flex h-10 w-10 items-center justify-center rounded-xl ${certificationIconFallbackClass}`}
-                    style={
-                      accentStyle
-                        ? withTransition({ backgroundColor: 'rgba(67,104,80,0.24)' })
-                        : undefined
-                    }
-                  >
-                    <Award className={`h-5 w-5 ${awardFallbackClass}`} style={accentStyle} />
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <p
-                      className="text-sm font-semibold transition-colors"
-                      style={headingStyle}
-                    >
-                      {cert.title}
-                    </p>
-                    <span
-                      className="text-xs uppercase tracking-[0.2em]"
-                      style={mutedStyle}
-                    >
-                      {cert.issuer}
-                    </span>
-                    <span
-                      className="text-xs font-medium"
-                      style={accentStyle}
-                    >
-                      {cert.date}
-                    </span>
-                  </div>
-                  <ExternalLink
-                    className={`ml-auto h-4 w-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 ${externalIconFallbackClass}`}
+          {SHOW_CERTIFICATIONS && (
+            <motion.section
+              initial={{ opacity: 0, x: 24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.6 }}
+              className="space-y-8"
+            >
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <span
+                    className="rounded-full px-4 py-1 text-xs font-semibold tracking-[0.3em]"
                     style={accentStyle}
-                  />
-                </motion.a>
-              ))}
-            </div>
-          </motion.section>
+                  >
+                    CERTIFICATIONS
+                  </span>
+                  <span className="h-1 w-16 rounded-full" style={dividerStyle} />
+                </div>
+                <p
+                  className="text-xs uppercase tracking-[0.3em]"
+                  style={mutedStyle}
+                >
+                  Verified Skills
+                </p>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {sampleCertifications.map((cert) => (
+                  <motion.a
+                    key={cert.title}
+                    href={cert.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ y: -12, scale: 1.01 }}
+                    transition={{ duration: 0.35, ease: 'easeOut' }}
+                    className="group flex items-center gap-4 rounded-2xl border px-5 py-4 shadow-sm transition-transform transform-gpu duration-500 ease-out"
+                    style={cardAltStyle}
+                  >
+                    <div
+                      className={`flex h-10 w-10 items-center justify-center rounded-xl ${certificationIconFallbackClass}`}
+                      style={
+                        accentStyle
+                          ? withTransition({ backgroundColor: 'rgba(67,104,80,0.24)' })
+                          : undefined
+                      }
+                    >
+                      <Award className={`h-5 w-5 ${awardFallbackClass}`} style={accentStyle} />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <p
+                        className="text-sm font-semibold transition-colors"
+                        style={headingStyle}
+                      >
+                        {cert.title}
+                      </p>
+                      <span
+                        className="text-xs uppercase tracking-[0.2em]"
+                        style={mutedStyle}
+                      >
+                        {cert.issuer}
+                      </span>
+                      <span
+                        className="text-xs font-medium"
+                        style={accentStyle}
+                      >
+                        {cert.date}
+                      </span>
+                    </div>
+                    <ExternalLink
+                      className={`ml-auto h-4 w-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 ${externalIconFallbackClass}`}
+                      style={accentStyle}
+                    />
+                  </motion.a>
+                ))}
+              </div>
+            </motion.section>
+          )}
 
           <motion.section
             initial={{ opacity: 0, y: 32 }}

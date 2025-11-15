@@ -116,17 +116,15 @@ export default function AboutSection({ weather, theme }) {
                 style={cardMutedStyle}
               >
                 <p style={cardStyle?.color ? { color: cardStyle.color } : undefined}>
-                  I help business owners turn loose ideas into clear, confident websites. We talk through what makes
-                  your work valuable, write it in plain language, then design screens that guide people to call, book, or buy.
+                  I help business owners turn ideas into clear, confident websites while automating their busy work away. For over
+                  5 years, I've partnered with consultants, studied at university, and examined businesses around me for one goal:
+                  To simplify business success online.
                 </p>
                 <p style={cardStyle?.color ? { color: cardStyle.color } : undefined}>
-                  Because I handle planning, design, development, and quality checks, you avoid juggling separate
-                  freelancers. Every decision ties back to the results you need—more booked consultations, smoother onboarding,
-                  stronger credibility.
+                  Automation and Website Design is my specialty. Cultivated to make owning a business less stressful and to give you more time focus on what you do best, not the busy work.
                 </p>
                 <p style={cardStyle?.color ? { color: cardStyle.color } : undefined}>
-                  Outside of client work I’m constantly testing new tools, accessibility tweaks, and ways to explain tech steps
-                  in everyday words. That curiosity keeps your site modern without anyone feeling overwhelmed.
+                  Outside of this work you'll find that I genuinely enjoy helping those I partner with succeed. Whether it's sharing technical knowledge or strategies outside the scope of our project, It is my goal to support you.
                 </p>
               </div>
             </motion.article>

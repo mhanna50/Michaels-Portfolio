@@ -11,16 +11,16 @@ import {
 import usePageMetadata from "@/hooks/usePageMetadata";
 
 const headlineStats = [
-  { value: "12+", label: "Projects" },
-  { value: "8", label: "Industries" },
-  { value: "3", label: "Countries" },
+  { value: "5+", label: "Web & automation launches" },
+  { value: "3", label: "Local industries served" },
+  { value: "4-6 weeks", label: "Typical build window" },
 ];
 
 const marqueePhrases = [
-  "Automation-ready handoff",
-  "Research-led UX",
-  "Weather-aware theming",
-  "Ops + web in sync",
+  "Always-on follow-ups",
+  "Plain-language copy",
+  "Launch plans, not decks",
+  "Calm project rhythms",
 ];
 
 function WorkCard({ study, styles }) {
@@ -198,7 +198,7 @@ export default function PortfolioPage({ theme, mainTheme }) {
             Selected Work
           </p>
           <h1 className="font-serifalt text-5xl leading-tight md:text-6xl" style={headingStyle}>
-            Design, development, and automation that drive measurable growth.
+            Real-world sites and automations that help small teams look polished and stay responsive.
           </h1>
           <div className="flex flex-wrap gap-4">
             <Link to="/services">
@@ -206,7 +206,7 @@ export default function PortfolioPage({ theme, mainTheme }) {
                 className="rounded-full px-8 py-4 text-sm font-accent uppercase tracking-[0.3em]"
                 style={primaryButtonStyle}
               >
-                Explore Services
+                View services
               </Button>
             </Link>
           </div>
@@ -223,11 +223,10 @@ export default function PortfolioPage({ theme, mainTheme }) {
               Highlights
             </p>
             <h2 className="font-serifalt text-4xl leading-tight" style={headingStyle}>
-              12+ Projects · 8 Industries · 3 Countries
+              Web and automation builds that trade chaos for clear systems.
             </h2>
             <p className="text-base" style={mutedStyle}>
-              From local services to venture-backed teams, each engagement pairs research, design,
-              development, and automation with accountable metrics.
+              Every project blends messaging, design, development, and light automations so new leads, bookings, and follow-ups stay on track without extra staff.
             </p>
           </div>
           <div className="grid w-full gap-6 md:grid-cols-3">
@@ -285,7 +284,7 @@ export default function PortfolioPage({ theme, mainTheme }) {
               className="rounded-full border px-8 py-4 text-sm font-accent uppercase tracking-[0.3em] transition"
               style={secondaryButtonStyle}
             >
-              Start a Similar Project
+              Book a quick intro call
             </a>
           </div>
         </div>
@@ -330,10 +329,10 @@ export default function PortfolioPage({ theme, mainTheme }) {
         <div className="mx-auto max-w-6xl space-y-10">
           <div>
             <p className="font-accent text-lg uppercase tracking-[0.45em]" style={labelStyle}>
-              Work gallery
+              Project library
             </p>
             <h2 className="mt-3 font-serifalt text-4xl leading-tight md:text-5xl" style={headingStyle}>
-              Systems-first builds across design, dev, and automation.
+              Recent builds that pair polished web experiences with simple automations.
             </h2>
           </div>
           <div className="grid gap-8 md:grid-cols-2">

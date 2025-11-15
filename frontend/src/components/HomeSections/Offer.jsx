@@ -67,19 +67,16 @@ export default function OffersSection({ theme }) {
 
   const serviceCards = [
     {
-      title: "Websites + Branding",
+      title: "Websites + Branding + SEO",
       summary:
-        "Research-led messaging, modular layouts, and weather-aware theming that keep every page, proof point, and CTA consistent.",
-      hook: "Keeps launches calm so you spend more time with customers—not chasing broken links or briefs.",
-      highlights: ["Brand + web kits in one place", "Async reviews and clear QA checklists"],
+        "Custom websites, branding, and SEO that make your business stand out and attract high-value clients.",
+      highlights: ["Brand + web kits in one place", "Consistent communication and clarity on goals"],
       href: "/services#deep-dive",
     },
     {
       title: "Automation & Ops",
-      summary:
-        "Low-code workflows plus light custom scripts that sync CRMs, prep reports, and send nudges exactly when teams need them.",
-      hook: "Clears the busywork so your calendar is open for sales calls, not status updates.",
-      highlights: ["Zapier/Make blueprints with docs", "Dashboards tuned for leads and fulfillment"],
+      summary:"Smart automations that streamline operations, eliminate repetitive tasks, and help business owners win back their time.",
+      highlights: ["AI receptionist & instant customer responses", "Lead follow-up & nurturing workflows"],
       href: "/services#deep-dive",
     },
   ];
@@ -93,9 +90,10 @@ export default function OffersSection({ theme }) {
   const cardMuted = palette.card?.subtext || palette.body || palette.muted || "rgba(246,248,246,0.75)";
   const cardAccent = palette.accent || accent;
   const cardTextIsLight = isColorLight(cardTextColor);
-  const cardHighlightBg =
-    palette.card?.highlightBg ||
-    (cardTextIsLight ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.08)");
+  const viewDetailsBg =
+    palette.card?.ctaBg ||
+    (cardTextIsLight ? "rgba(255,255,255,0.16)" : "rgba(255,255,255,0.08)");
+  const viewDetailsText = palette.card?.ctaText || cardAccent;
 
   const baseButtonPalette = sectionTheme
     ? {
@@ -122,7 +120,7 @@ export default function OffersSection({ theme }) {
     <section id="services" className="relative py-32 px-6 overflow-hidden" style={sectionStyle}>
       <div className="relative mx-auto max-w-6xl">
         <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-2xl">
+          <div className="max-w-3xl">
             <p className="font-accent uppercase tracking-[0.35em] text-lg mb-4" style={{ color: muted }}>
               Services
             </p>
@@ -130,7 +128,7 @@ export default function OffersSection({ theme }) {
               className="font-serifalt text-6xl md:text-7xl tracking-tight leading-tight"
               style={{ color: headerAccent }}
             >
-              Website help that stays clear, collaborative, and on schedule.
+              Website and Automation help that stays collaborative and on schedule.
             </h2>
             <div className="mt-6 h-px w-full" style={{ backgroundColor: palette.divider || "rgba(246,248,246,0.25)" }} />
           </div>
@@ -167,15 +165,6 @@ export default function OffersSection({ theme }) {
               <p className="mt-4 text-base leading-relaxed" style={{ color: cardMuted }}>
                 {card.summary}
               </p>
-              <div
-                className="mt-6 rounded-2xl border px-4 py-3 text-sm"
-                style={{
-                  borderColor: cardBorderColor,
-                  background: cardHighlightBg,
-                }}
-              >
-                <p style={{ color: cardTextColor }}>{card.hook}</p>
-              </div>
               <ul className="mt-5 space-y-2 text-sm" style={{ color: cardMuted }}>
                 {card.highlights.map((highlight) => (
                   <li key={highlight} className="flex items-start gap-2">
@@ -188,8 +177,12 @@ export default function OffersSection({ theme }) {
                 ))}
               </ul>
               <span
-                className="mt-8 inline-flex items-center gap-3 text-sm font-accent uppercase tracking-[0.35em]"
-                style={{ color: cardAccent }}
+                className="mt-8 inline-flex items-center gap-3 text-sm font-accent uppercase tracking-[0.35em] rounded-full border px-5 py-2 transition-all group-hover:-translate-y-0.5"
+                style={{
+                  color: viewDetailsText,
+                  background: viewDetailsBg,
+                  borderColor: cardAccent,
+                }}
               >
                 View details
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -205,7 +198,7 @@ export default function OffersSection({ theme }) {
             animate="animate"
             style={{ color: muted }}
           >
-            {["UX Strategy", "Design Systems", "Content Modeling", "Performance Tuning", "Analytics & Reporting"].map(
+            {["UI/UX Strategy", "Automations", "Branding", "SEO Set-Up", "Analytics & Reporting","Custom Designs"].map(
               (tag) => (
                 <span key={tag} className="flex items-center gap-3">
                   {tag}

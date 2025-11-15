@@ -1,0 +1,92 @@
+import React, { useEffect, useMemo, useState } from 'react';
+import heroHighlights from '@/data/heroHighlights';
+
+const SLIDE_INTERVAL = 6000;
+
+const chunkHighlights = (items) => {
+  const result = [];
+  for (let i = 0; i < items.length; i += 2) {
+    result.push(items.slice(i, i + 2));
+  }
+  return result;
+};
+
+const HighlightCard = ({ heading, subtext, headingColor, bodyColor }) => (
+  <div className="space-y-2 text-left px-2 py-3">
+    <p className="font-serifalt text-3xl leading-tight" style={{ color: headingColor }}>
+      {heading}
+    </p>
+    <p className="font-serifalt text-base leading-relaxed" style={{ color: bodyColor }}>
+      {subtext}
+    </p>
+  </div>
+);
+
+export default function HeroHighlightsSlider({ heroTheme }) {
+  const slides = useMemo(() => chunkHighlights(heroHighlights), []);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const heroBackgroundColor = heroTheme?.bg || 'linear-gradient(135deg, #f8f7f2, #f0ede7)';
+  const heroText = heroTheme?.text || '#1F1F1F';
+  const heroMuted = heroTheme?.muted || 'rgba(15,15,15,0.7)';
+
+  useEffect(() => {
+    if (slides.length <= 1) return undefined;
+    const timer = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % slides.length);
+    }, SLIDE_INTERVAL);
+    return () => clearInterval(timer);
+  }, [slides.length]);
+
+  if (slides.length === 0) return null;
+
+  return (
+    <section
+      className="relative w-full desktop:hidden px-6 pt-0 pb-10"
+      style={{ background: heroBackgroundColor }}
+    >
+      <div className="relative mx-auto w-full max-w-4xl px-2 py-6">
+        <div className="overflow-hidden">
+          <div
+            className="flex transition-transform duration-500 ease-out"
+            style={{ transform: `translateX(-${activeSlide * 100}%)` }}
+          >
+            {slides.map((slidePair, slideIndex) => (
+              <div
+                key={`highlight-slide-${slideIndex}`}
+                className="grid min-w-full grid-cols-1 gap-6 phone:grid-cols-2 tablet:grid-cols-2"
+              >
+                {slidePair.map((card) => (
+                  <HighlightCard
+                    key={card.id}
+                    heading={card.heading}
+                    subtext={card.subtext}
+                    headingColor={heroText}
+                    bodyColor={heroMuted}
+                  />
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="mt-6 flex items-center justify-center gap-3">
+          {slides.map((_, index) => {
+            const isActive = index === activeSlide;
+            return (
+              <button
+                key={`highlight-dot-${index}`}
+                type="button"
+                className="h-3 w-3 rounded-full border transition-colors duration-200"
+                style={{
+                  borderColor: heroText,
+                  backgroundColor: isActive ? heroText : 'transparent',
+                }}
+                onClick={() => setActiveSlide(index)}
+                aria-label={`Show highlight set ${index + 1}`}
+              />
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
