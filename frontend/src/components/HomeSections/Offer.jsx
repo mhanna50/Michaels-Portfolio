@@ -116,6 +116,20 @@ export default function OffersSection({ theme }) {
     borderColor: buttonPalette.border,
   };
 
+  const sliderPhrases = [
+    "UI/UX Strategy",
+    "Automations",
+    "Branding",
+    "SEO Set-Up",
+    "Analytics & Reporting",
+    "Custom Designs",
+  ];
+  const sliderSequence = sliderPhrases.flatMap((phrase, index) => [
+    { type: "text", id: `phrase-${index}`, content: phrase },
+    { type: "dot", id: `dot-${index}` },
+  ]);
+  const marqueeItems = [...sliderSequence, ...sliderSequence];
+
   return (
     <section id="services" className="relative py-32 px-6 overflow-hidden" style={sectionStyle}>
       <div className="relative mx-auto max-w-6xl">
@@ -134,7 +148,7 @@ export default function OffersSection({ theme }) {
           </div>
 
           <div className="flex flex-col items-start gap-4 lg:items-end">
-            <a href="mailto:michaelhanna50@gmail.com">
+            <Link to="/contact">
               <Button
                 className="inline-flex min-w-[220px] items-center justify-between rounded-full px-8 py-5 text-sm font-accent uppercase tracking-[0.25em] border transition-transform hover:-translate-y-0.5 hover:opacity-90 focus-visible:ring-2 focus-visible:ring-offset-2"
                 style={buttonStyle}
@@ -142,7 +156,7 @@ export default function OffersSection({ theme }) {
                 <span>Start a project</span>
                 <ArrowRight className="ml-4 h-4 w-4" />
               </Button>
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -193,16 +207,23 @@ export default function OffersSection({ theme }) {
 
         <div className="relative mt-14 overflow-hidden rounded-3xl border border-white/10 bg-white/6">
           <motion.div
-            className="flex gap-12 whitespace-nowrap py-6 text-sm uppercase tracking-[0.35em]"
+            className="flex items-center whitespace-nowrap py-6 text-xs uppercase tracking-[0.35em] sm:text-sm"
             variants={marqueeVariants}
             animate="animate"
             style={{ color: muted }}
           >
-            {["UI/UX Strategy", "Automations", "Branding", "SEO Set-Up", "Analytics & Reporting","Custom Designs"].map(
-              (tag) => (
-                <span key={tag} className="flex items-center gap-3">
-                  {tag}
-                  <span className="h-1 w-1 rounded-full bg-current opacity-50" />
+            {marqueeItems.map((item, index) =>
+              item.type === "dot" ? (
+                <span
+                  key={`${item.id}-${index}`}
+                  className="px-6 text-2xl font-light leading-none"
+                  aria-hidden="true"
+                >
+                  &middot;
+                </span>
+              ) : (
+                <span key={`${item.id}-${index}`} className="font-bebas tracking-[0.4em] px-6">
+                  {item.content}
                 </span>
               )
             )}

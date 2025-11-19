@@ -6,6 +6,14 @@ import { Button } from "@/components/ui/button";
 import { portfolioCaseStudies } from "@/data/portfolioContent";
 import usePageMetadata from "@/hooks/usePageMetadata";
 
+const LOW_CONTRAST_ACCENTS = new Set(["#7a8896", "#6d8f81", "#58779d", "#8f7a63"]);
+
+const resolvePublicAsset = (source) => {
+  if (!source || typeof source !== "string") return source;
+  if (/^https?:\/\//i.test(source)) return source;
+  return source.startsWith("/") ? source : `/${source.replace(/^\/+/, "")}`;
+};
+
 export default function PortfolioCaseStudy({ theme, mainTheme }) {
   const { slug } = useParams();
   const [origin, setOrigin] = useState("");
@@ -41,6 +49,42 @@ export default function PortfolioCaseStudy({ theme, mainTheme }) {
   const dividerColor = {
     borderColor: palette?.divider || "rgba(246,248,246,0.25)",
   };
+  const accentHex = (theme?.accent || "").toLowerCase();
+  const needsHighContrastButtons = LOW_CONTRAST_ACCENTS.has(accentHex);
+  const buttonPalette = palette?.button;
+  const resolvedButtonPalette = needsHighContrastButtons
+    ? {
+        bg: "#1f2937",
+        text: "#F6F8F6",
+        hover: "#0f172a",
+        border: "#1f2937",
+      }
+    : buttonPalette;
+  const primaryCtaStyle = resolvedButtonPalette
+    ? {
+        backgroundColor: resolvedButtonPalette.bg,
+        color: resolvedButtonPalette.text || headingStyle.color || "#0f172a",
+        borderColor: resolvedButtonPalette.border || resolvedButtonPalette.bg,
+      }
+    : undefined;
+  const outlineCtaStyle = resolvedButtonPalette
+    ? {
+        borderColor: resolvedButtonPalette.bg,
+        color: resolvedButtonPalette.bg,
+        backgroundColor: "transparent",
+      }
+    : undefined;
+  const heroLiveButtonStyle = resolvedButtonPalette
+    ? {
+        backgroundColor: resolvedButtonPalette.bg,
+        color: resolvedButtonPalette.text || headingStyle.color,
+        borderColor: resolvedButtonPalette.border || resolvedButtonPalette.bg,
+      }
+    : {
+        color: headingStyle.color,
+        borderColor: headingStyle.color,
+        backgroundColor: "transparent",
+      };
 
   const canonical = origin && caseStudy ? `${origin}/portfolio/${caseStudy.slug}` : undefined;
   const jsonLd =
@@ -63,8 +107,8 @@ export default function PortfolioCaseStudy({ theme, mainTheme }) {
 
   usePageMetadata({
     title: caseStudy
-      ? `${caseStudy.title} Case Study | Michael Hanna`
-      : "Case Study Not Found | Michael Hanna",
+      ? `${caseStudy.title} Case Study | Hanna Web Studio`
+      : "Case Study Not Found | Hanna Web Studio",
     description: caseStudy ? caseStudy.summary : "The requested case study could not be found.",
     canonical,
     jsonLd,
@@ -120,19 +164,25 @@ export default function PortfolioCaseStudy({ theme, mainTheme }) {
   const articlePhotos = useMemo(() => {
     if (!caseStudy) return [];
     if (Array.isArray(caseStudy.articlePhotos) && caseStudy.articlePhotos.length > 0) {
-      return caseStudy.articlePhotos.slice(0, 2);
+      return caseStudy.articlePhotos.slice(0, 3).map((photo) => ({
+        ...photo,
+        src: resolvePublicAsset(photo.src),
+      }));
     }
     const fallback = [];
     Object.values(caseStudy.gallery || {}).forEach((images) => {
       if (Array.isArray(images)) {
         images.forEach((image) => {
-          if (fallback.length < 2) {
-            fallback.push(image);
+          if (fallback.length < 3) {
+            fallback.push({
+              ...image,
+              src: resolvePublicAsset(image.src),
+            });
           }
         });
       }
     });
-    return fallback.slice(0, 2);
+    return fallback.slice(0, 3);
   }, [caseStudy]);
 
   const articleSections = useMemo(() => {
@@ -210,6 +260,7 @@ export default function PortfolioCaseStudy({ theme, mainTheme }) {
         kicker: "Delivery",
         title: "What launched and what changed",
         paragraphs: paragraphs.delivery,
+        photo: articlePhotos[2],
       },
     ];
 
@@ -247,24 +298,44 @@ export default function PortfolioCaseStudy({ theme, mainTheme }) {
                   className="h-72 w-full object-cover"
                   loading="lazy"
                 />
-                <div className="px-6 py-5">
+                <div className="px-6 py-5 space-y-3">
                   <p className="text-xs font-accent uppercase tracking-[0.35em] text-white/70">Outcome</p>
-                  <p className="text-lg font-serifalt text-white">{caseStudy.outcome}</p>
+                  {caseStudy.liveUrl ? (
+                    <a
+                      href={caseStudy.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center rounded-full border px-6 py-2 text-xs font-accent uppercase tracking-[0.3em] transition hover:-translate-y-0.5"
+                      style={heroLiveButtonStyle}
+                    >
+                      View Live Site
+                    </a>
+                  ) : (
+                    <p className="text-lg font-serifalt text-white">{caseStudy.outcome}</p>
+                  )}
                 </div>
               </div>
             </div>
           </div>
           <div
-            className="rounded-3xl border border-white/15 bg-white/5 px-6 py-5"
+            className="rounded-3xl border border-white/15 bg-white/5 py-5"
             style={dividerColor}
           >
-            <div className="flex flex-wrap gap-6">
+            <div
+              className="grid w-full"
+              style={{
+                gap: 'clamp(1rem, 0.9rem + 1vw, 2.4rem)',
+                paddingLeft: 'clamp(2rem, 1.5rem + 2vw, 3.5rem)',
+                paddingRight: 'clamp(1rem, 0.8rem + 1vw, 2rem)',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
+              }}
+            >
               {infoRows.map((row) => (
-                <div key={row.label} className="min-w-[160px]">
+                <div key={row.label} className="flex flex-col gap-1">
                   <p className="text-xs font-accent uppercase tracking-[0.35em]" style={labelStyle}>
                     {row.label}
                   </p>
-                  <p className="mt-1 text-sm font-semibold leading-snug" style={headingStyle}>
+                  <p className="text-sm font-semibold leading-snug" style={headingStyle}>
                     {row.value}
                   </p>
                 </div>
@@ -297,11 +368,11 @@ export default function PortfolioCaseStudy({ theme, mainTheme }) {
                 </div>
                 {section.photo && (
                   <figure className="mt-6 space-y-3 lg:mt-0 lg:flex lg:h-full lg:flex-col lg:justify-center lg:gap-4 lg:self-stretch lg:pl-6">
-                    <div className="overflow-hidden rounded-3xl border border-white/10">
+                    <div className="flex w-full items-center justify-center overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-4">
                       <img
                         src={section.photo.src}
                         alt={section.photo.alt}
-                        className="h-64 w-full object-cover"
+                        className="h-full max-h-[360px] w-full object-contain"
                         loading="lazy"
                       />
                     </div>
@@ -319,10 +390,10 @@ export default function PortfolioCaseStudy({ theme, mainTheme }) {
       {caseStudy.testimonial && (
         <section className="px-6 py-16" style={heroStyle}>
           <div className="mx-auto max-w-4xl space-y-4 rounded-3xl border px-10 py-12 text-center" style={dividerColor}>
-            <p className="text-2xl font-serifalt text-white/90">
+            <p className="text-2xl font-serifalt" style={headingStyle}>
               “{caseStudy.testimonial.quote}”
             </p>
-            <p className="text-sm text-white/70">
+            <p className="text-sm" style={mutedStyle}>
               — {caseStudy.testimonial.name}, {caseStudy.testimonial.role} · {caseStudy.testimonial.company}
             </p>
           </div>
@@ -336,13 +407,16 @@ export default function PortfolioCaseStudy({ theme, mainTheme }) {
               <p className="font-accent text-xs uppercase tracking-[0.4em]" style={labelStyle}>
                 Related projects
               </p>
-              <h2 className="mt-2 font-serifalt text-4xl" style={headingStyle}>
+              <h2 className="mt-2 font-serifalt text-5xl" style={headingStyle}>
                 Explore similar work by industry or service.
               </h2>
             </div>
             <Link
               to="/portfolio"
-              className="rounded-full border border-white/30 px-8 py-3 text-xs font-accent uppercase tracking-[0.3em] text-white/80"
+              className={`rounded-full border px-8 py-3 text-xs font-accent uppercase tracking-[0.3em] ${
+                needsHighContrastButtons ? 'hover:opacity-80' : 'border-white/30 text-white/80'
+              }`}
+              style={needsHighContrastButtons ? outlineCtaStyle : undefined}
             >
               Back to Portfolio
             </Link>
@@ -359,7 +433,10 @@ export default function PortfolioCaseStudy({ theme, mainTheme }) {
                 </p>
                 <Link
                   to={`/portfolio/${study.slug}`}
-                  className="mt-4 inline-flex rounded-full border border-white/30 px-4 py-2 text-xs font-accent uppercase tracking-[0.3em] text-white/80 transition hover:border-white hover:text-white"
+                  className={`mt-4 inline-flex rounded-full border px-4 py-2 text-xs font-accent uppercase tracking-[0.3em] transition ${
+                    needsHighContrastButtons ? 'hover:opacity-80' : 'border-white/30 text-white/80 hover:border-white hover:text-white'
+                  }`}
+                  style={needsHighContrastButtons ? outlineCtaStyle : undefined}
                 >
                   View Case Study
                 </Link>
@@ -369,23 +446,29 @@ export default function PortfolioCaseStudy({ theme, mainTheme }) {
         </div>
       </section>
 
-      <section className="px-6 pb-24" style={heroStyle}>
-        <div className="mx-auto flex max-w-4xl flex-col items-center gap-4 rounded-3xl border border-white/10 bg-black/40 p-10 text-center">
+      <section className="px-6 py-24" style={heroStyle}>
+        <div className="mx-auto flex min-h-[320px] max-w-4xl flex-col items-center justify-center gap-4 text-center">
           <p className="font-serifalt text-4xl" style={headingStyle}>
             Ready to make your project the next case study?
           </p>
           <p className="text-sm" style={mutedStyle}>
             One partner across research, design, development, and automation—built with documented playbooks so your team can run it after launch.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a href="mailto:michaelhanna50@gmail.com?subject=Project%20Inquiry">
-              <Button className="rounded-full px-8 py-4 text-sm font-accent uppercase tracking-[0.3em]">
+          <div className="mt-4 flex flex-wrap justify-center gap-4">
+            <Link to="/contact">
+              <Button
+                className="rounded-full px-8 py-4 text-sm font-accent uppercase tracking-[0.3em] hover:-translate-y-0.5 transition"
+                style={primaryCtaStyle}
+              >
                 Start a Similar Project
               </Button>
-            </a>
+            </Link>
             <Link
               to="/services"
-              className="rounded-full border border-white/30 px-8 py-4 text-sm font-accent uppercase tracking-[0.3em] text-white/80 transition hover:text-white"
+              className={`rounded-full border px-8 py-4 text-sm font-accent uppercase tracking-[0.3em] transition ${
+                needsHighContrastButtons ? 'hover:opacity-80' : 'border-white/30 text-white/80 hover:border-white hover:text-white'
+              }`}
+              style={needsHighContrastButtons ? outlineCtaStyle : undefined}
             >
               See Services
             </Link>

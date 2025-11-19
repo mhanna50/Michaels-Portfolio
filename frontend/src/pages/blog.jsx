@@ -144,7 +144,7 @@ export default function Blog({ theme, mainTheme }) {
               className={`font-serifalt text-5xl md:text-6xl lg:text-7xl tracking-tight ${headingFallbackClass}`}
               style={headingStyle}
             >
-              Plain-language updates on building websites, content systems, and helpful automations.
+              Behind the scenes in building websites, content systems, and helpful automations.
             </h1>
             <div className={`h-1 w-24  rounded-full ${dividerFallbackClass}`} style={dividerStyle} />
             

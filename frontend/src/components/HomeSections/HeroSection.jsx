@@ -1,111 +1,60 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import heroHighlights from '@/data/heroHighlights';
-
-const detailVariants = {
-  open: { height: 'auto', opacity: 1, transition: { duration: 0.35, ease: 'easeOut' } },
-  collapsed: { height: 0, opacity: 0, transition: { duration: 0.25, ease: 'easeIn' } },
-};
-
-const floatingDetailVariants = {
-  open: { opacity: 1, y: 0, transition: { duration: 0.3, ease: 'easeOut' } },
-  collapsed: { opacity: 0, y: 12, transition: { duration: 0.25, ease: 'easeIn' } },
-};
 
 const statCards = [
   {
     id: 'build',
     heading: '10+',
     subtext: 'Websites Built',
-    detailBody:
-      'Each build comes with clear next steps, short walkthrough videos, and organized files so updates never feel overwhelming.',
     delay: 0.4,
   },
   {
     id: 'backend',
     heading: '3',
     subtext: 'Live Websites',
-    detailBody:
-      'I stay on call for quick tweaks and content refreshes, so you always have someone watching the details.',
     delay: 0.6,
   },
   {
     id: 'lighthouse',
     heading: '90+',
     subtext: 'SEO Score',
-    detailBody:
-      'Pages load quickly, follow accessibility best practices, and give Google the structure it needs to rank you.',
     delay: 0.8,
   },
   {
     id: 'apis',
     heading: '100%',
     subtext: 'Mobile Friendly',
-    detailBody:
-      'Layouts flex perfectly on phones and tablets, making it simple for customers to call, book, or buy from anywhere.',
     delay: 1.0,
-    floatDetail: true,
   },
 ];
 
 const StatCard = ({
   heading,
   subtext,
-  detailBody,
   delay,
-  isOpen,
-  onToggle,
-  floatDetail = false,
   alignment = 'right',
 }) => {
   const alignLeft = alignment === 'left';
-  const detailPositionClasses = floatDetail
-    ? 'absolute right-0 top-[calc(100%+0.75rem)] px-4 py-3 pointer-events-auto'
-    : `${alignLeft ? 'mr-auto' : 'ml-auto'} mt-2 px-3 bg-transparent`;
 
   return (
   <motion.div
     initial={{ opacity: 0, x: 20 }}
     animate={{ opacity: 1, x: 0 }}
     transition={{ type: 'spring', stiffness: 120, damping: 18, delay }}
-    className={`relative space-y-2 max-w-xs w-full ${floatDetail ? 'pb-10' : ''} ${alignLeft ? 'text-left' : 'text-right'} tablet:max-w-none`}
+    className={`relative space-y-2 max-w-xs w-full ${alignLeft ? 'text-left' : 'text-right'} tablet:max-w-none`}
   >
-    <button
-      type="button"
-      onClick={onToggle}
-      className={`relative w-full group pb-2 ${alignLeft ? 'text-left' : 'text-right'}`}
-    >
+    <div className={`relative w-full pb-2 ${alignLeft ? 'text-left' : 'text-right'}`}>
       <div className={`flex items-end ${alignLeft ? 'justify-start' : 'justify-end'}`}>
         <div className={`space-y-1 ${alignLeft ? 'text-left' : 'text-right'}`}>
           <p className="font-accent uppercase text-4xl phone:text-5xl tablet:text-[clamp(2.3rem,4vw,3.2rem)] desktop:text-[2.9rem] text-black">{heading}</p>
           <p className="font-serifalt text-md phone:text-lg tablet:text-base desktop:text-lg text-neutral-dark">{subtext}</p>
         </div>
       </div>
-    </button>
-    <AnimatePresence initial={false}>
-      {isOpen && (
-        <motion.div
-          key="detail"
-          variants={floatDetail ? floatingDetailVariants : detailVariants}
-          initial="collapsed"
-          animate="open"
-          exit="collapsed"
-          className={`overflow-hidden rounded-lg border border-secondary-dark/40 text-left shadow max-w-[220px] bg-white/90 backdrop-blur-sm ${detailPositionClasses}`}
-        >
-          <motion.p
-            initial={{ y: 8, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 8, opacity: 0 }}
-            transition={{ duration: 0.3, ease: 'easeOut' }}
-            className={`text-sm tablet:text-base font-serifalt text-black ${floatDetail ? 'leading-6' : 'py-3'}`}
-          >
-            {detailBody}
-          </motion.p>
-        </motion.div>
-      )}
-    </AnimatePresence>
+    </div>
   </motion.div>
   );
 };
@@ -150,7 +99,6 @@ const BottomBanner = ({ wrapperClass = '' }) => (
 );
 
 export default function HeroSection({ mainTheme }) {
-  const [openCard, setOpenCard] = useState(null);
   const heroStyle = mainTheme?.hero
     ? {
         background: mainTheme.hero.bg,
@@ -207,11 +155,12 @@ export default function HeroSection({ mainTheme }) {
 
             <div className="w-full max-w-[360px] tablet:max-w-[660px] tablet:w-full tablet:pr-4">
               <p className="font-serifalt font-thin text-black text-left text-3xl tablet:text-[clamp(1.7rem,2.8vw,2rem)] leading-[1.15] tracking-tight scale-y-110 tablet:text-left tablet:leading-tight tablet:break-normal">
-                That design's websites and automates systems to help businesses grow while erasing busy work.
+                That design's websites and automates systems to help businesses grow while erasing{' '}
+                <span className="inline desktop:block desktop:mt-1">busy work.</span>
               </p>
             </div>
 
-            <a href="mailto:michael.email@example.com" className="self-start">
+            <Link to="/contact" className="self-start">
               <Button className=" bg-neutral hover:bg-primary text-lg text-white font-accent px-8 py-3 pr-1.5 rounded-full mt-6 tablet:mt-2 inline-flex items-center justify-start uppercase gap-5 group transition-colors duration-300">
                 <span>Contact Me</span>
 
@@ -222,7 +171,7 @@ export default function HeroSection({ mainTheme }) {
                   />
                 </span>
               </Button>
-            </a>
+            </Link>
           </header>
         </motion.div>
 
@@ -253,11 +202,7 @@ export default function HeroSection({ mainTheme }) {
               key={`desktop-${card.id}`}
               heading={card.heading}
               subtext={card.subtext}
-              detailBody={card.detailBody}
-              isOpen={openCard === card.id}
-              onToggle={() => setOpenCard((prev) => (prev === card.id ? null : card.id))}
               delay={card.delay}
-              floatDetail={Boolean(card.floatDetail)}
             />
           ))}
         </motion.div>
@@ -272,11 +217,7 @@ export default function HeroSection({ mainTheme }) {
                 <StatCard
                   heading={card.heading}
                   subtext={card.subtext}
-                  detailBody={card.detailBody}
-                  isOpen={openCard === card.id}
-                  onToggle={() => setOpenCard((prev) => (prev === card.id ? null : card.id))}
                   delay={card.delay}
-                  floatDetail={false}
                   alignment="left"
                 />
               </div>
@@ -304,11 +245,7 @@ export default function HeroSection({ mainTheme }) {
               <StatCard
                 heading={card.heading}
                 subtext={card.subtext}
-                detailBody={card.detailBody}
-                isOpen={openCard === card.id}
-                onToggle={() => setOpenCard((prev) => (prev === card.id ? null : card.id))}
                 delay={card.delay}
-                floatDetail={false}
                 alignment="left"
               />
             </div>

@@ -13,46 +13,47 @@ const sharedGalleryPlaceholder = [
 
 export const portfolioCaseStudies = [
   {
-    title: "American Craftsman — Local Contractor Rebrand",
+    title: "American Craftsman — Local Contractor Website",
     slug: "american-craftsman",
     client: "American Craftsman LLC",
-    year: "2024",
+    year: "2025",
     industry: ["Construction"],
     services: ["Design", "Development"],
     platform: ["Framer"],
     summary:
-      "Refreshed the brand, rebuilt the site in Framer, and wired automations so scoped leads hit the right foreman without extra calls.",
+      "A modern, mobile-friendly contractor website built in Framer to elevate American Craftsman’s brand and create a trustworthy online presence. The site showcases services, previous work, and an easy way for customers to get in touch.",
     heroSummary: "Construction · Design & Development",
+    liveUrl: "https://americancraftsmanllc.com",
     heroKpis: [
-      { label: "Lead submissions", value: "+47%", timeframe: "60 days post-launch" },
+      { label: "Unique Website Customers", value: "5", timeframe: "60 days post-launch" },
       { label: "Bounce rate", value: "-32%", timeframe: "Site-wide" },
     ],
-    outcome: "Lead submissions up 47% within 60 days",
+    outcome: "Lead submissions up 300% from the old site within 60 days",
     coverImage: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1400&auto=format&fit=crop&q=80",
     coverImageAlt: "American Craftsman marketing site displayed on laptop and phone",
     articlePhotos: [
       {
-        src: "https://images.unsplash.com/photo-1448932252197-d19750584e56?w=1400&auto=format&fit=crop&q=80",
+        src: "images/casestudies/ac1.png",
         alt: "Crew reviewing brand boards on a workbench",
         caption: "Kickoff session translating shop-floor language into website messaging.",
       },
       {
-        src: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1400&auto=format&fit=crop&q=80",
+        src: "images/casestudies/ac2.png",
         alt: "UI mocks showing hero and portfolio grid",
         caption: "High-fidelity screens pairing proof points with build photos.",
       },
       {
-        src: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1400&auto=format&fit=crop&q=80",
+        src: "images/casestudies/ac3.png",
         alt: "Automation dashboard routing leads",
         caption: "Automation layer piping scoped requests into HubSpot + Slack.",
       },
     ],
     challenge:
-      "Referrals and an aging Wix site were the entire funnel, so prospects couldn’t see proof of work and the crew spent hours digging for real project details.",
+      "American Craftsman lacked a strong online presence. Their business relied heavily on word-of-mouth, but potential customers couldn’t easily learn about their services or get a sense of their craftsmanship. The owner needed a website that looked professional, worked smoothly on all devices, and helped build trust with homeowners seeking reliable contractors.",
     strategy:
-      "Interviewed the team, rewrote messaging around their build process, and mapped dual intake flows—residential vs commercial—before touching high-fidelity design.",
+      "I designed and built a clean, responsive website using Framer, focusing on clarity, simplicity, and credibility. I created custom breakpoints for mobile, tablet, and desktop to ensure a smooth experience across devices. The service sections were reorganized for clarity, a contact form was added for quick inquiries, and foundational SEO was implemented to help the business appear in relevant local searches.",
     solution:
-      "Launched a component-based Framer build with proof strips, cost cues, and automation logic that tags each request, routes it into HubSpot, and pings Slack instantly.",
+      "The final site presents American Craftsman as a skilled, trustworthy contractor with a professional online presence. With improved structure, modern design, and user-friendly navigation, the business now has a digital foundation that supports growth and increases confidence for potential clients.",
     gallery: {
       wireframes: [
         {
@@ -111,21 +112,22 @@ export const portfolioCaseStudies = [
     related: ["millie-aesthetics", "personal-portfolio"],
   },
   {
-    title: "Millie Aesthetics — Boutique Medspa Launch",
+    title: "Millie Aesthetics — Medspa Website Launch",
     slug: "millie-aesthetics",
     client: "Millie Aesthetics",
-    year: "2023",
-    industry: ["Beauty & Wellness"],
-    services: ["Design", "Development", "Automation"],
+    year: "2025",
+    industry: ["Wellness & Weight Management"],
+    services: ["Design", "Development"],
     platform: ["WordPress"],
     summary:
-      "Created a calm brand system, rebuilt the site on lean WordPress blocks, and automated consult bookings so staff stay with clients instead of inboxes.",
-    heroSummary: "Beauty & Wellness · Design, Development, Automation",
+      "A complete redesign of a med spa website using WordPress and Elementor, focused on clean branding, readability, and seamless booking integrations. The new site better reflects the spa’s high-quality services and calm aesthetic.",
+    heroSummary: "Wellness & Weight Management · Design & Development",
+    liveUrl: "https://studio-palette.example.com",
     heroKpis: [
       { label: "Consult requests", value: "+61%", timeframe: "Quarter over quarter" },
       { label: "Manual follow-ups", value: "-70%", timeframe: "Front desk workload" },
     ],
-    outcome: "Consult requests climbed 61% after relaunch",
+    outcome: "200+ Unique Website Viewers in first 60 days",
     coverImage: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=1400&auto=format&fit=crop&q=80",
     coverImageAlt: "Millie Aesthetics responsive website mockups",
     articlePhotos: [
@@ -146,11 +148,11 @@ export const portfolioCaseStudies = [
       },
     ],
     challenge:
-      "A DIY template undersold the in-studio experience and every appointment still required back-and-forth emails.",
+      "Millie Aesthetics did not have a website only a social media presence leaving a gap in their outreach and exposure to new clients. Important information was only found on social media preventing all people without it from learning of their services. The business needed a site that matched their brand and made it easy for clients to explore treatments and schedule appointments.",
     strategy:
-      "Documented tone, palette, and service hierarchy, outlined SEO copy, and mapped intake-to-reminder flows to know what needed automation from day one.",
+      "Using WordPress + Elementor, I redesigned the site with a fresh, calming look aligned to the med spa industry. I refined the color palette, typography, spacing, and page structure to create a polished and welcoming experience. Services were reorganized for clarity, images were optimized, and third-party booking tools were seamlessly integrated. Special attention was given to mobile responsiveness, where most spa customers browse.",
     solution:
-      "Delivered a WordPress build with reusable sections, treatment landing pages, and Make.com workflows that sync bookings, reminders, and CRM notes automatically.",
+      "The final website feels modern, professional, and visually consistent. Clients can now easily navigate treatments, learn about services, and book appointments without confusion. With stronger branding, improved usability, and proper integration of scheduling tools, Millie Aesthetics now has a digital presence that reflects the quality of their business and supports customer growth.",
     gallery: {
       wireframes: [
         {

@@ -21,6 +21,8 @@ const isLightHexColor = (value) => {
   return luminance > 0.7;
 };
 
+const DESKTOP_BREAKPOINT = 1200;
+
 export default function StickyHeader({ theme, forceVisible = false }) {
   const [visible, setVisible] = useState(forceVisible);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -47,7 +49,7 @@ export default function StickyHeader({ theme, forceVisible = false }) {
   useEffect(() => {
     if (typeof window === 'undefined') return undefined;
     const handleResize = () => {
-      if (window.innerWidth >= 1024) {
+      if (window.innerWidth >= DESKTOP_BREAKPOINT) {
         setMenuOpen(false);
       }
     };
@@ -57,6 +59,7 @@ export default function StickyHeader({ theme, forceVisible = false }) {
   }, []);
 
   const accent = theme?.accent || '#436850';
+  const brandActiveAccent = '#436850';
   const text = theme?.sections?.about?.text || '#F6F8F6';
   const bg = theme?.sections?.about?.palette?.card?.bg || 'rgba(8,8,8,0.85)';
   const softBorder = 'rgba(255,255,255,0.15)';
@@ -65,8 +68,8 @@ export default function StickyHeader({ theme, forceVisible = false }) {
 
   const baseButtonClass =
     'rounded-full font-accent uppercase transition-colors duration-200';
-  const navButtonClass = `${baseButtonClass} tracking-[0.18em] md:tracking-[0.22em] xl:tracking-[0.28em] px-3.5 py-2 text-xs md:px-4 md:py-2.5 md:text-sm lg:text-base xl:text-lg xl:px-5 whitespace-nowrap`;
-  const ctaButtonClass = `${baseButtonClass} tracking-[0.28em] px-6 py-3 text-sm sm:text-base lg:text-lg`;
+  const navButtonClass = `${baseButtonClass} tracking-[0.18em] md:tracking-[0.22em] xl:tracking-[0.28em] px-3.5 py-2 text-xs md:px-4 md:py-2.5 md:text-sm desktop:text-base xl:text-lg xl:px-5 whitespace-nowrap`;
+  const ctaButtonClass = `${baseButtonClass} tracking-[0.28em] px-6 py-[0.825rem] text-sm sm:text-base desktop:text-lg`;
   const navText = theme?.sections?.about?.palette?.muted || theme?.sections?.about?.text || '#0B0B0B';
   const normalizedPath =
     typeof window !== 'undefined'
@@ -80,7 +83,7 @@ export default function StickyHeader({ theme, forceVisible = false }) {
     fontSize: 'clamp(0.9rem, 0.75rem + 0.4vw, 1.2rem)',
     letterSpacing: 'clamp(0.22em, 0.18em + 0.15vw, 0.34em)',
     paddingInline: 'clamp(0.95rem, 0.75rem + 0.45vw, 1.5rem)',
-    paddingBlock: 'clamp(0.5rem, 0.42rem + 0.2vw, 0.85rem)',
+    paddingBlock: 'clamp(0.55rem, 0.462rem + 0.22vw, 0.935rem)',
   };
 
   const navLinks = [
@@ -110,7 +113,7 @@ export default function StickyHeader({ theme, forceVisible = false }) {
   const handleNavClick = () => setMenuOpen(false);
 
   const mobileNavStateClasses = menuOpen
-    ? 'max-h-[70vh] opacity-100 translate-y-0 pointer-events-auto pt-4 border-t'
+    ? 'max-h-[70vh] opacity-100 translate-y-0 pointer-events-auto pt-[1.1rem] border-t'
     : 'max-h-0 opacity-0 -translate-y-2 pointer-events-none pt-0 border-t-0';
 
   return (
@@ -120,30 +123,31 @@ export default function StickyHeader({ theme, forceVisible = false }) {
       }`}
     >
       <div
-        className="flex flex-col gap-5 border px-6 py-4 shadow-[0_25px_60px_rgba(0,0,0,0.45)] backdrop-blur-2xl lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center lg:px-8 lg:py-5"
+        className="flex flex-col gap-5 border px-6 pb-[1.1rem] pt-[2.35rem] shadow-[0_25px_60px_rgba(0,0,0,0.45)] backdrop-blur-2xl desktop:grid desktop:grid-cols-[1fr_auto_1fr] desktop:items-center desktop:px-8 desktop:py-[1.375rem]"
         style={{ background: bg, color: text, borderColor: softBorder, borderRadius: 0 }}
       >
-        <div className="order-1 flex min-h-[4rem] w-full items-center justify-between gap-3 lg:order-2 lg:col-start-2 lg:flex lg:w-full lg:items-center lg:justify-center">
+        <div className="order-1 flex min-h-[4.4rem] w-full items-center justify-between gap-3 desktop:order-2 desktop:col-start-2 desktop:flex desktop:w-full desktop:items-center desktop:justify-center">
           <img
             src={logoSrc}
             alt="Michael Hanna logo"
-            className="h-16 w-auto object-contain self-center"
+            className="h-[4.25rem] w-auto object-contain self-center"
             loading="lazy"
           />
-          <div className="flex items-center gap-2 self-center lg:hidden">
-            <a
-              href="mailto:michaelhanna50@gmail.com"
-              className={`${ctaButtonClass} inline-flex items-center justify-center`}
+          <div className="flex items-center gap-2 desktop:hidden">
+            <Link
+              to="/contact"
+              className={`${ctaButtonClass} inline-flex items-center justify-center shrink-0`}
               style={{ background: accent, color: contactTextColor, border: `1px solid ${accent}` }}
+              onClick={handleNavClick}
             >
               Contact
-            </a>
+            </Link>
             <button
               type="button"
               aria-label={menuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={menuOpen}
               aria-controls="sticky-header-nav"
-              className="flex h-12 w-12 items-center justify-center rounded-full border border-current transition-colors duration-200"
+              className="flex h-12 w-12 items-center justify-center rounded-full border border-current transition-colors duration-200 shrink-0"
               style={{ color: text, borderColor: softBorder }}
               onClick={toggleMenu}
             >
@@ -172,7 +176,7 @@ export default function StickyHeader({ theme, forceVisible = false }) {
         </div>
         <nav
           id="sticky-header-nav"
-          className={`order-3 flex w-full flex-col items-center justify-center gap-3 text-center transition-all duration-300 ease-out overflow-hidden ${mobileNavStateClasses} lg:order-1 lg:col-start-1 lg:col-end-2 lg:flex lg:w-full lg:flex-1 lg:max-w-none lg:flex-row lg:flex-nowrap lg:items-center lg:justify-start lg:gap-1.5 xl:gap-3 2xl:gap-4 lg:border-none lg:pt-0 lg:max-h-none lg:opacity-100 lg:translate-y-0 lg:pointer-events-auto lg:min-w-0 lg:overflow-x-auto lg:overflow-y-visible`}
+          className={`order-3 flex w-full flex-col items-center justify-center gap-3 text-center transition-all duration-300 ease-out overflow-hidden ${mobileNavStateClasses} desktop:order-1 desktop:col-start-1 desktop:col-end-2 desktop:flex desktop:w-full desktop:flex-1 desktop:max-w-none desktop:flex-row desktop:flex-nowrap desktop:items-center desktop:justify-start desktop:gap-1.5 xl:gap-3 2xl:gap-4 desktop:border-none desktop:pt-0 desktop:max-h-none desktop:opacity-100 desktop:translate-y-0 desktop:pointer-events-auto desktop:min-w-0 desktop:overflow-x-auto desktop:overflow-y-visible`}
           style={{ ...navDynamicStyle, borderColor: softBorder, paddingInlineStart: menuOpen ? 0 : navLeftOffset }}
         >
           {navLinks.map((link) => {
@@ -181,10 +185,10 @@ export default function StickyHeader({ theme, forceVisible = false }) {
               <Link
                 key={link.href}
                 to={link.href}
-                className={`${navButtonClass} w-full text-center lg:w-auto`}
+                className={`${navButtonClass} w-full text-center desktop:w-auto`}
                 style={{
                   ...navLinkDynamicStyle,
-                  color: active ? accent : navText,
+                  color: active ? (isLightHexColor(accent) ? brandActiveAccent : accent) : navText,
                   backgroundColor: 'transparent',
                 }}
                 onClick={handleNavClick}
@@ -193,23 +197,23 @@ export default function StickyHeader({ theme, forceVisible = false }) {
               </Link>
             );
           })}
-          <a
-            href="mailto:michaelhanna50@gmail.com"
-            className={`${ctaButtonClass} inline-flex w-full items-center justify-center text-center lg:hidden`}
+          <Link
+            to="/contact"
+            className={`${ctaButtonClass} inline-flex w-full items-center justify-center text-center desktop:hidden`}
             style={{ background: accent, color: contactTextColor, border: `1px solid ${accent}` }}
             onClick={handleNavClick}
           >
             Contact Me
-          </a>
+          </Link>
         </nav>
-        <div className="order-2 hidden w-full justify-center lg:order-2 lg:col-start-3 lg:col-end-4 lg:flex lg:flex-1 lg:justify-end">
-          <a
-            href="mailto:michaelhanna50@gmail.com"
+        <div className="order-2 hidden w-full justify-center desktop:order-2 desktop:col-start-3 desktop:col-end-4 desktop:flex desktop:flex-1 desktop:justify-end">
+          <Link
+            to="/contact"
             className={ctaButtonClass}
             style={{ background: accent, color: contactTextColor, border: `1px solid ${accent}` }}
           >
             Contact Me
-          </a>
+          </Link>
         </div>
       </div>
     </div>

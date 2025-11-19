@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { fetchWeatherData } from "./api/weatherService.js";
+import contactHandler from "./api/contact.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -71,11 +72,47 @@ function weatherDevProxy() {
   };
 }
 
+function contactDevProxy() {
+  return {
+    name: "contact-dev-proxy",
+    apply: "serve",
+    configureServer(server) {
+      server.middlewares.use("/api/contact", async (req, res) => {
+        if (typeof res.status !== "function") {
+          res.status = function status(code) {
+            res.statusCode = code;
+            return res;
+          };
+        }
+        if (typeof res.json !== "function") {
+          res.json = function json(body) {
+            if (!res.getHeader("Content-Type")) {
+              res.setHeader("Content-Type", "application/json");
+            }
+            res.end(JSON.stringify(body));
+          };
+        }
+
+        try {
+          await contactHandler(req, res);
+        } catch (error) {
+          console.error("Contact dev proxy error:", error);
+          if (!res.headersSent) {
+            res.statusCode = 500;
+            res.setHeader("Content-Type", "application/json");
+            res.end(JSON.stringify({ error: "Contact API failure" }));
+          }
+        }
+      });
+    },
+  };
+}
+
 // Force Vite to hit the ESM builds directly so CI installs that strip package
 // entry metadata (seen on Vercel) do not break the resolver.
 
 export default defineConfig({
-  plugins: [react(), weatherDevProxy()],
+  plugins: [react(), weatherDevProxy(), contactDevProxy()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

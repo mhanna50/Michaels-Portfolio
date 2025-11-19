@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import {
   portfolioCaseStudies,
   portfolioStats,
-  clientLogos,
 } from "@/data/portfolioContent";
 import usePageMetadata from "@/hooks/usePageMetadata";
 
@@ -18,10 +17,11 @@ const headlineStats = [
 ];
 
 const marqueePhrases = [
-  "Always-on follow-ups",
-  "Plain-language copy",
-  "Launch plans, not decks",
-  "Calm project rhythms",
+  "Branding that Works",
+  "Built with Intent",
+  "Create with Purpose",
+  "Build. Design. Launch.",
+  "Automation for Growth",
 ];
 
 function WorkCard({ study, styles, motionProps = {} }) {
@@ -90,12 +90,13 @@ function WorkCard({ study, styles, motionProps = {} }) {
 
 export default function PortfolioPage({ theme, mainTheme }) {
   const [origin, setOrigin] = useState("");
-  const marqueeItems = clientLogos.length
-    ? clientLogos.flatMap((client, idx) => [
-        { type: "logo", id: `${client.name}-logo`, src: client.logo, alt: client.name },
-        { type: "text", id: `${client.name}-text`, content: marqueePhrases[idx % marqueePhrases.length] },
-      ])
-    : marqueePhrases.map((phrase, idx) => ({ type: "text", id: `phrase-${idx}`, content: phrase }));
+  const faviconImageSrc = "/images/personal/favicon.png";
+  const textEntries = marqueePhrases.length ? marqueePhrases : ["Branding that Works"];
+  const interleavedItems = textEntries.flatMap((phrase, idx) => [
+    { type: "text", id: `phrase-${idx}`, content: phrase },
+    { type: "image", id: `favicon-${idx}`, src: faviconImageSrc, alt: "Michael Hanna favicon" },
+  ]);
+  const marqueeItems = interleavedItems;
   const marqueeLoop = [...marqueeItems, ...marqueeItems];
 
   useEffect(() => {
@@ -169,7 +170,7 @@ export default function PortfolioPage({ theme, mainTheme }) {
       ? {
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          name: "Portfolio | Michael Hanna",
+          name: "Portfolio | Hanna Web Studio",
           description: "Case studies in web design, development, and automation delivering measurable outcomes.",
           url: canonical,
           hasPart: portfolioCaseStudies.map((study) => ({
@@ -183,7 +184,7 @@ export default function PortfolioPage({ theme, mainTheme }) {
       : null;
 
   usePageMetadata({
-    title: "Portfolio | Michael Hanna",
+    title: "Portfolio | Hanna Web Studio",
     description: "Case studies in web design, development, and automation delivering measurable outcomes.",
     canonical,
     jsonLd: collectionJsonLd,
@@ -207,7 +208,7 @@ export default function PortfolioPage({ theme, mainTheme }) {
     <div className="min-h-screen" style={pageStyle}>
       <StickyHeader theme={theme} forceVisible />
 
-      <section className="relative flex min-h-[75vh] flex-col justify-center overflow-hidden px-6 pt-32 pb-24 lg:pt-40 lg:pb-36" style={heroStyle}>
+      <section className="relative flex min-h-[67.5vh] flex-col justify-center overflow-hidden px-6 pt-32 pb-24 lg:pt-40 lg:pb-36" style={heroStyle}>
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.08),_transparent_65%)]" />
         <motion.div className="relative mx-auto flex max-w-5xl flex-col gap-12 text-left" {...createRevealProps()}>
           <p className="font-accent text-lg uppercase tracking-[0.45em] sm:text-2xl" style={labelStyle}>
@@ -297,13 +298,13 @@ export default function PortfolioPage({ theme, mainTheme }) {
                 See what I can do for your business
               </Button>
             </Link>
-            <a
-              href="mailto:michaelhanna50@gmail.com?subject=Project%20Inquiry"
+            <Link
+              to="/contact"
               className="rounded-full border px-8 py-4 text-sm font-accent uppercase tracking-[0.3em] transition"
               style={secondaryButtonStyle}
             >
               Book a quick intro call
-            </a>
+            </Link>
           </motion.div>
         </div>
       </section>
@@ -320,7 +321,7 @@ export default function PortfolioPage({ theme, mainTheme }) {
                     className="marquee-item"
                     aria-hidden={isDuplicate}
                   >
-                    {item.type === "logo" ? (
+                    {item.type === "image" ? (
                       <img
                         src={item.src}
                         alt={item.alt}

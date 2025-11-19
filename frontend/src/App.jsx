@@ -11,6 +11,7 @@ const Portfolio = lazy(() => import("./pages/portfolio"));
 const PortfolioCaseStudy = lazy(() => import("./pages/PortfolioCaseStudy"));
 const ServicesPage = lazy(() => import("./pages/services"));
 const BlogPost = lazy(() => import("./components/BlogTools/BlogPost"));
+const ContactPage = lazy(() => import("./pages/contact"));
 
 function Layout({ children, background, textColor, themeControl }) {
   return (
@@ -80,6 +81,7 @@ export default function App() {
               element={<PortfolioCaseStudy theme={theme} mainTheme={mainTheme} />}
             />
             <Route path="/services" element={<ServicesPage theme={theme} mainTheme={mainTheme} />} />
+            <Route path="/contact" element={<ContactPage theme={theme} mainTheme={mainTheme} />} />
           </Routes>
         </Suspense>
       </Layout>

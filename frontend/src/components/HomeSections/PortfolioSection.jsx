@@ -26,7 +26,7 @@ const featuredProjects = [
     title: 'Millie Aesthetics',
     category: 'Website Design & Launch',
     description:
-      'A clean, graytoned site for a medical spa that highlights their restorative and grounded services with updated branding',
+      'A clean, graytoned site for a medical spa that highlights their restorative and grounded services with updated branding.',
     highlights: ['2-week build', 'WordPress site with SEO setup'],
     liveUrl: 'https://studio-palette.example.com',
     caseStudyUrl: '/portfolio/millie-aesthetics',
@@ -36,6 +36,13 @@ const featuredProjects = [
       videoUrl: 'https://player.vimeo.com/video/76979871?h=7e0a5a05f9&title=0&byline=0&portrait=0',
       caption: 'Mille Aestetics · Owner & Aesthetician',
     },
+    additionalTestimonials: [
+      {
+        type: 'quote',
+        quote: 'Clients tell us the site feels like our studio and booking is effortless.',
+        author: 'Millie Aesthetics · Owner',
+      },
+    ],
   },
   {
     title: 'American Craftsman LLC',
@@ -213,6 +220,10 @@ function FeaturedProjectCard({ project, index, palette }) {
       ? [{ ...thirdProjectTestimonial, duplicatedFromThird: true }]
       : []),
   ];
+  const shouldHideVideoTestimonials = project.title === 'Millie Aesthetics';
+  const visibleTestimonials = shouldHideVideoTestimonials
+    ? testimonialEntries.filter((entry) => entry.type !== 'video')
+    : testimonialEntries;
   const cardFallbackClass = featurePalette.bg ? '' : 'border-primary-dark/15 bg-gradient-to-br from-white/90 via-white/60 to-secondary-light/50';
   const innerFallbackClass = featurePalette.bg ? '' : 'bg-white/55';
   const labelFallbackClass = accentColor ? '' : 'text-primary-dark/80';
@@ -295,9 +306,9 @@ function FeaturedProjectCard({ project, index, palette }) {
             ))}
           </ul>
         )}
-        {testimonialEntries.length > 0 && (
+        {visibleTestimonials.length > 0 && (
           <div className="mt-8 space-y-6">
-            {testimonialEntries.map((testimonialEntry, testimonialIndex) =>
+            {visibleTestimonials.map((testimonialEntry, testimonialIndex) =>
               testimonialEntry.type === 'video' ? (
                 <div
                   key={`${project.title}-testimonial-video-${testimonialIndex}`}
@@ -616,7 +627,7 @@ export default function PortfolioSection({ theme, showDeepDive = false }) {
             className={`max-w-3xl font-serifalt text-5xl md:text-6xl leading-tight ${headingFallbackClass}`}
             style={headingStyle}
           >
-            Real projects that solve everyday business problems—from new launches to smarter internal tools.
+            Real projects that solve everyday business problems.
           </h2>
           </div>
           <div className={`h-1 w-24 rounded-full ${dividerFallbackClass}`} style={dividerStyle} />
@@ -628,7 +639,7 @@ export default function PortfolioSection({ theme, showDeepDive = false }) {
               
             </p>
             <div className="flex flex-col gap-3 md:ml-5 md:flex-row md:items-center md:self-end">
-              <a href="mailto:michaelhanna@gmail.com">
+              <Link to="/contact">
                 <Button
                   className="rounded-full px-7 py-2 text-base font-accent uppercase tracking-[0.2em]"
                   style={buttonStyle}
@@ -637,7 +648,7 @@ export default function PortfolioSection({ theme, showDeepDive = false }) {
                 >
                   Work Together
                 </Button>
-              </a>
+              </Link>
               <Link to="/portfolio">
                 <Button
                   className={`rounded-full border px-7 py-2 text-base font-accent uppercase tracking-[0.2em] transition-all duration-300 ${

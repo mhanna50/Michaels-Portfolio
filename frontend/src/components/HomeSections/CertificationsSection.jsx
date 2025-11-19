@@ -149,7 +149,7 @@ export default function CertificationsSection({ theme }) {
   return (
     <section
       id="credentials"
-      className={`py-32 px-6 ${sectionFallbackClass}`}
+      className={`py-32 px-6 font-poppins ${sectionFallbackClass}`}
       style={sectionStyle}
     >
       <div className="max-w-6xl mx-auto">
@@ -167,7 +167,7 @@ export default function CertificationsSection({ theme }) {
             Education & Skillset
           </span>
           <h2
-            className={`max-w-3xl font-serifalt text-5xl md:text-6xl leading-tight ${headingFallbackClass}`}
+            className={`max-w-3xl font-cormorant-light text-5xl md:text-6xl leading-tight ${headingFallbackClass}`}
             style={headingStyle}
           >
             With a focus on software development, web design,
@@ -205,7 +205,7 @@ export default function CertificationsSection({ theme }) {
                 </div>
                 <div className="space-y-1">
                   <h3
-                    className="text-2xl font-semibold"
+                    className="text-2xl font-cormorant-light"
                     style={headingStyle}
                   >
                     {educationHighlight.institution}
@@ -335,7 +335,7 @@ export default function CertificationsSection({ theme }) {
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <span
-                  className="rounded-full px-4 py-1 text-xs font-semibold tracking-[0.3em]"
+                  className="rounded-full px-4 py-1 text-xs font-bebas tracking-[0.3em]"
                   style={skillDeckLabelStyle}
                 >
                   SKILL DECK
@@ -373,7 +373,7 @@ export default function CertificationsSection({ theme }) {
                     </span>
                   </div>
                   <h4
-                    className="mt-4 text-lg font-semibold transition-colors"
+                    className="mt-4 text-lg font-cormorant-light transition-colors"
                     style={headingStyle}
                   >
                     {skillGroup.title}

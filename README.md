@@ -23,6 +23,13 @@ The weather toggle relies on the following variables (keep them out of source co
 - `VITE_HOME_CITY` – default city string for the client theme (defaults to Philadelphia if omitted)
 - _Optional:_ `VITE_OPENWEATHER_KEY` if you plan to call OpenWeather directly from the browser
 
+The contact form emails depend on:
+
+- `RESEND_API_KEY` – server key for sending email via Resend (https://resend.com)
+- `CONTACT_FORM_FROM` – verified “from” address handled by Resend (e.g., `Portfolio <hello@yourdomain.com>`)
+- `CONTACT_FORM_TO` – destination inbox for new inquiries
+- _Optional:_ `CONTACT_FORM_ALLOW_ORIGIN` – comma-delimited list of origins allowed to POST to `/api/contact` (defaults to `*`)
+
 When running locally you can place them in a `.env` file at the repo root (already gitignored). For Vercel, add them in **Project Settings → Environment Variables** and redeploy.
 
 ## Production Build

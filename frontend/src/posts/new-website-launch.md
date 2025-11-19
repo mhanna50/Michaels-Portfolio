@@ -1,12 +1,20 @@
 ---
-title: "A Fresh Home Online"
-date: "2025-02-14"
-description: "Why I rebuilt my site and how it now works harder for clients."
-previewImage: "/images/blog/first-post-preview.svg"
+title: "My New Live Website"
+date: "2025-11-16"
+description: "Why I made this site what I hope it will accomplish."
+previewImage: "images/blog/thought-catalog-505eectW54k-unsplash.jpg"
 ---
 
-The new version of my website is finally live, and it feels like opening the studio door to a bright, organized workspace. I wanted every page to explain what I do in plain language, so visitors can immediately tell if they need web design, automation help, or both. The structure is intentionally lean—hero statements, proof, examples, and next steps—so the experience never feels like a maze of tabs. It loads faster, adapts to weather-based themes automatically, and makes the contact paths obvious even on a phone.
-
-Behind the scenes I rewired the CMS so case studies, blog posts, and service details all pull from consistent content blocks. That means I can add new work or insights in minutes without reformatting each page from scratch. The services section now links directly to deep dives that talk through problems, solutions, and pricing ranges, which saves us time during intro calls. Testimonials, FAQs, and pricing snapshots are all in one place, so clients can skim once and feel confident moving forward.
-
-Shipping a site isn’t just a visual exercise; it has to keep working after launch. This build plugs into simple automations that organize contact form submissions, send reminder emails, and surface helpful resources to new leads automatically. Analytics now track which sections people read before they reach out, so I can keep improving the most-used moments instead of guessing. If you haven’t clicked around yet, take a look—I’d love to know what stands out or what else you’d like to see next.
+I’m thrilled to finally launch my new website. This has been something I’ve wanted to create for a long time — a place where I can share my work, my skills, and the things I love building. More than anything, I wanted a space that truly reflects who I am as a developer and designer, and makes it easy for people to see what I do and how I can help their business grow.
+This website means a lot to me because it’s not just a project — it’s a piece of myself. Every page, every section, and every design choice came from the desire to create something meaningful, useful, and inspiring. My hope is that when people visit, they feel welcomed, curious, and excited to explore what’s possible for their own brand or business.
+Of course, the path to getting here wasn’t simple. Building a website from scratch always comes with its fair share of headaches. I ran into hosting issues that made the site crash at the worst times, little bugs that were impossible to spot until the last second, and plenty of moments where a color or font looked perfect in my head but completely wrong once it was on the screen. There were days when fixing one problem created two more. But step by step — and sometimes hour by hour — I worked through each challenge and came out with something better because of it.
+One of the features I’m most proud of is the weather-based theme system. I wanted the site to feel alive, not just static. So depending on the weather in my area, the site’s look and feel changes. It sounds simple, but it took a lot of experimenting, testing, and patience to get it right. Seeing it all work now reminds me why I love doing this — turning ideas into something real, interactive, and enjoyable.
+The site includes a full set of pages that I poured time and thought into:
+a home page that introduces who I am,
+a services page that clearly explains what I offer in web design and automation,
+a portfolio page that showcases my projects,
+a blog where I’ll share updates and insights,
+and a contact page for anyone who wants to connect.
+I used every tool and skill I’ve learned up to this point to create something clean, modern, and easy to navigate. My goal was simple: build a website that not only looks good but also feels good to use.
+Now that it’s live, I’m excited for people to explore it. I hope it inspires business owners to imagine what their own online presence could look like. I hope it shows the care and thought I put into my work. And honestly, I hope it starts conversations that lead to new partnerships, new projects, and new ideas.
+Thank you for taking the time to check it out. I’m grateful for the support, and I can’t wait to see where this next chapter leads.

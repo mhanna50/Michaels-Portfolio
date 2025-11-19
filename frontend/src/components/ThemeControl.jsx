@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Sun, Cloud, CloudRain, CloudSnow, Moon, Gauge, Paintbrush } from "lucide-react";
 
 const OPTIONS = [
@@ -120,12 +121,13 @@ export default function ThemeControl({ manualCondition, setManualOverride, theme
                   })}
                 </div>
               </LayoutGroup>
-            <a
-              href="#services"
+            <Link
+              to="/contact"
               className="mt-5 inline-flex w-full items-center justify-center rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-white shadow-lg transition hover:bg-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2"
+              onClick={() => setOpen(false)}
             >
                 Contact Me
-              </a>
+              </Link>
             </motion.div>
           )}
         </AnimatePresence>

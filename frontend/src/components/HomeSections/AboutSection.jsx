@@ -147,15 +147,14 @@ export default function AboutSection({ weather, theme }) {
                     className="font-serifalt text-2xl text-black leading-tight"
                     style={headingStyle}
                   >
-                    Sharing the thinking behind stress-free launches.
+                    Sharing the thinking behind my builds.
                   </p>
                 </div>
                 <p
                   className="font-serifalt text-base leading-relaxed text-neutral-dark/80"
                   style={tertiaryCardMutedStyle}
                 >
-                  Quick notes from recent projects—what worked, what hiccups we fixed, and how you can apply the same
-                  lessons without learning new software.
+                  With notes from recent projects—what worked, what hiccups I fixed, and the nuances of the technologies used.
                 </p>
                 <div className="mt-6">
                   <Link to="/blog">

@@ -123,19 +123,19 @@ const comparisonPoints = [
 const processSteps = [
   {
     title: "Kickoff roadmap",
-    detail: "We spend a focused session clarifying offers, goals, and what success looks like in plain language.",
+    detail: "We spend a focused session clarifying offers, goals, and define what success looks like.",
     timeframe: "Days 1-2",
     icon: Compass,
   },
   {
     title: "Blueprint & content",
-    detail: "I map site structure, messaging, and workflow steps so you can react quickly without digging through docs.",
+    detail: "I map site structure, messaging, or automation workflow steps and present them for full transparency.",
     timeframe: "Week 1",
     icon: PenTool,
   },
   {
     title: "Co-create visuals",
-    detail: "You review real layouts, copy, and automation diagrams through async Looms or short calls.",
+    detail: "You review real layouts, copy, and automation diagrams through an agreed upon update schedule.",
     timeframe: "Week 1-2",
     icon: Users,
   },
@@ -154,19 +154,13 @@ const processSteps = [
 ];
 
 const testimonials = [
+  
   {
     quote:
-      "Michael rebuilt our entire funnel—brand, site, and automations—without ever needing to re-explain the vision. Leads tripled in six weeks.",
-    author: "Arianna Lopez",
-    title: "Founder",
-    company: "Millie Aesthetics",
-  },
-  {
-    quote:
-      "He delivered dashboards, playbooks, and code. We finally have one source of truth and a partner who can adjust it in real time.",
-    author: "Marcus Reed",
-    title: "COO",
-    company: "Atlas Robotics",
+      "Our new website looks great. Mike was fun to work with. He is creative, and his work is meticulous. I’m looking forward to future projects together.",
+    author: "Jim H.",
+    title: "CEO",
+    company: "American Craftsman LLC",
   },
 ];
 
@@ -184,22 +178,22 @@ const faqs = [
   {
     question: "Do I need to be technical?",
     answer:
-      "Nope. I translate every decision into plain language and show you short Looms so you can review without wading through jargon.",
+      "Nope. I translate every decision without the jargon to keep my process transparent.",
   },
   {
     question: "How many revisions do we get?",
     answer:
-      "Each milestone includes async comments plus at least one live session. We keep adjusting until the agreed scope matches what you need.",
+      "Each milestone includes comments plus a live session if requested. We keep adjusting until the agreed scope matches what you need.",
   },
   {
     question: "Who owns the files and logins?",
     answer:
-      "You do. Sites, automations, brand files, and SOPs live in your accounts with notes on how to make updates later.",
+      "You do. Sites, automations, and brand files will live in your accounts with notes on how to make updates later.",
   },
   {
     question: "Can you work with my existing team?",
     answer:
-      "Absolutely. I'm comfortable joining your Slack, meeting cadence, or project tools so everything feels like one team instead of another vendor.",
+      "Absolutely. I'm comfortable joining your communication system, meeting deadlines, or using different project tools so everything feels like one team instead of another vendor.",
   },
 ];
 
@@ -209,6 +203,7 @@ export default function ServicesPage({ theme, mainTheme }) {
   const testimonialRefs = useRef([]);
   const [testimonialHeight, setTestimonialHeight] = useState(320);
   const totalTestimonials = testimonials.length;
+  const reducedTestimonialHeight = Math.max(220, Math.round(testimonialHeight * 0.75));
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -377,7 +372,7 @@ export default function ServicesPage({ theme, mainTheme }) {
     <div className="min-h-screen" style={pageStyle}>
       <StickyHeader theme={theme} forceVisible />
 
-      <section className="flex min-h-[70vh] flex-col justify-center px-6 pt-28 pb-20 lg:pt-36 lg:pb-24" style={heroStyle}>
+      <section className="flex min-h-[63vh] flex-col justify-center px-6 pt-28 pb-20 lg:pt-36 lg:pb-24" style={heroStyle}>
         <motion.div className="mx-auto flex max-w-5xl flex-col gap-12 text-left" {...createRevealProps()}>
           <p className="font-accent text-lg uppercase tracking-[0.5em] md:text-2xl" style={labelStyle}>
             Services
@@ -586,8 +581,7 @@ export default function ServicesPage({ theme, mainTheme }) {
                         ))}
                       </div>
                       <p className="mt-6 text-sm" style={subtleTextStyle}>
-                        Pricing ranges cover typical sprints and retainers. I&apos;ll scope a fixed bid once we
-                        lock your goals, owners, and timelines.
+                        Pricing ranges cover typical projects. Final quotes are tailored to your specific needs
                       </p>
                     </div>
                   </div>
@@ -685,20 +679,25 @@ export default function ServicesPage({ theme, mainTheme }) {
                 <motion.div
                   key={step.title}
                   {...createItemRevealProps(index)}
-                  className="rounded-3xl border border-white/10 bg-white/5 p-5"
+                  className="relative flex h-full flex-col rounded-3xl border border-white/10 bg-white/5 p-5 pt-6"
                   style={{ borderColor: borderColors.soft }}
                 >
+                  <div
+                    className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-2xl border"
+                    style={{ borderColor: borderColors.soft, backgroundColor: 'rgba(255,255,255,0.08)' }}
+                  >
+                    <Icon className="h-5 w-5" style={labelStyle} />
+                  </div>
                   <p className="text-xs uppercase tracking-[0.35em]" style={labelStyle}>
                     {String(index + 1).padStart(2, "0")}
                   </p>
-                  <div className="mt-3 flex items-center gap-2">
-                    <Icon className="h-4 w-4" style={labelStyle} />
-                    <h3 className="font-serifalt text-xl">{step.title}</h3>
-                  </div>
+                  <h3 className="mt-4 font-serifalt text-xl" style={headingStyle}>
+                    {step.title}
+                  </h3>
                   <p className="mt-2 text-sm" style={mutedStyle}>
                     {step.detail}
                   </p>
-                  <p className="mt-3 text-xs font-accent uppercase tracking-[0.35em]" style={labelStyle}>
+                  <p className="mt-auto text-xs font-accent uppercase tracking-[0.35em]" style={labelStyle}>
                     {step.timeframe}
                   </p>
                 </motion.div>
@@ -719,16 +718,16 @@ export default function ServicesPage({ theme, mainTheme }) {
                 className="relative overflow-hidden rounded-3xl border border-white/15"
                 style={{
                   borderColor: borderColors.base,
-                  height: `${testimonialHeight}px`,
-                  minHeight: `${testimonialHeight}px`,
+                  height: `${reducedTestimonialHeight}px`,
+                  minHeight: `${reducedTestimonialHeight}px`,
                   transition: "height 250ms ease",
                 }}
               >
                 <div
                   className="absolute inset-0 flex flex-col transition-transform duration-700 ease-in-out"
                   style={{
-                    height: `${testimonialHeight * Math.max(totalTestimonials, 1)}px`,
-                    transform: `translateY(-${testimonialIndex * testimonialHeight}px)`,
+                    height: `${reducedTestimonialHeight * Math.max(totalTestimonials, 1)}px`,
+                    transform: `translateY(-${testimonialIndex * reducedTestimonialHeight}px)`,
                   }}
                 >
                   {testimonials.map((testimonial, index) => (
@@ -737,8 +736,8 @@ export default function ServicesPage({ theme, mainTheme }) {
                       ref={(el) => {
                         testimonialRefs.current[index] = el;
                       }}
-                      className="flex h-full flex-col justify-center gap-3 p-8"
-                      style={{ height: `${testimonialHeight}px` }}
+                      className="flex h-full flex-col justify-center gap-5 p-8"
+                      style={{ height: `${reducedTestimonialHeight}px` }}
                     >
                       <p className="text-lg leading-relaxed" style={headingStyle}>
                         “{testimonial.quote}”
@@ -811,12 +810,10 @@ export default function ServicesPage({ theme, mainTheme }) {
                     <span className="hidden group-open:inline">-</span>
                   </span>
                 </summary>
-                <div className="grid grid-rows-[0fr] transition-all duration-300 ease-in-out group-open:grid-rows-[1fr]">
-                  <div className="overflow-hidden">
-                    <p className="mt-3 text-sm leading-relaxed" style={mutedStyle}>
-                      {faq.answer}
-                    </p>
-                  </div>
+                <div className="max-h-0 overflow-hidden transition-[max-height] duration-300 ease-out group-open:max-h-[400px]">
+                  <p className="mt-3 text-sm leading-relaxed" style={mutedStyle}>
+                    {faq.answer}
+                  </p>
                 </div>
               </motion.details>
             ))}
@@ -824,8 +821,8 @@ export default function ServicesPage({ theme, mainTheme }) {
         </div>
       </section>
 
-      <section className="flex items-center px-6 py-24 lg:py-32" style={heroStyle}>
-        <motion.div className="mx-auto flex max-w-4xl flex-col items-center justify-center gap-5 text-center" {...createRevealProps(0.3)}>
+      <section className="flex items-center px-6 py-20 lg:py-34" style={heroStyle}>
+        <motion.div className="mx-auto flex max-w-4xl flex-col items-center justify-center space-y-10 text-center" {...createRevealProps(0.3)}>
           <p className="font-serifalt text-4xl leading-tight md:text-5xl" style={headingStyle}>
             Ready to start your project?
           </p>
@@ -834,21 +831,21 @@ export default function ServicesPage({ theme, mainTheme }) {
             we&apos;ll map the plan together.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="mailto:michaelhanna50@gmail.com?subject=Get%20a%20Quote">
+            <Link to="/contact">
               <Button
                 className="rounded-full px-8 py-4 text-sm font-accent uppercase tracking-[0.3em]"
                 style={primaryButtonStyle}
               >
                 Get a Quote
               </Button>
-            </a>
-            <a
-              href="mailto:michaelhanna50@gmail.com?subject=Discovery%20Call"
+            </Link>
+            <Link
+              to="/contact"
               className="rounded-full border px-8 py-4 text-sm font-accent uppercase tracking-[0.3em] transition"
               style={secondaryButtonStyle}
             >
               Book a Call
-            </a>
+            </Link>
           </div>
         </motion.div>
       </section>

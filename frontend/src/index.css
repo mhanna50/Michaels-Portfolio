@@ -28,6 +28,19 @@ p {
   font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
 }
 
+.font-poppins {
+  font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.font-bebas {
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+.font-cormorant-light {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+}
+
 
 a {
   color: inherit;

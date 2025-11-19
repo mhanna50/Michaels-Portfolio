@@ -77,7 +77,7 @@ export default function SkillsSection({ theme }) {
   return (
     <section
       id="skills"
-      className="py-32 px-6 bg-gradient-to-b from-white to-[#FAF8F3]"
+      className="py-32 px-6 bg-gradient-to-b from-white to-[#FAF8F3] font-poppins"
       style={sectionStyle}
     >
       <div className="max-w-6xl mx-auto">
@@ -95,14 +95,14 @@ export default function SkillsSection({ theme }) {
             Practical Toolkit
           </span>
           <h2
-            className="max-w-3xl font-serifalt text-5xl md:text-6xl text-black leading-tight"
+            className="max-w-3xl font-cormorant-light text-5xl md:text-6xl text-black leading-tight"
             style={headingStyle}
           >
             The tools I lean on to plan, build, and care for your site.
           </h2>
           <div className="h-1 w-20 rounded-full bg-[#A8B8A0]" style={dividerStyle} />
           <p
-            className="max-w-3xl font-serifalt text-lg text-neutral-dark/80"
+            className="max-w-3xl text-lg text-neutral-dark/80"
             style={mutedStyle}
           >
             This mix lets me guide a project without passing you between different vendors. From clean code to testing
@@ -113,7 +113,7 @@ export default function SkillsSection({ theme }) {
         <div className="space-y-12">
           <div>
             <h3
-              className="text-2xl font-medium text-[#2C2C2C] mb-6"
+              className="font-cormorant-light text-2xl text-[#2C2C2C] mb-6"
               style={headingStyle}
             >
               Languages I Build With
@@ -133,7 +133,7 @@ export default function SkillsSection({ theme }) {
 
           <div>
             <h3
-              className="text-2xl font-medium text-[#2C2C2C] mb-6"
+              className="font-cormorant-light text-2xl text-[#2C2C2C] mb-6"
               style={headingStyle}
             >
               Frameworks That Speed Things Up
@@ -153,7 +153,7 @@ export default function SkillsSection({ theme }) {
 
           <div>
             <h3
-              className="text-2xl font-medium text-[#2C2C2C] mb-6"
+              className="font-cormorant-light text-2xl text-[#2C2C2C] mb-6"
               style={headingStyle}
             >
               Platforms I Manage For You
@@ -173,7 +173,7 @@ export default function SkillsSection({ theme }) {
 
           <div>
             <h3
-              className="text-2xl font-medium text-[#2C2C2C] mb-6"
+              className="font-cormorant-light text-2xl text-[#2C2C2C] mb-6"
               style={headingStyle}
             >
               Supporting Skills

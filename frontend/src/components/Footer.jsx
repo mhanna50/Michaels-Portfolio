@@ -30,14 +30,16 @@ const navLinks = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
   { label: "Portfolio", href: "/portfolio" },
+  { label: "Contact", href: "/contact" },
   { label: "Blog", href: "/blog" },
 ];
 
 const socialLinks = [
   {
-    label: "Email",
-    href: "mailto:michaelhanna50@gmail.com",
+    label: "Contact",
+    href: "/contact",
     icon: Mail,
+    internal: true,
   },
   {
     label: "LinkedIn",
@@ -141,22 +143,40 @@ export default function Footer({ mainTheme, theme }) {
                 Connect
               </p>
               <div className="flex flex-col items-start gap-3">
-                {socialLinks.map(({ label, href, icon: Icon }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    className="group inline-flex items-center gap-3 rounded-full border px-5 py-3 font-serifalt text-sm transition-all duration-300 hover:-translate-y-1 border-[var(--footer-btn-border)] bg-[var(--footer-btn-bg)] text-[var(--footer-btn-text)] hover:border-[var(--footer-btn-hover-border)] hover:bg-[var(--footer-btn-hover-bg)] hover:text-[var(--footer-btn-hover-text)]"
-                    target={href.startsWith("http") ? "_blank" : undefined}
-                    rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    aria-label={label}
-                    style={connectButtonVars}
-                  >
-                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--footer-icon-bg)] text-[var(--footer-icon-text)] transition-colors duration-300 group-hover:bg-[var(--footer-icon-hover-bg)] group-hover:text-[var(--footer-icon-hover-text)]">
-                      <Icon className="h-4 w-4" />
-                    </span>
-                    <span className="text-base">{label}</span>
-                  </a>
-                ))}
+                {socialLinks.map(({ label, href, icon: Icon, internal }) => {
+                  const sharedClasses =
+                    "group inline-flex items-center gap-3 rounded-full border px-5 py-3 font-serifalt text-sm transition-all duration-300 hover:-translate-y-1 border-[var(--footer-btn-border)] bg-[var(--footer-btn-bg)] text-[var(--footer-btn-text)] hover:border-[var(--footer-btn-hover-border)] hover:bg-[var(--footer-btn-hover-bg)] hover:text-[var(--footer-btn-hover-text)]";
+                  const content = (
+                    <>
+                      <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--footer-icon-bg)] text-[var(--footer-icon-text)] transition-colors duration-300 group-hover:bg-[var(--footer-icon-hover-bg)] group-hover:text-[var(--footer-icon-hover-text)]">
+                        <Icon className="h-4 w-4" />
+                      </span>
+                      <span className="text-base">{label}</span>
+                    </>
+                  );
+
+                  if (internal) {
+                    return (
+                      <Link key={label} to={href} className={sharedClasses} aria-label={label} style={connectButtonVars}>
+                        {content}
+                      </Link>
+                    );
+                  }
+
+                  return (
+                    <a
+                      key={label}
+                      href={href}
+                      className={sharedClasses}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={label}
+                      style={connectButtonVars}
+                    >
+                      {content}
+                    </a>
+                  );
+                })}
               </div>
             </div>
           </div>
