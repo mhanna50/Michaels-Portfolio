@@ -3,7 +3,7 @@ import HeroSection from '../components/HomeSections/HeroSection';
 import AboutSection from '../components/HomeSections/AboutSection';
 import StickyHeader from '../components/StickyHeader';
 import usePageMetadata from '../hooks/usePageMetadata';
-import { SITE_URL, buildSiteGraph } from '@/data/siteMeta';
+import { SITE_URL, buildSiteGraph, DEFAULT_OG_IMAGE } from '@/data/siteMeta';
 
 const HeroHighlightsSlider = React.lazy(() => import('../components/HeroHighlightsSlider'));
 const PortfolioSection = React.lazy(() => import('../components/HomeSections/PortfolioSection'));
@@ -34,6 +34,7 @@ export default function Home({ weather, theme, mainTheme }) {
       'Portfolio and studio of Michael Hanna, a web developer and automation specialist helping service businesses with modern websites and AI-powered workflows.',
     canonical: `${SITE_URL}/`,
     jsonLd: buildSiteGraph(),
+    ogImage: DEFAULT_OG_IMAGE,
   });
 
   useEffect(() => {

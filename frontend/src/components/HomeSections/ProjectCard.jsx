@@ -58,7 +58,9 @@ export default function ProjectCard({ project, index, palette, buttonPalette }) 
           {project.thumbnail ? (
             <img 
               src={project.thumbnail} 
-              alt={project.title}
+              alt={`Preview of ${project.title} project`}
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
             />
           ) : (
@@ -131,7 +133,9 @@ export default function ProjectCard({ project, index, palette, buttonPalette }) 
                   <img 
                     key={idx}
                     src={mediaUrl} 
-                    alt={`${project.title} screenshot ${idx + 1}`}
+                    alt={`${project.title} detailed screenshot ${idx + 1}`}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full rounded-lg"
                   />
                 ))}

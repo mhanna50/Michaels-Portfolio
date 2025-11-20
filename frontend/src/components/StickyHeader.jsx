@@ -146,12 +146,14 @@ export default function StickyHeader({ theme, forceVisible = false }) {
         style={{ background: bg, color: text, borderColor: softBorder, borderRadius: 0 }}
       >
         <div className="order-1 flex min-h-[4.4rem] w-full items-center justify-between gap-3 desktop:order-2 desktop:col-start-2 desktop:flex desktop:w-full desktop:items-center desktop:justify-center">
-          <img
-            src={logoSrc}
-            alt="Michael Hanna logo"
-            className="h-[4.25rem] w-auto object-contain self-center"
-            loading="lazy"
-          />
+          <Link to="/" onClick={handleNavClick} className="flex items-center">
+            <img
+              src={logoSrc}
+              alt="Michael Hanna logo"
+              className="h-[4.25rem] w-auto object-contain self-center"
+              loading="lazy"
+            />
+          </Link>
           <div className="flex items-center gap-2 desktop:hidden">
             <Link
               to="/contact"
@@ -220,7 +222,7 @@ export default function StickyHeader({ theme, forceVisible = false }) {
                 }
                 style={{ position: hasChildren ? 'relative' : undefined }}
               >
-                <div className="ml-32 flex w-full justify-center desktop:ml-0 desktop:justify-start">
+                <div className="ml-20 flex w-full justify-center desktop:ml-0 desktop:justify-start">
                   <Link
                     to={link.href}
                     className={`${navButtonClass} w-full max-w-[320px] text-left rounded-3xl border border-transparent px-5 py-3 desktop:w-auto desktop:max-w-none desktop:rounded-full desktop:border-none desktop:bg-transparent desktop:px-0 desktop:py-0 desktop:text-center desktop:shadow-none`}
@@ -237,7 +239,7 @@ export default function StickyHeader({ theme, forceVisible = false }) {
                 {hasChildren && (
                   <>
                     <div className="mt-2 flex w-full justify-center desktop:hidden">
-                      <div className="ml-32 flex w-full max-w-[320px] flex-col gap-2 text-left">
+                      <div className="ml-36 flex w-full max-w-[320px] flex-col gap-2 text-left">
                         {link.children.map((child) => (
                           <Link
                             key={child.href}

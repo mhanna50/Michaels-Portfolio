@@ -103,6 +103,7 @@ const buildSitemap = (posts) => {
   const staticRoutes = [
     { loc: `${SITE_URL}/`, priority: "1.0", changefreq: "monthly", lastmod: today },
     { loc: `${SITE_URL}/services`, priority: "0.9", changefreq: "monthly", lastmod: today },
+    { loc: `${SITE_URL}/services/web-design`, priority: "0.85", changefreq: "monthly", lastmod: today },
     {
       loc: `${SITE_URL}/services/automations`,
       priority: "0.8",

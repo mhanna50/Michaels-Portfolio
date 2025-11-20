@@ -27,7 +27,7 @@ const isColorLight = (color) => {
 };
 
 const servicesChildren = [
-  { label: "Web Design & Branding", href: "/services" },
+  { label: "Web Design & Branding", href: "/services/web-design" },
   { label: "Automations", href: "/services/automations" },
 ];
 
@@ -124,8 +124,8 @@ export default function Footer({ mainTheme, theme }) {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 sm:gap-12 md:w-full md:max-w-3xl md:gap-12 md:items-stretch md:justify-between md:justify-items-stretch md:mx-auto lg:mx-0 lg:max-w-none lg:gap-16 lg:pl-10">
-            <div className="space-y-5 text-left md:mx-0 md:flex md:h-full md:w-full md:flex-col md:justify-between md:space-y-6 md:py-6">
+          <div className="grid grid-cols-2 gap-8 sm:gap-12 md:w-full md:max-w-3xl md:gap-12 md:items-start md:justify-between md:justify-items-stretch md:mx-auto lg:mx-0 lg:max-w-none lg:gap-16 lg:pl-10">
+            <div className="space-y-5 text-left md:mx-0 md:flex md:h-full md:w-full md:flex-col md:justify-between md:space-y-6 md:py-0">
               <p className="font-accent uppercase tracking-[0.3em] text-base text-accent-light/70">
                 Navigate
               </p>
@@ -156,7 +156,7 @@ export default function Footer({ mainTheme, theme }) {
               </nav>
             </div>
 
-            <div className="space-y-0 text-left md:mx-0 md:flex md:h-full md:w-full md:flex-col md:justify-between md:space-y-0 md:py-6">
+            <div className="space-y-4 text-left md:mx-0 md:flex md:w-full md:flex-col md:justify-start md:space-y-4 md:py-0">
               <p className="font-accent uppercase tracking-[0.3em] text-base text-accent-light/70">
                 Connect
               </p>

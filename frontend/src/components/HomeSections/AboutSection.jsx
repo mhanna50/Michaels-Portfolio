@@ -25,6 +25,40 @@ const cardVariants = {
   }),
 };
 
+const parseColor = (value) => {
+  if (typeof value !== 'string') return null;
+  const hexMatch = value.trim().match(/#(?:[0-9a-fA-F]{3}){1,2}/);
+  if (hexMatch) {
+    let hex = hexMatch[0].slice(1);
+    if (hex.length === 3) {
+      hex = hex.split('').map((char) => char + char).join('');
+    }
+    const r = parseInt(hex.slice(0, 2), 16);
+    const g = parseInt(hex.slice(2, 4), 16);
+    const b = parseInt(hex.slice(4, 6), 16);
+    if ([r, g, b].some((channel) => Number.isNaN(channel))) return null;
+    return { r, g, b };
+  }
+  const rgbaMatch = value.match(/rgba?\(([^)]+)\)/i);
+  if (rgbaMatch) {
+    const [r, g, b] = rgbaMatch[1]
+      .split(',')
+      .slice(0, 3)
+      .map((segment) => parseInt(segment.trim(), 10));
+    if ([r, g, b].some((channel) => Number.isNaN(channel))) return null;
+    return { r, g, b };
+  }
+  return null;
+};
+
+const isColorLight = (value) => {
+  const rgb = parseColor(value);
+  if (!rgb) return false;
+  const { r, g, b } = rgb;
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return luminance > 0.6;
+};
+
 export default function AboutSection({ weather, theme }) {
   const sectionTheme = theme?.sections?.about;
   const palette = sectionTheme?.palette || {};
@@ -63,6 +97,32 @@ export default function AboutSection({ weather, theme }) {
   const tertiaryCardStyle = buildCardStyle(tertiaryCardPalette);
   const cardMutedStyle = cardPalette.muted ? { color: cardPalette.muted } : undefined;
   const tertiaryCardMutedStyle = tertiaryCardPalette.muted ? { color: tertiaryCardPalette.muted } : undefined;
+  const caseStudyButtonBg = palette?.button?.bg || palette?.accent || '#1f2937';
+  const caseStudyButtonText =
+    palette?.button?.text || (isColorLight(caseStudyButtonBg) ? '#0f172a' : '#F6F8F6');
+  const caseStudyButtonBorder = palette?.button?.border || caseStudyButtonBg;
+  const caseStudyButtonStyle = {
+    backgroundColor: caseStudyButtonBg,
+    color: caseStudyButtonText,
+    borderColor: caseStudyButtonBorder,
+  };
+  const automationButtonBg =
+    palette?.button?.hover ||
+    palette?.buttonAlt?.bg ||
+    palette?.accent ||
+    theme?.accent ||
+    '#436850';
+  const automationButtonText = palette?.buttonAlt?.text
+    ? palette.buttonAlt.text
+    : isColorLight(automationButtonBg)
+      ? '#0f172a'
+      : '#F6F8F6';
+  const automationButtonBorder = palette?.buttonAlt?.border || automationButtonBg;
+  const automationButtonStyle = {
+    backgroundColor: automationButtonBg,
+    color: automationButtonText,
+    borderColor: automationButtonBorder,
+  };
 
   return (
     <section
@@ -112,9 +172,9 @@ export default function AboutSection({ weather, theme }) {
               style={cardStyle}
             >
               <div
-                className="space-y-6 text-xl leading-relaxed font-serifalt"
-                style={cardMutedStyle}
-              >
+              className="space-y-6 text-xl leading-relaxed font-serifalt"
+              style={cardMutedStyle}
+            >
                 <p style={cardStyle?.color ? { color: cardStyle.color } : undefined}>
                   I help business owners turn ideas into clear, confident websites while automating their busy work away. For over
                   5 years, I've partnered with consultants, studied at university, and examined businesses around me for one goal:
@@ -126,6 +186,24 @@ export default function AboutSection({ weather, theme }) {
                 <p style={cardStyle?.color ? { color: cardStyle.color } : undefined}>
                   Outside of this work you'll find that I genuinely enjoy helping those I partner with succeed. Whether it's sharing technical knowledge or strategies outside the scope of our project, It is my goal to support you.
                 </p>
+                <div className="flex flex-wrap gap-3 pt-2">
+                  <Link to="/portfolio">
+                    <Button
+                      className="rounded-full px-6 py-2 text-sm font-accent uppercase tracking-[0.2em] transition-colors duration-200"
+                      style={caseStudyButtonStyle}
+                    >
+                      View case studies
+                    </Button>
+                  </Link>
+                  <Link to="/services/automations">
+                    <Button
+                      className="rounded-full px-6 py-2 text-sm font-accent uppercase tracking-[0.2em] transition-colors duration-200"
+                      style={automationButtonStyle}
+                    >
+                      Explore automations
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </motion.article>
 

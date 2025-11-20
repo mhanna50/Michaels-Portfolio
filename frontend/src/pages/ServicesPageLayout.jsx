@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 import StickyHeader from "../components/StickyHeader";
 import { Button } from "@/components/ui/button";
 import usePageMetadata from "@/hooks/usePageMetadata";
-import { SITE_URL, buildServiceSchema } from "@/data/siteMeta";
+import { SITE_URL, buildServiceSchema, buildFaqSchema, DEFAULT_OG_IMAGE, toAbsoluteUrl } from "@/data/siteMeta";
 
 export default function ServicesPageLayout({ theme, mainTheme, config = {} }) {
   const {
@@ -160,7 +160,7 @@ export default function ServicesPageLayout({ theme, mainTheme, config = {} }) {
         : `/${canonicalPath}`
       : "/services";
   const canonical = `${SITE_URL}${normalizedCanonicalPath}`;
-  const jsonLd = buildServiceSchema({
+  const serviceSchema = buildServiceSchema({
     name: schemaName || metaTitle,
     description: metaDescription,
     canonical,
@@ -169,12 +169,29 @@ export default function ServicesPageLayout({ theme, mainTheme, config = {} }) {
     offersDescription:
       pricingSection?.heading || pricingSection?.subheading || readyDescription,
   });
+  const faqSchema = buildFaqSchema(faqs, canonical);
+  const graphItems = [serviceSchema, faqSchema]
+    .filter(Boolean)
+    .map((item) => {
+      if (!item || !item["@context"]) return item;
+      const { ["@context"]: _ctx, ...rest } = item;
+      return rest;
+    });
+  const jsonLd =
+    graphItems.length > 1
+      ? {
+          "@context": "https://schema.org",
+          "@graph": graphItems,
+        }
+      : serviceSchema;
+  const ogImage = toAbsoluteUrl(config.ogImage) || DEFAULT_OG_IMAGE;
 
   usePageMetadata({
     title: metaTitle,
     description: metaDescription,
     canonical,
     jsonLd,
+    ogImage,
   });
 
   const createRevealProps = (delay = 0, distance = 48) => ({
@@ -829,8 +846,8 @@ export default function ServicesPageLayout({ theme, mainTheme, config = {} }) {
                   >
                     {Icon ? <Icon className="h-5 w-5" style={labelStyle} /> : null}
                   </div>
-                  <p className="text-xs uppercase tracking-[0.35em]" style={labelStyle}>
-                    {String(index + 1).padStart(2, "0")}
+                  <p className="text-xs font-accent uppercase tracking-[0.35em]" style={labelStyle}>
+                    {step.timeframe}
                   </p>
                   <h3 className="mt-4 font-serifalt text-xl" style={headingStyle}>
                     {step.title}
@@ -838,8 +855,11 @@ export default function ServicesPageLayout({ theme, mainTheme, config = {} }) {
                   <p className="mt-2 text-sm" style={mutedStyle}>
                     {step.detail}
                   </p>
-                  <p className="mt-auto text-xs font-accent uppercase tracking-[0.35em]" style={labelStyle}>
-                    {step.timeframe}
+                  <p
+                    className="mt-auto text-xs font-accent uppercase tracking-[0.35em] text-right"
+                    style={labelStyle}
+                  >
+                    {String(index + 1).padStart(2, "0")}
                   </p>
                 </motion.div>
               );

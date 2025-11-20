@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { DEFAULT_OG_IMAGE } from "@/data/siteMeta";
 
 const upsertMeta = (attr, identifier, content) => {
   if (typeof document === "undefined" || !content) return;
@@ -54,9 +55,10 @@ export default function usePageMetadata({
     }
 
     upsertMeta("property", "og:type", ogType);
-    if (ogImage) {
-      upsertMeta("property", "og:image", ogImage);
-      upsertMeta("name", "twitter:image", ogImage);
+    const resolvedOgImage = ogImage || DEFAULT_OG_IMAGE;
+    if (resolvedOgImage) {
+      upsertMeta("property", "og:image", resolvedOgImage);
+      upsertMeta("name", "twitter:image", resolvedOgImage);
     }
     upsertMeta("name", "twitter:card", "summary_large_image");
 

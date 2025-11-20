@@ -6,7 +6,7 @@ import StickyHeader from "../components/StickyHeader";
 import { Button } from "@/components/ui/button";
 import { portfolioCaseStudies } from "@/data/portfolioContent";
 import usePageMetadata from "@/hooks/usePageMetadata";
-import { SITE_URL, buildCaseStudySchema } from "@/data/siteMeta";
+import { SITE_URL, buildCaseStudySchema, DEFAULT_OG_IMAGE, toAbsoluteUrl } from "@/data/siteMeta";
 
 const HERO_OUTCOME_TEXT_EXCLUSIONS = new Set(["american-craftsman", "millie-aesthetics"]);
 
@@ -86,6 +86,7 @@ export default function PortfolioCaseStudy({ theme, mainTheme }) {
 
   const canonical = caseStudy ? `${SITE_URL}/portfolio/${caseStudy.slug}` : `${SITE_URL}/portfolio`;
   const jsonLd = caseStudy ? buildCaseStudySchema(caseStudy) : null;
+  const ogImage = caseStudy ? toAbsoluteUrl(caseStudy.coverImage) || DEFAULT_OG_IMAGE : DEFAULT_OG_IMAGE;
 
   usePageMetadata({
     title: caseStudy
@@ -96,6 +97,7 @@ export default function PortfolioCaseStudy({ theme, mainTheme }) {
       : "The requested case study could not be found.",
     canonical,
     jsonLd,
+    ogImage,
   });
 
   if (!caseStudy) {

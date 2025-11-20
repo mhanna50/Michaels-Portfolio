@@ -177,33 +177,34 @@ export const designServicesConfig = {
     {
       question: "How do web projects kick off?",
       answer:
-        "We start with a planning call to confirm your goals, audience, and must-have pages. Within a couple of days you get a simple roadmap and sitemap so you know exactly what happens first.",
+      "We start with a quick planning call to clarify your goals, target audience, and the pages you need. From there, I create a simple roadmap and sitemap so you know exactly how the project will unfold. Nothing starts until you're fully comfortable with the plan.",
     },
     {
-      question: "How long does everything take?",
-      answer:
-        "Most custom website builds wrap in 4-6 weeks depending on page count and integrations. Smaller landing pages or refresh projects can launch faster. You get weekly updates either way.",
+    question: "How long does everything take?",
+    answer:
+    "Most full website projects take about 4–6 weeks depending on page count, features, and integrations. Smaller landing pages or redesigns can launch much faster. You’ll get weekly updates so you always know where things stand.",
     },
     {
-      question: "Do I need to be technical?",
-      answer:
-        "Nope. I walk you through decisions in without technical jargon and emails so nothing feels hidden.",
+    question: "Do I need to be technical?",
+    answer:
+    "Not at all. I explain everything in plain language and guide you through each decision so you never feel lost. My job is to handle the technical work while keeping the process simple and stress-free.",
     },
     {
-      question: "How many revision rounds are included?",
-      answer:
-        "Each milestone includes comments plus a live session if requested. We keep adjusting copy or design until the agreed scope matches what you need.",
+    question: "How many revision rounds are included?",
+    answer:
+    "Each project milestone includes a round of revisions plus a live review session if you'd like extra guidance. We refine the copy, design, and layout until it aligns perfectly with the agreed-upon scope. The goal is to make sure you’re confident in every step.",
     },
     {
-      question: "Who owns the files and logins?",
-      answer:
-        "You do. Sites, brand assets, and analytics accounts live in your workspace with notes on how to make updates later.",
+    question: "Who owns the files and logins?",
+    answer:
+    "You own everything. All website files, brand assets, and platform logins are transferred to your accounts, along with notes on how to make updates in the future. I want you to feel fully in control of your online presence.",
     },
-    {
-      question: "Can you work with my existing team?",
-      answer:
-        "Absolutely. I'm comfortable joining your comms tools, syncing with developers or marketers, and meeting deadlines so everything feels like one team instead of another vendor.",
-    },
+  {
+  question: "Can you work with my existing team?",
+  answer:
+    "Absolutely. I’m comfortable collaborating with developers, marketers, or brand teams and can join your preferred communication tools. The goal is to fit seamlessly into your workflow so it feels like one unified team.",
+  },
+
   ],
   testimonials: sharedTestimonials,
   flagshipServiceIds: ["design"],
@@ -394,35 +395,51 @@ export const automationServicesConfig = {
   ],
   faqs: [
     {
-      question: "How do automation projects kick off?",
-      answer:
-        "We start with a planning call plus intake form so I can see your tools, manual steps, and ideal outcomes. Within a couple of days you get a prioritized roadmap of what will be automated first.",
+  question: "How do automation projects kick off?",
+  answer:
+    "We start with a short planning call and intake form so I can understand your tools, manual tasks, and ideal outcomes. From there, I map out your workflow and create a simple, prioritized roadmap. You’ll know exactly which automations we’ll tackle first and why.",
     },
     {
       question: "How long before automations go live?",
       answer:
-        "Most automation packages launch in 2-4 weeks depending on complexity. Smaller Zapier or Make builds can go live faster, while AI copilots or data-heavy projects take a bit longer.",
+      "Most automation projects go live in 2–4 weeks, depending on complexity and the systems involved. Simple Zapier or Make workflows can launch much faster, while AI copilots or multi-step data processes need a bit more time. You’ll get clear updates throughout the build.",
     },
     {
       question: "Do I need to touch any code?",
       answer:
-        "Nope. Everything is built with low-code tools, custom logic, or AI prompts that are documented so you can make tweaks without engineering support.",
+        "Nope. Everything is built with low-code tools, API connections, and AI logic so you don’t need engineering experience. I document each workflow so you can make simple edits later or expand it as your business grows.",
     },
     {
       question: "What if my tools are messy or outdated?",
       answer:
-        "I'll audit what's in place, recommend quick cleanups, and build automations that work with your current stack while planning for future upgrades.",
+        "No problem. I’ll review your current setup, clean up any confusing steps, and design automations that work smoothly with what you already use. If upgrades are needed later, I’ll outline options without disrupting your day-to-day operations.",
     },
     {
       question: "Who owns the accounts and workflows?",
       answer:
-        "You do. All automations, AI prompts, and shared folders live inside your accounts with SOPs on how to maintain them.",
+        "You own everything—your accounts, your automations, and your AI prompts. All workflows are built inside your tools with shared folders and simple SOPs so you always stay in control.",
     },
-    {
-      question: "Can you collaborate with my ops or CS team?",
-      answer:
-        "Absolutely. I'm happy to join their meetings, adapt to your project tools, and make sure every automation feels like part of the team's workflow.",
-    },
+{
+  question: "Can you collaborate with my ops or CS team?",
+  answer:
+    "Absolutely. I’m happy to join your team’s communication channels, sync with ops or support teams, and adapt to whatever tools you’re already using. The goal is for every automation to feel fully integrated into your existing workflow.",
+},
+
   ],
   testimonials: sharedTestimonials,
+};
+
+export const webDesignSpecialtyConfig = {
+  ...designServicesConfig,
+  canonicalPath: "/services/web-design",
+  metaTitle: "Custom Websites & Landing Pages – Hanna Web Studio",
+  metaDescription:
+    "Design and development of responsive landing pages and full websites that match your brand, improve credibility, and convert more visitors into clients.",
+  schemaName: "Custom Web Design & Landing Pages",
+  heroTitle: "Custom websites that increase trust and conversions.",
+  overviewHeading: "Websites built for service businesses needing clarity and credibility.",
+  valueHeading: "Messaging, structure, and UI that make it easy to buy from you.",
+  readyTitle: "Launch a site that represents your business.",
+  readyDescription:
+    "Share what you sell, who you help, and the outcome you promise—I'll map the wireframes, copy, and build so you can launch confidently.",
 };

@@ -8,7 +8,7 @@ import StickyHeader from "../components/StickyHeader";
 import { getAllPosts } from "../utils/loadposts";
 import { formatReadableDate } from "../utils/formatDate";
 import usePageMetadata from "../hooks/usePageMetadata";
-import { SITE_URL, buildBlogSchema } from "@/data/siteMeta";
+import { SITE_URL, buildBlogSchema, DEFAULT_OG_IMAGE } from "@/data/siteMeta";
 
 const heroContainer = {
   hidden: {},
@@ -58,6 +58,7 @@ export default function Blog({ theme, mainTheme }) {
     description: blogDescription,
     canonical: `${SITE_URL}/blog`,
     jsonLd: buildBlogSchema(blogDescription),
+    ogImage: DEFAULT_OG_IMAGE,
   });
   const blogTheme = theme?.blog;
   const mainStyle = {

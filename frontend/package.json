@@ -7,10 +7,12 @@
     "dev": "vite",
     "prebuild": "node ./scripts/ensureSchedulerCjs.mjs && node ./scripts/generateSeoAssets.mjs",
     "build": "vite build",
+    "postbuild": "node ./scripts/prerenderRoutes.mjs",
     "postinstall": "node ./scripts/ensureSchedulerCjs.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
-    "generate:seo": "node ./scripts/generateSeoAssets.mjs"
+    "generate:seo": "node ./scripts/generateSeoAssets.mjs",
+    "prerender": "node ./scripts/prerenderRoutes.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^1.5.0",
@@ -32,6 +34,7 @@
     "@vitejs/plugin-react": "4.3.3",
     "autoprefixer": "^10.4.21",
     "dotenv": "^16.4.5",
+    "esbuild": "^0.24.0",
     "eslint": "^9.36.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.22",

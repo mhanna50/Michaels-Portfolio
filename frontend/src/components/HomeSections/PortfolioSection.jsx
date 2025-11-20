@@ -759,12 +759,7 @@ export default function PortfolioSection({ theme, showDeepDive = false }) {
           </div>
           <div className={`h-1 w-24 rounded-full ${dividerFallbackClass}`} style={dividerStyle} />
           <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-            <p
-              className={`max-w-3xl font-serifalt text-lg ${mutedFallbackClass}`}
-              style={mutedStyle}
-            >
-              
-            </p>
+            
             <div className="flex flex-col gap-3 md:ml-5 md:flex-row md:items-center md:self-end">
               <Link to="/contact">
                 <Button

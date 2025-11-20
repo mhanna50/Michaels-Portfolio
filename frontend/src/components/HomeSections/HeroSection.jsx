@@ -122,7 +122,7 @@ export default function HeroSection({ mainTheme }) {
         <div className="w-[600px] h-[750px] rounded-b-[30rem] overflow-hidden shadow-2xl group">
           <img
             src="/images/personal/portfolio.jpeg"
-            alt="Michael"
+            alt="Portrait of Michael Hanna standing in front of web design work"
             className="w-full h-full object-cover object-top scale-105 "
           />
         </div>
@@ -186,7 +186,7 @@ export default function HeroSection({ mainTheme }) {
             className="rounded-[21rem] overflow-hidden shadow-2xl transition-[width,height] duration-300 ease-out"
             style={{ width: 'clamp(220px, 57vw, 394px)', height: 'clamp(360px, 64vh, 572px)' }}
           >
-            <img src="images/personal/portfolio.jpeg" alt="Michael" className="w-full h-full object-cover object-top" />
+            <img src="images/personal/portfolio.jpeg" alt="Portrait of Michael Hanna smiling while looking at design work" className="w-full h-full object-cover object-top" />
           </div>
         </motion.div>
 
@@ -231,7 +231,7 @@ export default function HeroSection({ mainTheme }) {
             className="flex flex-1 items-center justify-center"
           >
             <div className="w-full max-w-[140px] h-full min-h-[190px] rounded-[14rem] overflow-hidden shadow-2xl border-4 border-white/70 bg-white/40 backdrop-blur">
-              <img src="/images/personal/portfolio.jpeg" alt="Michael" className="w-full h-full object-cover object-top" />
+              <img src="/images/personal/portfolio.jpeg" alt="Michael Hanna smiling in a portrait used around the site" className="w-full h-full object-cover object-top" />
             </div>
           </motion.div>
         </div>

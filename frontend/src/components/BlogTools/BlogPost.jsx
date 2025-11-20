@@ -10,6 +10,7 @@ import {
   SITE_URL,
   buildBlogPostingSchema,
   toAbsoluteUrl,
+  DEFAULT_OG_IMAGE,
 } from "@/data/siteMeta";
 
 const THEME_TRANSITION =
@@ -54,6 +55,7 @@ export default function BlogPost({ slug, mainTheme, theme }) {
         dateModified: post.date,
       })
     : null;
+  const ogImage = post ? toAbsoluteUrl(post.previewImage) || DEFAULT_OG_IMAGE : DEFAULT_OG_IMAGE;
 
   usePageMetadata({
     title: metadataTitle,
@@ -61,6 +63,7 @@ export default function BlogPost({ slug, mainTheme, theme }) {
     canonical,
     jsonLd,
     structuredDataId: `blog-post-${slug}`,
+    ogImage,
   });
 
   const activePageTheme = theme?.page ? theme : mainTheme;

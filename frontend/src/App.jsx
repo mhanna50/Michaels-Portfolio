@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useEffect, useState } from "react";
 import { Routes, Route, useLocation, useParams } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
@@ -10,11 +10,24 @@ const Blog = lazy(() => import("./pages/blog"));
 const Portfolio = lazy(() => import("./pages/portfolio"));
 const PortfolioCaseStudy = lazy(() => import("./pages/PortfolioCaseStudy"));
 const ServicesPage = lazy(() => import("./pages/services"));
+const WebDesignServicesPage = lazy(() => import("./pages/services-web-design"));
 const AutomationServicesPage = lazy(() => import("./pages/services-automations"));
 const BlogPost = lazy(() => import("./components/BlogTools/BlogPost"));
 const ContactPage = lazy(() => import("./pages/contact"));
 
+const HEADER_OFFSET = "clamp(96px, 12vh, 140px)";
+const HEADER_BREAKPOINT = 1024;
+
 function Layout({ children, background, textColor, themeControl }) {
+  const [needsHeaderPadding, setNeedsHeaderPadding] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+    const updatePadding = () => setNeedsHeaderPadding(window.innerWidth < HEADER_BREAKPOINT);
+    updatePadding();
+    window.addEventListener("resize", updatePadding);
+    return () => window.removeEventListener("resize", updatePadding);
+  }, []);
   return (
     <div
       style={{
@@ -26,7 +39,7 @@ function Layout({ children, background, textColor, themeControl }) {
       }}
     >
       {themeControl}
-      <main style={{ flex: 1 }}>{children}</main>
+      <main style={{ flex: 1, paddingTop: needsHeaderPadding ? HEADER_OFFSET : 0 }}>{children}</main>
     </div>
   );
 }
@@ -82,6 +95,10 @@ export default function App() {
               element={<PortfolioCaseStudy theme={theme} mainTheme={mainTheme} />}
             />
             <Route path="/services" element={<ServicesPage theme={theme} mainTheme={mainTheme} />} />
+            <Route
+              path="/services/web-design"
+              element={<WebDesignServicesPage theme={theme} mainTheme={mainTheme} />}
+            />
             <Route
               path="/services/automations"
               element={<AutomationServicesPage theme={theme} mainTheme={mainTheme} />}

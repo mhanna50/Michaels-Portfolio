@@ -9,12 +9,24 @@ import {
   portfolioStats,
 } from "@/data/portfolioContent";
 import usePageMetadata from "@/hooks/usePageMetadata";
-import { SITE_URL, buildPortfolioListSchema } from "@/data/siteMeta";
+import { SITE_URL, buildPortfolioListSchema, DEFAULT_OG_IMAGE } from "@/data/siteMeta";
 
 const headlineStats = [
-  { value: "5+", label: "Web & automation launches" },
-  { value: "3", label: "Local industries served" },
-  { value: "4-6 weeks", label: "Typical build window" },
+  {
+    value: "5+",
+    label: "Web & automation launches",
+    description: "Custom sites and workflows shipped across interior design, wellness, and home services.",
+  },
+  {
+    value: "3",
+    label: "Local industries served",
+    description: "Med spa, construction, and consulting teams with highly tailored workflows.",
+  },
+  {
+    value: "4-6 weeks",
+    label: "Typical build window",
+    description: "From kickoff to QA for most custom sites and automation packages.",
+  },
 ];
 
 const marqueePhrases = [
@@ -120,7 +132,7 @@ function WorkCard({ study, styles, motionProps = {} }) {
 function AutomationCard({ solution, styles, motionProps = {} }) {
   return (
     <motion.article
-      className="flex h-full flex-col gap-6 rounded-3xl border p-8"
+      className="flex h-full flex-col rounded-3xl border p-8"
       style={{
         borderColor: styles.borderColor,
         background: styles.background,
@@ -145,7 +157,7 @@ function AutomationCard({ solution, styles, motionProps = {} }) {
           {solution.audience}
         </p>
       </div>
-      <div>
+      <div className="space-y-3">
         <p className="text-base font-accent uppercase tracking-[0.3em]" style={{ color: styles.labelColor }}>
           What it does
         </p>
@@ -153,7 +165,7 @@ function AutomationCard({ solution, styles, motionProps = {} }) {
           {solution.whatItDoes}
         </p>
       </div>
-      <div>
+      <div className="space-y-3">
         <p className="text-base font-accent uppercase tracking-[0.3em]" style={{ color: styles.labelColor }}>
           Value / Outcome
         </p>
@@ -161,7 +173,7 @@ function AutomationCard({ solution, styles, motionProps = {} }) {
           {solution.value}
         </p>
       </div>
-      <div className="flex flex-wrap gap-2 pt-2">
+      <div className="mt-auto flex flex-wrap gap-2 pt-2">
         {solution.stack.map((tech) => (
           <span
             key={`${solution.name}-${tech}`}
@@ -281,6 +293,7 @@ export default function PortfolioPage({ theme, mainTheme }) {
       "View case studies and project examples from Hanna Web Studio, including contractor sites, med spa branding, and a custom React portfolio build.",
     canonical,
     jsonLd: collectionJsonLd,
+    ogImage: DEFAULT_OG_IMAGE,
   });
 
   const createRevealProps = (delay = 0, distance = 48) => ({
@@ -353,8 +366,11 @@ export default function PortfolioPage({ theme, mainTheme }) {
                 <p className="text-3xl font-serifalt" style={headingStyle}>
                   {stat.value}
                 </p>
-                <p className="text-xs uppercase tracking-[0.35em]" style={labelStyle}>
+                <p className="mt-2 text-xs uppercase tracking-[0.35em]" style={labelStyle}>
                   {stat.label}
+                </p>
+                <p className="mt-2 text-sm leading-relaxed" style={mutedStyle}>
+                  {stat.description}
                 </p>
               </motion.div>
             ))}

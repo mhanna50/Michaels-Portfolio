@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import StickyHeader from "../components/StickyHeader";
 import Footer from "../components/Footer";
 import usePageMetadata from "../hooks/usePageMetadata";
-import { SITE_URL, buildContactPageSchema } from "@/data/siteMeta";
+import { SITE_URL, buildContactPageSchema, DEFAULT_OG_IMAGE } from "@/data/siteMeta";
 
 const serviceOptions = [
   { value: "webDesign", label: "Web Design" },
@@ -148,6 +148,7 @@ export default function ContactPage({ theme, mainTheme }) {
     description: "Share a few project details and I’ll reply with next steps within 48 hours.",
     canonical,
     jsonLd: buildContactPageSchema(),
+    ogImage: DEFAULT_OG_IMAGE,
   });
 
   const contactTheme =

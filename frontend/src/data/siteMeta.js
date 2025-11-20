@@ -10,6 +10,7 @@ export const SAME_AS_LINKS = [
 ];
 
 const LOGO_URL = `${SITE_URL}/images/personal/michaellogo.svg`;
+export const DEFAULT_OG_IMAGE = `${SITE_URL}/images/personal/portfolio.jpeg`;
 const ORGANIZATION_ID = `${SITE_URL}#organization`;
 const PERSON_ID = `${SITE_URL}#michael-hanna`;
 const WEBSITE_ID = `${SITE_URL}#website`;
@@ -127,7 +128,7 @@ export const buildBlogPostingSchema = ({
   publisher: {
     "@id": ORGANIZATION_ID,
   },
-  image: toAbsoluteUrl(image) || LOGO_URL,
+  image: toAbsoluteUrl(image) || DEFAULT_OG_IMAGE,
 });
 
 export const buildPortfolioListSchema = (studies) => ({
@@ -218,3 +219,20 @@ export const buildServiceSchema = ({
     availability: "https://schema.org/InStock",
   },
 });
+
+export const buildFaqSchema = (faqs = [], canonical) => {
+  if (!Array.isArray(faqs) || !faqs.length) return null;
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+    url: canonical,
+  };
+};
