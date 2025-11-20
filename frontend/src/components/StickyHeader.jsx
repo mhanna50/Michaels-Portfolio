@@ -77,9 +77,9 @@ export default function StickyHeader({ theme, forceVisible = false }) {
     typeof window !== 'undefined'
       ? (window.location.pathname.replace(/\/+$/, '') || '/')
       : '/';
-  const navLeftOffset = 'clamp(0.75rem, 0.45rem + 0.65vw, 2.4rem)';
+  const navLeftOffset = 'clamp(0.35rem, 0.15rem + 0.45vw, 1.5rem)';
   const navDynamicStyle = {
-    gap: 'clamp(0.45rem, 0.35rem + 0.5vw, 1.25rem)',
+    gap: 'clamp(0.3rem, 0.2rem + 0.35vw, 0.9rem)',
   };
   const navLinkDynamicStyle = {
     fontSize: 'clamp(1rem, 0.85rem + 0.5vw, 1.4rem)',
@@ -99,7 +99,7 @@ export default function StickyHeader({ theme, forceVisible = false }) {
       href: '/services',
       isActive: (path) => path === '/services' || path.startsWith('/services/'),
       children: [
-        { label: 'Web Design & Branding', href: '/services' },
+        { label: 'Web Design & Branding', href: '/services/web-design' },
         { label: 'Automations', href: '/services/automations' },
       ],
     },
@@ -195,7 +195,7 @@ export default function StickyHeader({ theme, forceVisible = false }) {
         </div>
         <nav
           id="sticky-header-nav"
-          className={`order-3 flex w-full flex-col items-center justify-center gap-3 text-center transition-all duration-300 ease-out overflow-hidden ${mobileNavStateClasses} desktop:order-1 desktop:col-start-1 desktop:col-end-2 desktop:flex desktop:w-full desktop:flex-1 desktop:max-w-none desktop:flex-row desktop:flex-nowrap desktop:items-center desktop:justify-start desktop:gap-1.5 xl:gap-3 2xl:gap-4 desktop:border-none desktop:pt-0 desktop:max-h-none desktop:opacity-100 desktop:translate-y-0 desktop:pointer-events-auto desktop:min-w-0 desktop:overflow-visible`}
+          className={`order-3 flex w-full flex-col items-center justify-center gap-3 text-center transition-all duration-300 ease-out overflow-hidden ${mobileNavStateClasses} desktop:order-1 desktop:col-start-1 desktop:col-end-2 desktop:flex desktop:w-full desktop:flex-1 desktop:max-w-none desktop:flex-row desktop:flex-nowrap desktop:items-center desktop:justify-start desktop:gap-1 xl:gap-2 2xl:gap-3 desktop:border-none desktop:pt-0 desktop:max-h-none desktop:opacity-100 desktop:translate-y-0 desktop:pointer-events-auto desktop:min-w-0 desktop:overflow-visible`}
           style={{ ...navDynamicStyle, borderColor: softBorder, paddingInlineStart: menuOpen ? 0 : navLeftOffset }}
         >
           {navLinks.map((link) => {
@@ -220,32 +220,42 @@ export default function StickyHeader({ theme, forceVisible = false }) {
                 }
                 style={{ position: hasChildren ? 'relative' : undefined }}
               >
-                <Link
-                  to={link.href}
-                  className={`${navButtonClass} w-full text-center desktop:w-auto`}
-                  style={{
-                    ...navLinkDynamicStyle,
-                    color: active ? (isLightHexColor(accent) ? brandActiveAccent : accent) : navText,
-                    backgroundColor: 'transparent',
-                  }}
-                  onClick={handleNavClick}
-                >
-                  {link.label}
-                </Link>
+                <div className="ml-32 flex w-full justify-center desktop:ml-0 desktop:justify-start">
+                  <Link
+                    to={link.href}
+                    className={`${navButtonClass} w-full max-w-[320px] text-left rounded-3xl border border-transparent px-5 py-3 desktop:w-auto desktop:max-w-none desktop:rounded-full desktop:border-none desktop:bg-transparent desktop:px-0 desktop:py-0 desktop:text-center desktop:shadow-none`}
+                    style={{
+                      ...navLinkDynamicStyle,
+                      color: active ? (isLightHexColor(accent) ? brandActiveAccent : accent) : navText,
+                      backgroundColor: 'transparent',
+                    }}
+                    onClick={handleNavClick}
+                  >
+                    {link.label}
+                  </Link>
+                </div>
                 {hasChildren && (
                   <>
-                    <div className="mt-2 flex w-full flex-col gap-2 border-l border-white/10 pl-5 text-left desktop:hidden">
-                      {link.children.map((child) => (
-                        <Link
-                          key={child.href}
-                          to={child.href}
-                          className="font-accent text-[0.85rem] uppercase tracking-[0.3em] transition-colors duration-200"
-                          style={{ color: navText, opacity: 0.85 }}
-                          onClick={handleNavClick}
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
+                    <div className="mt-2 flex w-full justify-center desktop:hidden">
+                      <div className="ml-32 flex w-full max-w-[320px] flex-col gap-2 text-left">
+                        {link.children.map((child) => (
+                          <Link
+                            key={child.href}
+                            to={child.href}
+                            className="rounded-2xl border border-white/10 px-4 py-2 font-accent text-[0.85rem] uppercase tracking-[0.3em] transition-colors duration-200"
+                            style={{ color: navText, opacity: 0.85, textAlign: "left" }}
+                            onMouseEnter={(event) => {
+                              event.currentTarget.style.color = accent;
+                            }}
+                            onMouseLeave={(event) => {
+                              event.currentTarget.style.color = navText;
+                            }}
+                            onClick={handleNavClick}
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                      </div>
                     </div>
                     <div
                       className={`pointer-events-none absolute left-0 top-full z-50 hidden min-w-[15rem] -translate-y-1 opacity-0 rounded-3xl border border-white/15 bg-[rgba(8,8,8,0.92)] p-4 text-left shadow-2xl transition-all duration-200 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 desktop:flex desktop:flex-col desktop:gap-1.5 ${
@@ -259,8 +269,14 @@ export default function StickyHeader({ theme, forceVisible = false }) {
                         <Link
                           key={child.href}
                           to={child.href}
-                          className="rounded-2xl px-4 py-2 text-left text-sm font-accent uppercase tracking-[0.28em] text-current transition-colors duration-200 hover:text-[var(--dropdown-accent, #fff)]"
-                          style={{ '--dropdown-accent': accent, color: navText }}
+                          className="rounded-2xl px-4 py-2 text-left text-sm font-accent uppercase tracking-[0.28em] text-current transition-colors duration-200"
+                          style={{ color: navText }}
+                          onMouseEnter={(event) => {
+                            event.currentTarget.style.color = accent;
+                          }}
+                          onMouseLeave={(event) => {
+                            event.currentTarget.style.color = navText;
+                          }}
                           onClick={handleNavClick}
                         >
                           {child.label}
