@@ -207,7 +207,7 @@ export default function StickyHeader({ theme, forceVisible = false }) {
             return (
               <div
                 key={link.href}
-                className={`w-full desktop:w-auto ${hasChildren ? 'desktop:relative desktop:group' : ''}`}
+                className={`w-full max-w-[360px] self-center pl-28 desktop:w-auto desktop:max-w-none desktop:pl-0 ${hasChildren ? 'desktop:relative desktop:group' : ''}`}
                 onMouseEnter={hasChildren ? () => handleDropdownEnter(link.href) : undefined}
                 onMouseLeave={hasChildren ? handleDropdownLeave : undefined}
                 onFocus={hasChildren ? () => handleDropdownEnter(link.href) : undefined}
@@ -222,7 +222,7 @@ export default function StickyHeader({ theme, forceVisible = false }) {
                 }
                 style={{ position: hasChildren ? 'relative' : undefined }}
               >
-                <div className="ml-20 flex w-full justify-center desktop:ml-0 desktop:justify-start">
+                <div className="flex w-full justify-center desktop:justify-start">
                   <Link
                     to={link.href}
                     className={`${navButtonClass} w-full max-w-[320px] text-left rounded-3xl border border-transparent px-5 py-3 desktop:w-auto desktop:max-w-none desktop:rounded-full desktop:border-none desktop:bg-transparent desktop:px-0 desktop:py-0 desktop:text-center desktop:shadow-none`}
@@ -232,14 +232,16 @@ export default function StickyHeader({ theme, forceVisible = false }) {
                       backgroundColor: 'transparent',
                     }}
                     onClick={handleNavClick}
+                    onMouseEnter={hasChildren ? () => handleDropdownEnter(link.href) : undefined}
+                    onFocus={hasChildren ? () => handleDropdownEnter(link.href) : undefined}
                   >
                     {link.label}
                   </Link>
                 </div>
                 {hasChildren && (
                   <>
-                    <div className="mt-2 flex w-full justify-center desktop:hidden">
-                      <div className="ml-36 flex w-full max-w-[320px] flex-col gap-2 text-left">
+                    <div className="mt-2 flex w-full justify-center pl-12 desktop:hidden">
+                      <div className="flex w-full max-w-[320px] flex-col gap-2 text-left">
                         {link.children.map((child) => (
                           <Link
                             key={child.href}
@@ -260,10 +262,10 @@ export default function StickyHeader({ theme, forceVisible = false }) {
                       </div>
                     </div>
                     <div
-                      className={`pointer-events-none absolute left-0 top-full z-50 hidden min-w-[15rem] -translate-y-1 opacity-0 rounded-3xl border border-white/15 bg-[rgba(8,8,8,0.92)] p-4 text-left shadow-2xl transition-all duration-200 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 desktop:flex desktop:flex-col desktop:gap-1.5 ${
+                      className={`pointer-events-none absolute left-0 top-full z-50 hidden min-w-[15rem] opacity-0 rounded-3xl border border-white/15 bg-[rgba(8,8,8,0.92)] p-4 text-left shadow-2xl transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100 desktop:flex desktop:flex-col desktop:gap-1.5 ${
                         dropdownOpen ? 'pointer-events-auto translate-y-0 opacity-100' : ''
                       }`}
-                      style={{ background: bg, borderColor: softBorder, color: navText, zIndex: 60 }}
+                      style={{ background: bg, borderColor: softBorder, color: navText, zIndex: 60, marginTop: '2px' }}
                       onMouseEnter={() => handleDropdownEnter(link.href)}
                       onMouseLeave={handleDropdownLeave}
                     >

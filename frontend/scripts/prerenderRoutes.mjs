@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { createRequire } from "node:module";
 import esbuild from "esbuild";
 import { portfolioCaseStudies } from "../src/data/portfolioContent.js";
 
@@ -10,6 +11,7 @@ const srcDir = path.join(rootDir, "src");
 const distDir = path.join(rootDir, "dist");
 const postsDir = path.join(srcDir, "posts");
 const tempDir = path.join(rootDir, ".ssg-temp");
+const require = createRequire(import.meta.url);
 
 const ensureDir = (dir) => {
   fs.mkdirSync(dir, { recursive: true });
@@ -26,6 +28,14 @@ const readPostSlugs = () => {
 const buildRenderer = async () => {
   ensureDir(tempDir);
   const outfile = path.join(tempDir, "ssg-entry.mjs");
+  const resolveModule = (specifier) => {
+    try {
+      return require.resolve(specifier);
+    } catch (error) {
+      console.warn(`Unable to resolve "${specifier}" while building prerender bundle.`);
+      throw error;
+    }
+  };
   await esbuild.build({
     entryPoints: [path.join(srcDir, "ssg-entry.jsx")],
     bundle: true,
@@ -37,6 +47,9 @@ const buildRenderer = async () => {
     logLevel: "silent",
     alias: {
       "@": srcDir,
+      "react-router": resolveModule("react-router/dist/index.js"),
+      "react-router-dom": resolveModule("react-router-dom/dist/index.js"),
+      "react-router-dom/server.js": resolveModule("react-router-dom/server.js"),
     },
     define: {
       "process.env.NODE_ENV": '"production"',
