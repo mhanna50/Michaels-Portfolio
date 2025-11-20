@@ -54,6 +54,11 @@ export default function OffersSection({ theme }) {
   const sectionTheme = theme?.sections?.contact;
   const accent = theme?.accent || "#436850";
   const palette = sectionTheme?.palette || {};
+  const scrollToServiceTop = () => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
 
   const sectionStyle = sectionTheme
     ? { background: sectionTheme.bg, color: sectionTheme.text }
@@ -71,13 +76,13 @@ export default function OffersSection({ theme }) {
       summary:
         "Custom websites, branding, and SEO that make your business stand out and attract high-value clients.",
       highlights: ["Brand + web kits in one place", "Consistent communication and clarity on goals"],
-      href: "/services#deep-dive",
+      href: "/services",
     },
     {
       title: "Automation & Ops",
       summary:"Smart automations that streamline operations, eliminate repetitive tasks, and help business owners win back their time.",
       highlights: ["AI receptionist & instant customer responses", "Lead follow-up & nurturing workflows"],
-      href: "/services#deep-dive",
+      href: "/services/automations",
     },
   ];
 
@@ -165,6 +170,7 @@ export default function OffersSection({ theme }) {
             <Link
               key={card.title}
               to={card.href}
+              onClick={scrollToServiceTop}
               className="group flex h-full flex-col rounded-3xl border p-8 transition-all hover:-translate-y-1 hover:shadow-2xl"
               style={{
                 borderColor: cardBorderColor,

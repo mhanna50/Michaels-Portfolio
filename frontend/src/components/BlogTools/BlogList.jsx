@@ -191,6 +191,7 @@ export default function BlogList({ posts: incomingPosts, palette, themeColors })
                     alt={`Preview for ${post.title}`}
                     className="h-48 w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
               )}

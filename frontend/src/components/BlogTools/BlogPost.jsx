@@ -5,16 +5,64 @@ import { getPostBySlug } from "../../utils/loadposts";
 import { formatReadableDate } from "../../utils/formatDate";
 import Footer from "../Footer";
 import StickyHeader from "../StickyHeader";
+import usePageMetadata from "../../hooks/usePageMetadata";
+import {
+  SITE_URL,
+  buildBlogPostingSchema,
+  toAbsoluteUrl,
+} from "@/data/siteMeta";
 
-const THEME_TRANSITION = "background 600ms ease, background-color 600ms ease, color 600ms ease, border-color 600ms ease";
+const THEME_TRANSITION =
+  "background 600ms ease, background-color 600ms ease, color 600ms ease, border-color 600ms ease";
+
+const FALLBACK_DESCRIPTION =
+  "That story is no longer available. Browse the journal for fresh lessons on design, development, and automation.";
 
 const withTransition = (style) => ({
   transition: THEME_TRANSITION,
   ...(style || {}),
 });
 
+const createMetaDescription = (text = "") => {
+  if (text.length <= 150) {
+    return text;
+  }
+  return `${text.slice(0, 147).trim()}...`;
+};
+
 export default function BlogPost({ slug, mainTheme, theme }) {
   let post;
+  try {
+    post = getPostBySlug(slug);
+  } catch (error) {
+    console.error(error);
+    post = null;
+  }
+  const canonical = `${SITE_URL}/blog/${slug}`;
+  const postDescription = post?.excerpt || post?.description || FALLBACK_DESCRIPTION;
+  const metaDescription = createMetaDescription(postDescription);
+  const metadataTitle = post
+    ? `${post.title} – Hanna Web Studio Blog`
+    : "Article Not Found – Hanna Web Studio Blog";
+  const jsonLd = post
+    ? buildBlogPostingSchema({
+        title: post.title,
+        description: metaDescription,
+        slug,
+        image: toAbsoluteUrl(post.previewImage),
+        datePublished: post.date,
+        dateModified: post.date,
+      })
+    : null;
+
+  usePageMetadata({
+    title: metadataTitle,
+    description: metaDescription,
+    canonical,
+    jsonLd,
+    structuredDataId: `blog-post-${slug}`,
+  });
+
   const activePageTheme = theme?.page ? theme : mainTheme;
   const blogTheme = theme?.blog || mainTheme?.blog;
   const palette = blogTheme?.palette || {};
@@ -72,10 +120,7 @@ export default function BlogPost({ slug, mainTheme, theme }) {
     });
   };
 
-  try {
-    post = getPostBySlug(slug);
-  } catch (error) {
-    console.error(error);
+  if (!post) {
     return (
       <>
         <StickyHeader theme={theme} forceVisible />

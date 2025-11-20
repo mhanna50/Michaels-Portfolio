@@ -26,9 +26,14 @@ const isColorLight = (color) => {
   return luminance > 0.6;
 };
 
+const servicesChildren = [
+  { label: "Web Design & Branding", href: "/services" },
+  { label: "Automations", href: "/services/automations" },
+];
+
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "Services", href: "/services" },
+  { label: "Services", href: "/services", children: servicesChildren },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Contact", href: "/contact" },
   { label: "Blog", href: "/blog" },
@@ -37,9 +42,8 @@ const navLinks = [
 const socialLinks = [
   {
     label: "Contact",
-    href: "/contact",
+    href: "mailto:contact@hannawebstudio.com",
     icon: Mail,
-    internal: true,
   },
   {
     label: "LinkedIn",
@@ -126,24 +130,38 @@ export default function Footer({ mainTheme, theme }) {
                 Navigate
               </p>
               <nav className="flex flex-col items-start gap-4 font-serifalt text-xl text-accent-light/90 md:text-2xl">
-                {navLinks.map(({ label, href }) => (
-                  <Link
-                    key={label}
-                    to={href}
-                    className="transition-colors duration-200 hover:text-white"
-                  >
-                    {label}
-                  </Link>
+                {navLinks.map(({ label, href, children }) => (
+                  <div key={label} className="space-y-2">
+                    <Link
+                      to={href}
+                      className="transition-colors duration-200 hover:text-white"
+                    >
+                      {label}
+                    </Link>
+                    {Array.isArray(children) && children.length > 0 && (
+                      <div className="ml-3 flex flex-col gap-1 pl-3 text-left">
+                        {children.map((child) => (
+                          <Link
+                            key={child.label}
+                            to={child.href}
+                            className="font-accent text-sm uppercase tracking-[0.3em] text-accent-light/80 transition-colors duration-200 hover:text-white"
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 ))}
               </nav>
             </div>
 
-            <div className="space-y-5 text-left md:mx-0 md:flex md:h-full md:w-full md:flex-col md:justify-between md:space-y-6 md:py-6">
+            <div className="space-y-0 text-left md:mx-0 md:flex md:h-full md:w-full md:flex-col md:justify-between md:space-y-0 md:py-6">
               <p className="font-accent uppercase tracking-[0.3em] text-base text-accent-light/70">
                 Connect
               </p>
-              <div className="flex flex-col items-start gap-3">
-                {socialLinks.map(({ label, href, icon: Icon, internal }) => {
+              <div className="flex flex-col items-start gap-2.5">
+                {socialLinks.map(({ label, href, icon: Icon, internal, subtitle }) => {
                   const sharedClasses =
                     "group inline-flex items-center gap-3 rounded-full border px-5 py-3 font-serifalt text-sm transition-all duration-300 hover:-translate-y-1 border-[var(--footer-btn-border)] bg-[var(--footer-btn-bg)] text-[var(--footer-btn-text)] hover:border-[var(--footer-btn-hover-border)] hover:bg-[var(--footer-btn-hover-bg)] hover:text-[var(--footer-btn-hover-text)]";
                   const content = (
@@ -151,19 +169,24 @@ export default function Footer({ mainTheme, theme }) {
                       <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--footer-icon-bg)] text-[var(--footer-icon-text)] transition-colors duration-300 group-hover:bg-[var(--footer-icon-hover-bg)] group-hover:text-[var(--footer-icon-hover-text)]">
                         <Icon className="h-4 w-4" />
                       </span>
-                      <span className="text-base">{label}</span>
+                      <span className="flex flex-col text-left leading-tight">
+                        <span className="text-base">{label}</span>
+                        {subtitle && (
+                          <span className="text-xs font-serifalt text-accent-light/70">
+                            {subtitle}
+                          </span>
+                        )}
+                      </span>
                     </>
                   );
 
-                  if (internal) {
-                    return (
-                      <Link key={label} to={href} className={sharedClasses} aria-label={label} style={connectButtonVars}>
-                        {content}
-                      </Link>
-                    );
-                  }
+                  const isInternal = Boolean(internal);
 
-                  return (
+                  return isInternal ? (
+                    <Link key={label} to={href} className={sharedClasses} aria-label={label} style={connectButtonVars}>
+                      {content}
+                    </Link>
+                  ) : (
                     <a
                       key={label}
                       href={href}

@@ -1,8 +1,10 @@
 import React, { useEffect, useMemo, useState, useRef } from "react";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import StickyHeader from "../components/StickyHeader";
 import Footer from "../components/Footer";
 import usePageMetadata from "../hooks/usePageMetadata";
+import { SITE_URL, buildContactPageSchema } from "@/data/siteMeta";
 
 const serviceOptions = [
   { value: "webDesign", label: "Web Design" },
@@ -140,21 +142,12 @@ export default function ContactPage({ theme, mainTheme }) {
   const [feedback, setFeedback] = useState("");
   const forceHeaderVisible = true;
 
-  const origin = typeof window !== "undefined" ? window.location.origin : null;
-  const canonical = origin ? `${origin}/contact` : undefined;
+  const canonical = `${SITE_URL}/contact`;
   usePageMetadata({
     title: "Contact | Hanna Web Studio",
     description: "Share a few project details and I’ll reply with next steps within 48 hours.",
     canonical,
-    jsonLd: origin
-      ? {
-          "@context": "https://schema.org",
-          "@type": "ContactPage",
-          name: "Contact Michael Hanna",
-          description: "Streamlined intake form for web design, branding, and automation projects.",
-          url: canonical,
-        }
-      : undefined,
+    jsonLd: buildContactPageSchema(),
   });
 
   const contactTheme =
@@ -163,6 +156,18 @@ export default function ContactPage({ theme, mainTheme }) {
     theme?.sections?.portfolio ||
     mainTheme?.sections?.portfolio;
   const palette = useMemo(() => contactTheme?.palette || {}, [contactTheme]);
+  const heroSafePadding = "clamp(8.5rem, 6rem + 4vw, 11.5rem)";
+  const heroIntro = {
+    initial: { opacity: 0, y: 28 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.65, ease: "easeOut" },
+  };
+  const fadeInView = (delay = 0) => ({
+    initial: { opacity: 0, y: 32 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.2 },
+    transition: { duration: 0.6, ease: "easeOut", delay },
+  });
   const pageBackground = contactTheme?.bg || mainTheme?.page?.bg || "#0b1220";
   const pageBackgroundSample = sampleColorFromString(pageBackground);
   const pageHasLightBackground = pageBackgroundSample ? isColorLight(pageBackgroundSample) : false;
@@ -442,11 +447,14 @@ export default function ContactPage({ theme, mainTheme }) {
       <StickyHeader theme={theme} forceVisible={forceHeaderVisible} />
       <section
         id="contact-hero"
-        className="px-6 pt-28 pb-16 sm:pt-32 lg:pt-36 flex min-h-[67.5vh] flex-col justify-center"
-        style={heroSectionStyle}
+        className="px-6 pb-16 flex min-h-[67.5vh] flex-col justify-center"
+        style={{ ...heroSectionStyle, paddingTop: heroSafePadding }}
       >
-        <div className="mx-auto flex w-full max-w-5xl flex-col gap-8 text-left">
-          <p className="font-accent text-base uppercase tracking-[0.45em] md:text-lg" style={heroLabelStyle}>
+        <motion.div
+          className="mx-auto flex w-full max-w-5xl flex-col gap-8 text-left"
+          {...heroIntro}
+        >
+          <p className="font-accent text-xl uppercase tracking-[0.45em] sm:text-2xl" style={heroLabelStyle}>
             Contact
           </p>
           <h1 className="font-serifalt text-5xl leading-tight md:text-6xl" style={heroHeadingStyle}>
@@ -468,7 +476,7 @@ export default function ContactPage({ theme, mainTheme }) {
               View Services
             </Link>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       <section
@@ -477,11 +485,12 @@ export default function ContactPage({ theme, mainTheme }) {
         style={{ ...formSectionStyle, minHeight: "100vh" }}
       >
         <div className="mx-auto grid max-w-6xl items-center gap-8 py-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.55fr)]">
-          <form
+          <motion.form
             id="contact-form"
             className="space-y-10 rounded-3xl border p-8 md:p-10 self-center"
             style={formCardStyle}
             onSubmit={handleSubmit}
+            {...fadeInView(0.05)}
           >
             <div className="space-y-4">
               <p className={labelClass} style={{ color: controlColors.label }}>
@@ -985,9 +994,9 @@ export default function ContactPage({ theme, mainTheme }) {
                 </p>
               )}
             </div>
-          </form>
+          </motion.form>
 
-          <aside
+          <motion.aside
             ref={asideRef}
             className="rounded-3xl border p-6 md:p-8 flex flex-col gap-6 lg:sticky self-start"
             style={{
@@ -996,6 +1005,7 @@ export default function ContactPage({ theme, mainTheme }) {
               overflowY: "auto",
               top: stickyTopValue,
             }}
+            {...fadeInView(0.15)}
           >
             <p className={`${labelClass} text-sm`} style={{ color: asideLabelColor }}>
               What to expect
@@ -1016,7 +1026,7 @@ export default function ContactPage({ theme, mainTheme }) {
                 If you prefer to start with a short note, include the essentials above so I can keep everything organized.
               </p>
             </div>
-          </aside>
+          </motion.aside>
         </div>
       </section>
 

@@ -7,6 +7,8 @@ import Footer from "../components/Footer";
 import StickyHeader from "../components/StickyHeader";
 import { getAllPosts } from "../utils/loadposts";
 import { formatReadableDate } from "../utils/formatDate";
+import usePageMetadata from "../hooks/usePageMetadata";
+import { SITE_URL, buildBlogSchema } from "@/data/siteMeta";
 
 const heroContainer = {
   hidden: {},
@@ -48,6 +50,15 @@ const sectionReveal = {
 export default function Blog({ theme, mainTheme }) {
   const posts = getAllPosts();
   const featuredPost = posts[0];
+  const blogDescription =
+    "Articles from Hanna Web Studio on web design, React, WordPress, and business automations to help owners understand and use modern tools.";
+
+  usePageMetadata({
+    title: "Blog | Web Design, Development & Automation Insights",
+    description: blogDescription,
+    canonical: `${SITE_URL}/blog`,
+    jsonLd: buildBlogSchema(blogDescription),
+  });
   const blogTheme = theme?.blog;
   const mainStyle = {
     background: blogTheme?.bg || mainTheme?.blog?.bg,

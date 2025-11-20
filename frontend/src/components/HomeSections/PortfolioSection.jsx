@@ -139,11 +139,35 @@ const projectCollections = {
   ],
 };
 
+const automationSolutions = [
+  {
+    name: 'AI Receptionist & Missed Call Rescue',
+    audience: 'Local service businesses that miss calls or messages',
+    whatItDoes: 'Answers new leads 24/7, sends helpful follow-ups, and books calls without a staff member needing to step in.',
+    value: 'Prevents lost revenue by making sure every inquiry hears back in seconds.',
+    stack: ['OpenAI', 'Resend', 'Node/TS', 'Zapier/Make'],
+    type: 'Monthly Retainer',
+  },
+  {
+    name: 'Lead Routing & Instant Handoff',
+    audience: 'Agencies and multi-location teams juggling inbound requests',
+    whatItDoes: 'Captures web leads, figures out who should respond, and delivers context-rich handoffs through SMS or email.',
+    value: 'Cuts response time and keeps prospects moving to the right rep without manual triage.',
+    stack: ['OpenAI', 'Resend', 'Node/TS', 'Zapier/Make'],
+    type: 'One-time Build',
+  },
+];
+
 const tabConfig = [
   { value: 'websites', label: 'Website Projects' },
   { value: 'coding', label: 'Coding Projects' },
   { value: 'seo', label: 'SEO & Branding' },
   { value: 'qa', label: 'QA Work' },
+];
+
+const deepDiveViewModes = [
+  { value: 'case-studies', label: 'Website Case Studies' },
+  { value: 'automations', label: 'Automation Systems' },
 ];
 
 const fadeInUp = {
@@ -261,10 +285,10 @@ function FeaturedProjectCard({ project, index, palette }) {
         />
       )}
       <div
-        className={`relative z-10 flex h-full flex-col justify-between p-9 lg:p-10 ${innerFallbackClass ? `${innerFallbackClass} backdrop-blur` : ''}`}
+        className={`relative z-10 flex h-full flex-col justify-between p-7 lg:p-8 ${innerFallbackClass ? `${innerFallbackClass} backdrop-blur` : ''}`}
         style={cardTextColor ? { color: cardTextColor } : undefined}
       >
-        <div className="space-y-5">
+        <div className="space-y-4">
           <div className="flex items-center justify-between">
             <span
               className={`font-accent uppercase tracking-[0.3em] text-sm ${labelFallbackClass}`}
@@ -290,24 +314,8 @@ function FeaturedProjectCard({ project, index, palette }) {
             {project.description}
           </p>
         </div>
-        {project.highlights && (
-          <ul
-            className="mt-6 space-y-2 text-base font-serifalt"
-            style={cardMutedColor ? { color: cardMutedColor } : undefined}
-          >
-            {project.highlights.map((item, highlightIndex) => (
-              <li key={highlightIndex} className="flex items-start gap-2">
-                <span
-                  className="mt-1 h-1.5 w-1.5 rounded-full"
-                  style={indicatorColor ? { backgroundColor: indicatorColor } : undefined}
-                />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        )}
         {visibleTestimonials.length > 0 && (
-          <div className="mt-8 space-y-6">
+          <div className="mt-6 space-y-5">
             {visibleTestimonials.map((testimonialEntry, testimonialIndex) =>
               testimonialEntry.type === 'video' ? (
                 <div
@@ -367,7 +375,7 @@ function FeaturedProjectCard({ project, index, palette }) {
             )}
           </div>
         )}
-        <div className="mt-8 flex flex-wrap gap-3">
+        <div className="mt-6 flex flex-wrap gap-3">
           {project.liveUrl &&
             (project.liveUrl.startsWith("/") ? (
               <Link
@@ -418,8 +426,68 @@ function FeaturedProjectCard({ project, index, palette }) {
   );
 }
 
+function AutomationCard({ solution, index, palette }) {
+  const cardPalette = palette || {};
+  const cardStyle = cardPalette.bg
+    ? withTransition({
+        background: cardPalette.bg,
+        borderColor: cardPalette.border,
+        color: cardPalette.text,
+      })
+    : undefined;
+  const accentColor = cardPalette.accent || palette?.accent;
+  const mutedColor = cardPalette.muted || palette?.muted;
+  const fallbackClass = cardStyle ? '' : 'bg-white/85 border-primary-dark/15';
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45, delay: index * 0.08 }}
+      className={`flex flex-col gap-5 rounded-3xl border p-7 backdrop-blur ${fallbackClass}`}
+      style={cardStyle}
+    >
+      <div className="flex items-center justify-between gap-4 text-xs font-accent uppercase tracking-[0.25em]">
+        <span className="text-secondary-dark/80" style={accentColor ? { color: accentColor } : undefined}>
+          {solution.type}
+        </span>
+        <span className="rounded-full border px-3 py-1 text-[0.65rem] tracking-[0.3em] text-neutral-dark/70">
+          Automation
+        </span>
+      </div>
+      <div>
+        <h4 className="font-serifalt text-2xl leading-snug">{solution.name}</h4>
+        <p className="mt-2 text-sm font-accent uppercase tracking-[0.2em] text-neutral-dark/70">Built for</p>
+        <p className="font-serifalt text-lg" style={mutedColor ? { color: mutedColor } : undefined}>
+          {solution.audience}
+        </p>
+      </div>
+      <div>
+        <p className="text-sm font-accent uppercase tracking-[0.2em] text-neutral-dark/70">What it does</p>
+        <p className="font-serifalt text-base leading-relaxed">{solution.whatItDoes}</p>
+      </div>
+      <div>
+        <p className="text-sm font-accent uppercase tracking-[0.2em] text-neutral-dark/70">Value</p>
+        <p className="font-serifalt text-base leading-relaxed">{solution.value}</p>
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {solution.stack.map((tech) => (
+          <span
+            key={`${solution.name}-${tech}`}
+            className="rounded-full border px-4 py-1 text-sm font-serifalt"
+            style={accentColor ? withTransition({ borderColor: accentColor, color: accentColor }) : undefined}
+          >
+            {tech}
+          </span>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
 function DeepDiveLibrary({ palette, buttonPalette }) {
   const [activeTab, setActiveTab] = useState('websites');
+  const [viewMode, setViewMode] = useState('case-studies');
   const activeTabConfig = tabConfig.find((tab) => tab.value === activeTab);
   const activeProjects = activeTabConfig ? projectCollections[activeTabConfig.value] : [];
   const sectionPalette = palette || {};
@@ -462,6 +530,11 @@ function DeepDiveLibrary({ palette, buttonPalette }) {
   const tabFallbackClass = deepDivePalette.tabs
     ? ''
     : 'text-neutral-dark data-[state=active]:border data-[state=active]:border-primary-dark/40 data-[state=active]:bg-neutral data-[state=active]:text-white';
+  const viewToggleFallbackClass = deepDivePalette.tabs ? '' : 'border-primary-dark/20 bg-white/60';
+  const viewToggleButtonFallbackClass = deepDivePalette.tabs
+    ? ''
+    : 'text-neutral-dark data-[active=true]:bg-neutral data-[active=true]:text-white';
+  const automationCardPalette = sectionPalette?.automationCard || sectionPalette?.projectCard || sectionPalette?.card;
 
   return (
     <motion.div
@@ -472,7 +545,7 @@ function DeepDiveLibrary({ palette, buttonPalette }) {
       className={`rounded-[36px] border p-8 backdrop-blur ${deepDiveFallbackClass}`}
       style={deepDiveStyle}
     >
-      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between md:gap-6">
+      <div className="flex flex-col gap-5">
         <div className="space-y-1">
           <p
             className={`font-accent uppercase tracking-[0.3em] text-lg ${deepDiveAccentFallbackClass}`}
@@ -487,55 +560,109 @@ function DeepDiveLibrary({ palette, buttonPalette }) {
             Explore additional builds by discipline.
           </h3>
         </div>
-      </div>
-
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="mt-8">
-        <div className="flex w-full justify-start overflow-x-auto pb-2">
-          <TabsList
-            className={`flex w-full justify-center gap-6 rounded-full border p-2 backdrop-blur ${tabsListFallbackClass}`}
+        <div className="flex justify-start">
+          <div
+            className={`flex w-full max-w-xl items-center justify-between gap-2 rounded-full border px-2 py-1 ${viewToggleFallbackClass}`}
             style={tabsListStyle}
           >
-            {tabConfig.map((tab) => (
-              <TabsTrigger
-                key={tab.value}
-                value={tab.value}
-                className={`rounded-full px-6 py-2 font-accent uppercase tracking-[0.15em] text-sm border transition-all duration-300 ${tabFallbackClass}`}
+            {deepDiveViewModes.map((mode) => (
+              <button
+                key={mode.value}
+                type="button"
+                data-active={viewMode === mode.value}
+                onClick={() => setViewMode(mode.value)}
+                className={`flex-1 rounded-full px-4 py-2 text-sm font-accent uppercase tracking-[0.15em] transition-all ${viewToggleButtonFallbackClass}`}
                 style={{
                   ...(tabBaseStyle || {}),
-                  ...(activeTab === tab.value && tabActiveStyle ? tabActiveStyle : {}),
+                  ...(viewMode === mode.value && tabActiveStyle ? tabActiveStyle : {}),
                 }}
               >
-                {tab.label}
-              </TabsTrigger>
+                {mode.label}
+              </button>
             ))}
-          </TabsList>
+          </div>
         </div>
+      </div>
 
-        <AnimatePresence mode="wait">
-          {activeTabConfig && (
-            <TabsContent key={activeTabConfig.value} value={activeTabConfig.value} className="mt-10">
-              <motion.div
-                key={activeTabConfig.value}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4, ease: 'easeOut' }}
-                className="grid gap-8 md:grid-cols-2"
-              >
-                {activeProjects.map((project, index) => (
-                  <ProjectCard
-                    key={project.title}
-                    project={project}
-                    index={index}
-                    palette={sectionPalette?.projectCard || sectionPalette?.card}
-                    buttonPalette={buttonPalette}
-                  />
-                ))}
-              </motion.div>
-            </TabsContent>
-          )}
-        </AnimatePresence>
-      </Tabs>
+      <AnimatePresence mode="wait" initial={false}>
+        {viewMode === 'case-studies' ? (
+          <motion.div
+            key="case-studies"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -24 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+          >
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="mt-8">
+              <div className="flex w-full justify-start overflow-x-auto pb-2">
+                <TabsList
+                  className={`flex w-full justify-center gap-6 rounded-full border p-2 backdrop-blur ${tabsListFallbackClass}`}
+                  style={tabsListStyle}
+                >
+                  {tabConfig.map((tab) => (
+                    <TabsTrigger
+                      key={tab.value}
+                      value={tab.value}
+                      className={`rounded-full px-6 py-2 font-accent uppercase tracking-[0.15em] text-sm border transition-all duration-300 ${tabFallbackClass}`}
+                      style={{
+                        ...(tabBaseStyle || {}),
+                        ...(activeTab === tab.value && tabActiveStyle ? tabActiveStyle : {}),
+                      }}
+                    >
+                      {tab.label}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+              </div>
+
+              <AnimatePresence mode="wait">
+                {activeTabConfig && (
+                  <TabsContent key={activeTabConfig.value} value={activeTabConfig.value} className="mt-10">
+                    <motion.div
+                      key={activeTabConfig.value}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.4, ease: 'easeOut' }}
+                      className="grid gap-8 md:grid-cols-2"
+                    >
+                      {activeProjects.map((project, index) => (
+                        <ProjectCard
+                          key={project.title}
+                          project={project}
+                          index={index}
+                          palette={sectionPalette?.projectCard || sectionPalette?.card}
+                          buttonPalette={buttonPalette}
+                        />
+                      ))}
+                    </motion.div>
+                  </TabsContent>
+                )}
+              </AnimatePresence>
+            </Tabs>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="automations"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -24 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className="mt-10"
+          >
+            <div className="grid gap-6 md:grid-cols-2">
+              {automationSolutions.map((solution, index) => (
+                <AutomationCard
+                  key={solution.name}
+                  solution={solution}
+                  index={index}
+                  palette={automationCardPalette}
+                />
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }

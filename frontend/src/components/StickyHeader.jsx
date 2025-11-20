@@ -26,6 +26,7 @@ const DESKTOP_BREAKPOINT = 1200;
 export default function StickyHeader({ theme, forceVisible = false }) {
   const [visible, setVisible] = useState(forceVisible);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
 
   useEffect(() => {
     if (forceVisible) {
@@ -63,13 +64,14 @@ export default function StickyHeader({ theme, forceVisible = false }) {
   const text = theme?.sections?.about?.text || '#F6F8F6';
   const bg = theme?.sections?.about?.palette?.card?.bg || 'rgba(8,8,8,0.85)';
   const softBorder = 'rgba(255,255,255,0.15)';
-  const logoSrc = '/images/personal/michaellogo.svg';
+  const preferDarkLogo = isLightHexColor(text);
+  const logoSrc = preferDarkLogo ? '/images/personal/darklogo.svg' : '/images/personal/michaellogo.svg';
   const contactTextColor = isLightHexColor(accent) ? '#050505' : '#fff';
 
   const baseButtonClass =
     'rounded-full font-accent uppercase transition-colors duration-200';
-  const navButtonClass = `${baseButtonClass} tracking-[0.18em] md:tracking-[0.22em] xl:tracking-[0.28em] px-3.5 py-2 text-xs md:px-4 md:py-2.5 md:text-sm desktop:text-base xl:text-lg xl:px-5 whitespace-nowrap`;
-  const ctaButtonClass = `${baseButtonClass} tracking-[0.28em] px-6 py-[0.825rem] text-sm sm:text-base desktop:text-lg`;
+  const navButtonClass = `${baseButtonClass} tracking-[0.2em] md:tracking-[0.24em] xl:tracking-[0.3em] px-3.5 py-2 text-sm md:px-4 md:py-2.5 md:text-base desktop:text-lg xl:text-[1.35rem] xl:px-5 whitespace-nowrap`;
+  const ctaButtonClass = `${baseButtonClass} tracking-[0.3em] px-6 py-[0.9rem] text-base sm:text-lg desktop:text-xl`;
   const navText = theme?.sections?.about?.palette?.muted || theme?.sections?.about?.text || '#0B0B0B';
   const normalizedPath =
     typeof window !== 'undefined'
@@ -80,10 +82,10 @@ export default function StickyHeader({ theme, forceVisible = false }) {
     gap: 'clamp(0.45rem, 0.35rem + 0.5vw, 1.25rem)',
   };
   const navLinkDynamicStyle = {
-    fontSize: 'clamp(0.9rem, 0.75rem + 0.4vw, 1.2rem)',
-    letterSpacing: 'clamp(0.22em, 0.18em + 0.15vw, 0.34em)',
-    paddingInline: 'clamp(0.95rem, 0.75rem + 0.45vw, 1.5rem)',
-    paddingBlock: 'clamp(0.55rem, 0.462rem + 0.22vw, 0.935rem)',
+    fontSize: 'clamp(1rem, 0.85rem + 0.5vw, 1.4rem)',
+    letterSpacing: 'clamp(0.24em, 0.2em + 0.16vw, 0.38em)',
+    paddingInline: 'clamp(1.1rem, 0.85rem + 0.45vw, 1.65rem)',
+    paddingBlock: 'clamp(0.68rem, 0.55rem + 0.22vw, 1rem)',
   };
 
   const navLinks = [
@@ -95,7 +97,11 @@ export default function StickyHeader({ theme, forceVisible = false }) {
     {
       label: 'Services',
       href: '/services',
-      isActive: (path) => path === '/services',
+      isActive: (path) => path === '/services' || path.startsWith('/services/'),
+      children: [
+        { label: 'Web Design & Branding', href: '/services' },
+        { label: 'Automations', href: '/services/automations' },
+      ],
     },
     {
       label: 'Portfolio',
@@ -109,8 +115,21 @@ export default function StickyHeader({ theme, forceVisible = false }) {
     },
   ];
 
+  useEffect(() => {
+    if (!menuOpen) return;
+    setActiveDropdown(null);
+  }, [menuOpen]);
+
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const handleNavClick = () => setMenuOpen(false);
+
+  const handleDropdownEnter = (href) => {
+    setActiveDropdown(href);
+  };
+
+  const handleDropdownLeave = () => {
+    setActiveDropdown(null);
+  };
 
   const mobileNavStateClasses = menuOpen
     ? 'max-h-[70vh] opacity-100 translate-y-0 pointer-events-auto pt-[1.1rem] border-t'
@@ -176,25 +195,81 @@ export default function StickyHeader({ theme, forceVisible = false }) {
         </div>
         <nav
           id="sticky-header-nav"
-          className={`order-3 flex w-full flex-col items-center justify-center gap-3 text-center transition-all duration-300 ease-out overflow-hidden ${mobileNavStateClasses} desktop:order-1 desktop:col-start-1 desktop:col-end-2 desktop:flex desktop:w-full desktop:flex-1 desktop:max-w-none desktop:flex-row desktop:flex-nowrap desktop:items-center desktop:justify-start desktop:gap-1.5 xl:gap-3 2xl:gap-4 desktop:border-none desktop:pt-0 desktop:max-h-none desktop:opacity-100 desktop:translate-y-0 desktop:pointer-events-auto desktop:min-w-0 desktop:overflow-x-auto desktop:overflow-y-visible`}
+          className={`order-3 flex w-full flex-col items-center justify-center gap-3 text-center transition-all duration-300 ease-out overflow-hidden ${mobileNavStateClasses} desktop:order-1 desktop:col-start-1 desktop:col-end-2 desktop:flex desktop:w-full desktop:flex-1 desktop:max-w-none desktop:flex-row desktop:flex-nowrap desktop:items-center desktop:justify-start desktop:gap-1.5 xl:gap-3 2xl:gap-4 desktop:border-none desktop:pt-0 desktop:max-h-none desktop:opacity-100 desktop:translate-y-0 desktop:pointer-events-auto desktop:min-w-0 desktop:overflow-visible`}
           style={{ ...navDynamicStyle, borderColor: softBorder, paddingInlineStart: menuOpen ? 0 : navLeftOffset }}
         >
           {navLinks.map((link) => {
             const active = link.isActive(normalizedPath);
+            const hasChildren = Array.isArray(link.children) && link.children.length > 0;
+            const dropdownOpen = hasChildren && activeDropdown === link.href;
             return (
-              <Link
+              <div
                 key={link.href}
-                to={link.href}
-                className={`${navButtonClass} w-full text-center desktop:w-auto`}
-                style={{
-                  ...navLinkDynamicStyle,
-                  color: active ? (isLightHexColor(accent) ? brandActiveAccent : accent) : navText,
-                  backgroundColor: 'transparent',
-                }}
-                onClick={handleNavClick}
+                className={`w-full desktop:w-auto ${hasChildren ? 'desktop:relative desktop:group' : ''}`}
+                onMouseEnter={hasChildren ? () => handleDropdownEnter(link.href) : undefined}
+                onMouseLeave={hasChildren ? handleDropdownLeave : undefined}
+                onFocus={hasChildren ? () => handleDropdownEnter(link.href) : undefined}
+                onBlur={
+                  hasChildren
+                    ? (event) => {
+                        if (!event.currentTarget.contains(event.relatedTarget)) {
+                          handleDropdownLeave();
+                        }
+                      }
+                    : undefined
+                }
+                style={{ position: hasChildren ? 'relative' : undefined }}
               >
-                {link.label}
-              </Link>
+                <Link
+                  to={link.href}
+                  className={`${navButtonClass} w-full text-center desktop:w-auto`}
+                  style={{
+                    ...navLinkDynamicStyle,
+                    color: active ? (isLightHexColor(accent) ? brandActiveAccent : accent) : navText,
+                    backgroundColor: 'transparent',
+                  }}
+                  onClick={handleNavClick}
+                >
+                  {link.label}
+                </Link>
+                {hasChildren && (
+                  <>
+                    <div className="mt-2 flex w-full flex-col gap-2 border-l border-white/10 pl-5 text-left desktop:hidden">
+                      {link.children.map((child) => (
+                        <Link
+                          key={child.href}
+                          to={child.href}
+                          className="font-accent text-[0.85rem] uppercase tracking-[0.3em] transition-colors duration-200"
+                          style={{ color: navText, opacity: 0.85 }}
+                          onClick={handleNavClick}
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                    <div
+                      className={`pointer-events-none absolute left-0 top-full z-50 hidden min-w-[15rem] -translate-y-1 opacity-0 rounded-3xl border border-white/15 bg-[rgba(8,8,8,0.92)] p-4 text-left shadow-2xl transition-all duration-200 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 desktop:flex desktop:flex-col desktop:gap-1.5 ${
+                        dropdownOpen ? 'pointer-events-auto translate-y-0 opacity-100' : ''
+                      }`}
+                      style={{ background: bg, borderColor: softBorder, color: navText, zIndex: 60 }}
+                      onMouseEnter={() => handleDropdownEnter(link.href)}
+                      onMouseLeave={handleDropdownLeave}
+                    >
+                      {link.children.map((child) => (
+                        <Link
+                          key={child.href}
+                          to={child.href}
+                          className="rounded-2xl px-4 py-2 text-left text-sm font-accent uppercase tracking-[0.28em] text-current transition-colors duration-200 hover:text-[var(--dropdown-accent, #fff)]"
+                          style={{ '--dropdown-accent': accent, color: navText }}
+                          onClick={handleNavClick}
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
             );
           })}
           <Link

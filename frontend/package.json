@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "node ./scripts/ensureSchedulerCjs.mjs",
+    "prebuild": "node ./scripts/ensureSchedulerCjs.mjs && node ./scripts/generateSeoAssets.mjs",
     "build": "vite build",
     "postinstall": "node ./scripts/ensureSchedulerCjs.mjs",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate:seo": "node ./scripts/generateSeoAssets.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^1.5.0",
