@@ -56,6 +56,7 @@ export default function BlogPost({ slug, mainTheme, theme }) {
       })
     : null;
   const ogImage = post ? toAbsoluteUrl(post.previewImage) || DEFAULT_OG_IMAGE : DEFAULT_OG_IMAGE;
+  const previewImageSrc = post ? toAbsoluteUrl(post.previewImage) || post.previewImage : undefined;
 
   usePageMetadata({
     title: metadataTitle,
@@ -210,9 +211,10 @@ export default function BlogPost({ slug, mainTheme, theme }) {
             {post.previewImage && (
               <div className="mt-10 h-60 overflow-hidden rounded-[2.5rem] border border-white/10 bg-black/20">
                 <img
-                  src={post.previewImage}
+                  src={previewImageSrc}
                   alt={`Preview for ${post.title}`}
-                  className="w-full object-cover"
+                  className="h-full w-full object-cover"
+                  loading="lazy"
                 />
               </div>
             )}

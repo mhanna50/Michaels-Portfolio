@@ -138,23 +138,23 @@ export default function HeroSection({ mainTheme }) {
           className="flex flex-col items-center desktop:items-start text-left lg:text-left tablet:flex tablet:flex-col tablet:justify-start tablet:min-h-[55vh] tablet:pl-6 tablet:pr-4 tablet:mx-0 tablet:flex-[0.7] tablet:relative tablet:z-20 tablet:mt-2 tablet:pt-4 tablet:pb-4"
         >
           <header className="flex flex-col self-center desktop:self-start items-start text-left max-w-[360px] w-full mt-0 tablet:mt-0 tablet:max-w-[720px] tablet:w-full tablet:items-start tablet:text-left tablet:gap-4 tablet:pr-0">
-            <h2 className="font-serifalt text-4xl tablet:text-[clamp(1.8rem,3.2vw,2.2rem)] font-bold text-black tracking-widest scale-y-110">
+            <h2 className="font-serifalt text-3xl tablet:text-[clamp(1.6rem,2.8vw,2rem)] font-bold text-black tracking-widest scale-y-110">
               Hey. I'm Michael,  
             </h2>
 
-            <h1 className="font-accent uppercase text-black text-10xl tablet:text-[clamp(5.5rem,9vw,6.4rem)] md:text-11xl mt-4 -mb-6 scale-y-100">
+            <h1 className="font-accent uppercase text-black text-9xl tablet:text-[clamp(5rem,8vw,5.8rem)] md:text-10xl mt-4 -mb-6 scale-y-100">
               A UI/UX
             </h1>
-            <h1 className="font-serif italic text-black text-6xl tablet:text-[clamp(3.9rem,6.6vw,4.2rem)] md:text-10xl">
-              <span className="text-11xl tablet:text-[clamp(4.9rem,8.2vw,5.6rem)]">&</span>{' '}
-              <span className="scale-y-110 text-10xl tablet:text-[clamp(5.1rem,8.6vw,6rem)]">Creative</span>
+            <h1 className="font-serif italic text-black text-5xl tablet:text-[clamp(3.4rem,6vw,3.8rem)] md:text-9xl">
+              <span className="text-10xl tablet:text-[clamp(4.4rem,7.4vw,5rem)]">&</span>{' '}
+              <span className="scale-y-110 text-9xl tablet:text-[clamp(4.6rem,7.8vw,5.4rem)]">Creative</span>
             </h1>
-            <h1 className="font-accent uppercase text-black text-10xl tablet:text-[clamp(4.9rem,8.2vw,5.6rem)] md:text-11xl -mt-2 mb-3 scale-y-100">
+            <h1 className="font-accent uppercase text-black text-9xl tablet:text-[clamp(4.4rem,7.4vw,5.2rem)] md:text-10xl -mt-2 mb-3 scale-y-100">
               Developer
             </h1>
 
             <div className="w-full max-w-[360px] tablet:max-w-[660px] tablet:w-full tablet:pr-4">
-              <p className="font-serifalt font-thin text-black text-left text-3xl tablet:text-[clamp(1.7rem,2.8vw,2rem)] leading-[1.15] tracking-tight scale-y-110 tablet:text-left tablet:leading-tight tablet:break-normal">
+              <p className="font-serifalt font-thin text-black text-left text-2xl tablet:text-[clamp(1.5rem,2.4vw,1.8rem)] leading-[1.15] tracking-tight scale-y-110 tablet:text-left tablet:leading-tight tablet:break-normal">
                 That design's websites and automates systems to help businesses grow while erasing{' '}
                 <span className="inline desktop:block desktop:mt-1">busy work.</span>
               </p>
@@ -210,7 +210,7 @@ export default function HeroSection({ mainTheme }) {
 
       {/* Mobile stat cards & image */}
       <div className="w-full tablet:hidden desktop:hidden flex justify-center z-20 pt-10 pb-0 mt-auto mb-6 min-h-[0] px-4">
-        <div className="w-full max-w-[380px] rounded-[2.5rem] border border-black/5 bg-white/40 backdrop-blur-xl shadow-2xl px-4 py-5 flex gap-4 items-stretch">
+        <div className="w-full max-w-[420px] rounded-[2.5rem] border border-black/5 bg-white/40 backdrop-blur-xl shadow-2xl px-5 py-6 flex gap-4 items-stretch">
           <div className="flex-1 w-full space-y-3">
             {statCards.map((card) => (
               <div key={`mobile-${card.id}`} className="w-full">
@@ -230,7 +230,7 @@ export default function HeroSection({ mainTheme }) {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.35 }}
             className="flex flex-1 items-center justify-center"
           >
-            <div className="w-full max-w-[140px] h-full min-h-[190px] rounded-[14rem] overflow-hidden shadow-2xl border-4 border-white/70 bg-white/40 backdrop-blur">
+            <div className="w-full max-w-[180px] h-full min-h-[210px] rounded-[14rem] overflow-hidden shadow-2xl border-4 border-white/70 bg-white/40 backdrop-blur">
               <img src="/images/personal/portfolio.jpeg" alt="Michael Hanna smiling in a portrait used around the site" className="w-full h-full object-cover object-top" />
             </div>
           </motion.div>

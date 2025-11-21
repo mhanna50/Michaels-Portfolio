@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { ArrowRightLeft } from "lucide-react";
 import Footer from "../components/Footer";
 import StickyHeader from "../components/StickyHeader";
 import { Button } from "@/components/ui/button";
@@ -480,7 +481,7 @@ export default function PortfolioPage({ theme, mainTheme }) {
                     className="flex items-center px-3 text-base font-serifalt"
                     style={{ color: labelStyle.color }}
                   >
-                    ↔
+                    <ArrowRightLeft className="h-5 w-5" />
                   </span>
                   <button
                     type="button"

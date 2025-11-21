@@ -128,7 +128,7 @@ export const portfolioCaseStudies = [
     summary:
       "A complete redesign of a med spa website using WordPress and Elementor, focused on clean branding, readability, and seamless booking integrations. The new site better reflects the spa’s high-quality services and calm aesthetic.",
     heroSummary: "Wellness & Weight Management · Design & Development",
-    liveUrl: "https://studio-palette.example.com",
+    liveUrl: "https://millieaestheticsandwellness.com",
     heroKpis: [
       { label: "Consult requests", value: "+61%", timeframe: "Quarter over quarter" },
       { label: "Manual follow-ups", value: "-70%", timeframe: "Front desk workload" },

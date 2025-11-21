@@ -71,7 +71,7 @@ export default function StickyHeader({ theme, forceVisible = false }) {
   const baseButtonClass =
     'rounded-full font-accent uppercase transition-colors duration-200';
   const navButtonClass = `${baseButtonClass} tracking-[0.2em] md:tracking-[0.24em] xl:tracking-[0.3em] px-3.5 py-2 text-sm md:px-4 md:py-2.5 md:text-base desktop:text-lg xl:text-[1.35rem] xl:px-5 whitespace-nowrap`;
-  const ctaButtonClass = `${baseButtonClass} tracking-[0.3em] px-6 py-[0.9rem] text-base sm:text-lg desktop:text-xl`;
+  const ctaButtonClass = `${baseButtonClass} tracking-[0.3em] px-5 py-[0.75rem] text-sm sm:px-6 sm:py-[0.9rem] sm:text-base md:text-lg desktop:text-xl`;
   const navText = theme?.sections?.about?.palette?.muted || theme?.sections?.about?.text || '#0B0B0B';
   const normalizedPath =
     typeof window !== 'undefined'

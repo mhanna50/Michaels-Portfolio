@@ -5,15 +5,25 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 import useWeatherTheme from "./hooks/useWeatherTheme";
 import ThemeControl from "./components/ThemeControl";
 
-const Home = lazy(() => import("./pages/home"));
-const Blog = lazy(() => import("./pages/blog"));
-const Portfolio = lazy(() => import("./pages/portfolio"));
-const PortfolioCaseStudy = lazy(() => import("./pages/PortfolioCaseStudy"));
-const ServicesPage = lazy(() => import("./pages/services"));
-const WebDesignServicesPage = lazy(() => import("./pages/services-web-design"));
-const AutomationServicesPage = lazy(() => import("./pages/services-automations"));
-const BlogPost = lazy(() => import("./components/BlogTools/BlogPost"));
-const ContactPage = lazy(() => import("./pages/contact"));
+const loadHome = () => import("./pages/home");
+const loadBlog = () => import("./pages/blog");
+const loadPortfolio = () => import("./pages/portfolio");
+const loadPortfolioCaseStudy = () => import("./pages/PortfolioCaseStudy");
+const loadServicesPage = () => import("./pages/services");
+const loadWebDesignServices = () => import("./pages/services-web-design");
+const loadAutomationServices = () => import("./pages/services-automations");
+const loadBlogPost = () => import("./components/BlogTools/BlogPost");
+const loadContactPage = () => import("./pages/contact");
+
+const Home = lazy(loadHome);
+const Blog = lazy(loadBlog);
+const Portfolio = lazy(loadPortfolio);
+const PortfolioCaseStudy = lazy(loadPortfolioCaseStudy);
+const ServicesPage = lazy(loadServicesPage);
+const WebDesignServicesPage = lazy(loadWebDesignServices);
+const AutomationServicesPage = lazy(loadAutomationServices);
+const BlogPost = lazy(loadBlogPost);
+const ContactPage = lazy(loadContactPage);
 
 const HEADER_OFFSET = "clamp(96px, 12vh, 140px)";
 const HEADER_BREAKPOINT = 1024;
@@ -63,6 +73,28 @@ export default function App() {
       theme={theme}
     />
   );
+
+  useEffect(() => {
+    const preloaders = [
+      loadHome,
+      loadBlog,
+      loadPortfolio,
+      loadPortfolioCaseStudy,
+      loadServicesPage,
+      loadWebDesignServices,
+      loadAutomationServices,
+      loadBlogPost,
+      loadContactPage,
+    ];
+    preloaders.forEach((loader) => {
+      loader().catch(() => {});
+    });
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [location.pathname]);
 
   return (
     <>

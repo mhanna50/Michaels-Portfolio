@@ -28,7 +28,7 @@ const featuredProjects = [
     description:
       'A clean, graytoned site for a medical spa that highlights their restorative and grounded services with updated branding.',
     highlights: ['2-week build', 'WordPress site with SEO setup'],
-    liveUrl: 'https://studio-palette.example.com',
+    liveUrl: 'https://millieaestheticsandwellness.com',
     caseStudyUrl: '/portfolio/millie-aesthetics',
     cover: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1400&q=80',
     testimonial: {

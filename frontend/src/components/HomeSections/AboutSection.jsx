@@ -172,7 +172,7 @@ export default function AboutSection({ weather, theme }) {
               style={cardStyle}
             >
               <div
-              className="space-y-6 text-xl leading-relaxed font-serifalt"
+              className="space-y-6 text-base md:text-lg leading-relaxed font-serifalt"
               style={cardMutedStyle}
             >
                 <p style={cardStyle?.color ? { color: cardStyle.color } : undefined}>
