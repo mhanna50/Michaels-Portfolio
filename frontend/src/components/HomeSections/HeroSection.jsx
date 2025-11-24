@@ -108,7 +108,7 @@ export default function HeroSection({ mainTheme }) {
   return (
     <section
       id="hero"
-      className="relative flex flex-col items-center justify-start min-h-[max(950px,100vh)] px-6 lg:px-12 pt-16 lg:pt-20 pb-10 tablet:pb-0 desktop:pb-10 overflow-visible tablet:min-h-[100vh] tablet:pt-32"
+      className="relative flex flex-col items-center justify-start min-h-[max(820px,100vh)] px-6 lg:px-12 pt-10 lg:pt-20 pb-6 tablet:pb-[220px] desktop:pb-10 overflow-visible tablet:min-h-[100vh] tablet:pt-10"
       style={heroStyle}
     >
       
@@ -121,14 +121,14 @@ export default function HeroSection({ mainTheme }) {
       >
         <div className="w-[600px] h-[750px] rounded-b-[30rem] overflow-hidden shadow-2xl group">
           <img
-            src="/images/personal/portfolio.jpeg"
+            src="/images/personal/michaelphoto.jpeg"
             alt="Portrait of Michael Hanna standing in front of web design work"
             className="w-full h-full object-cover object-top scale-105 "
           />
         </div>
       </motion.div>
 
-      <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-2 items-start tablet:items-start gap-8 tablet:gap-10 relative z-20 pt-24 tablet:pt-10 desktop:pt-12 flex-1 w-full">
+      <div className="w-full max-w-[1200px] mx-auto grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-2 items-start tablet:items-start gap-8 tablet:gap-10 relative z-20 pt-12 phone:pt-14 tablet:pt-10 desktop:pt-12 flex-1 w-full">
 
         {/* Left Content */}
         <motion.div
@@ -145,7 +145,7 @@ export default function HeroSection({ mainTheme }) {
             <h1 className="font-accent uppercase text-black text-9xl tablet:text-[clamp(5rem,8vw,5.8rem)] md:text-10xl mt-4 -mb-6 scale-y-100">
               A UI/UX
             </h1>
-            <h1 className="font-serif italic text-black text-5xl tablet:text-[clamp(3.4rem,6vw,3.8rem)] md:text-9xl">
+            <h1 className="font-serif italic text-black text-5xl tablet:text-[clamp(3.4rem,6vw,3.8rem)] md:text-10xl">
               <span className="text-10xl tablet:text-[clamp(4.4rem,7.4vw,5rem)]">&</span>{' '}
               <span className="scale-y-110 text-9xl tablet:text-[clamp(4.6rem,7.8vw,5.4rem)]">Creative</span>
             </h1>
@@ -154,14 +154,14 @@ export default function HeroSection({ mainTheme }) {
             </h1>
 
             <div className="w-full max-w-[360px] tablet:max-w-[660px] tablet:w-full tablet:pr-4">
-              <p className="font-serifalt font-thin text-black text-left text-2xl tablet:text-[clamp(1.5rem,2.4vw,1.8rem)] leading-[1.15] tracking-tight scale-y-110 tablet:text-left tablet:leading-tight tablet:break-normal">
+              <p className="font-serifalt font-thin text-black text-left text-3xl tablet:text-[clamp(1.5rem,2.4vw,1.8rem)] leading-[1.15] tracking-tight scale-y-110 tablet:text-left tablet:leading-tight tablet:break-normal">
                 That design's websites and automates systems to help businesses grow while erasing{' '}
                 <span className="inline desktop:block desktop:mt-1">busy work.</span>
               </p>
             </div>
 
             <Link to="/contact" className="self-start">
-              <Button className=" bg-neutral hover:bg-primary text-lg text-white font-accent px-8 py-3 pr-1.5 rounded-full mt-6 tablet:mt-2 inline-flex items-center justify-start uppercase gap-5 group transition-colors duration-300">
+              <Button className=" bg-neutral hover:bg-primary text-lg text-white font-accent px-8 py-3 pr-1.5 rounded-full mt-4 phone:mt-5 tablet:mt-2 inline-flex items-center justify-start uppercase gap-5 group transition-colors duration-300">
                 <span>Contact Me</span>
 
                 {/* Arrow wrapper (circle) */}
@@ -180,13 +180,13 @@ export default function HeroSection({ mainTheme }) {
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-          className="hidden tablet:flex desktop:hidden w-full justify-center tablet:w-auto tablet:absolute tablet:right-4 tablet:top-20 tablet:pr-0 tablet:z-10"
+          className="hidden tablet:flex desktop:hidden w-full justify-center tablet:w-auto tablet:absolute tablet:right-4 tablet:top-12 tablet:pr-0 tablet:z-10"
         >
           <div
             className="rounded-[21rem] overflow-hidden shadow-2xl transition-[width,height] duration-300 ease-out"
-            style={{ width: 'clamp(220px, 57vw, 394px)', height: 'clamp(360px, 64vh, 572px)' }}
+            style={{ width: 'clamp(220px, 57vw, 394px)', height: 'clamp(360px, 62vh, 540px)' }}
           >
-            <img src="images/personal/portfolio.jpeg" alt="Portrait of Michael Hanna smiling while looking at design work" className="w-full h-full object-cover object-top" />
+            <img src="/images/personal/michaelphoto.jpeg" alt="Portrait of Michael Hanna smiling while looking at design work" className="w-full h-full object-cover object-top" />
           </div>
         </motion.div>
 
@@ -231,14 +231,14 @@ export default function HeroSection({ mainTheme }) {
             className="flex flex-1 items-center justify-center"
           >
             <div className="w-full max-w-[180px] h-full min-h-[210px] rounded-[14rem] overflow-hidden shadow-2xl border-4 border-white/70 bg-white/40 backdrop-blur">
-              <img src="/images/personal/portfolio.jpeg" alt="Michael Hanna smiling in a portrait used around the site" className="w-full h-full object-cover object-top" />
+              <img src="/images/personal/michaelphoto.jpeg" alt="Michael Hanna smiling in a portrait used around the site" className="w-full h-full object-cover object-top" />
             </div>
           </motion.div>
         </div>
       </div>
 
       {/* Tablet stat cards row */}
-      <div className="w-full hidden tablet:flex desktop:hidden justify-center z-20 pt-10 tablet:pt-0 tablet:pb-0 tablet:mt-auto tablet:mb-6 tablet:min-h-[0]">
+      <div className="w-full hidden tablet:flex desktop:hidden justify-center z-20 pt-6 tablet:pt-0 tablet:pb-0 tablet:min-h-[0] tablet:absolute tablet:bottom-16 tablet:left-1/2 tablet:-translate-x-1/2 tablet:px-6">
         <div className="grid w-full max-w-[1200px] gap-4 phone:gap-5 px-4 pb-4 tablet:px-10 tablet:gap-5 grid-cols-1 phone:grid-cols-2 tablet:grid-cols-4 justify-items-center">
           {statCards.map((card) => (
             <div key={`tablet-${card.id}`} className="w-full px-1 flex justify-center">

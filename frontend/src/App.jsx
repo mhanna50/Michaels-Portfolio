@@ -26,7 +26,7 @@ const BlogPost = lazy(loadBlogPost);
 const ContactPage = lazy(loadContactPage);
 
 const HEADER_OFFSET = "clamp(96px, 12vh, 140px)";
-const HEADER_BREAKPOINT = 1024;
+const HEADER_BREAKPOINT = 1200;
 
 function Layout({ children, background, textColor, themeControl }) {
   const [needsHeaderPadding, setNeedsHeaderPadding] = useState(false);

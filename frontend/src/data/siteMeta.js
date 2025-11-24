@@ -10,7 +10,7 @@ export const SAME_AS_LINKS = [
 ];
 
 const LOGO_URL = `${SITE_URL}/images/personal/michaellogo.svg`;
-export const DEFAULT_OG_IMAGE = `${SITE_URL}/images/personal/portfolio.jpeg`;
+export const DEFAULT_OG_IMAGE = `${SITE_URL}/images/personal/michaelphoto.jpeg`;
 const ORGANIZATION_ID = `${SITE_URL}#organization`;
 const PERSON_ID = `${SITE_URL}#michael-hanna`;
 const WEBSITE_ID = `${SITE_URL}#website`;

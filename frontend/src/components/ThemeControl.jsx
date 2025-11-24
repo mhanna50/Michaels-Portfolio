@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Sun, Cloud, CloudRain, CloudSnow, Moon, Gauge, Paintbrush } from "lucide-react";
@@ -47,6 +47,7 @@ const relativeLuminance = (hex) => {
 
 export default function ThemeControl({ manualCondition, setManualOverride, theme }) {
   const [open, setOpen] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   const activeValue = manualCondition ?? "live";
 
   const activeLabel = useMemo(() => {
@@ -61,6 +62,26 @@ export default function ThemeControl({ manualCondition, setManualOverride, theme
     }
   };
 
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+    const handleClose = () => setOpen(false);
+    window.addEventListener("theme-control-close", handleClose);
+    return () => window.removeEventListener("theme-control-close", handleClose);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+    const handleAvailabilityChange = (event) => {
+      const shouldDisable = Boolean(event?.detail?.disabled);
+      setDisabled(shouldDisable);
+      if (shouldDisable) {
+        setOpen(false);
+      }
+    };
+    window.addEventListener("theme-control-availability", handleAvailabilityChange);
+    return () => window.removeEventListener("theme-control-availability", handleAvailabilityChange);
+  }, []);
+
   const textColor = typeof theme?.text === "string" ? theme.text : null;
   const luminance = textColor ? relativeLuminance(textColor) : null;
   const useLightButton = luminance !== null && luminance >= 0.6;
@@ -71,8 +92,10 @@ export default function ThemeControl({ manualCondition, setManualOverride, theme
   const closedButtonClasses = `absolute bottom-0 right-0 flex h-16 w-12 items-center justify-center rounded-l-full shadow-2xl transition focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2 ${buttonClasses}`;
   const openButtonClasses = `absolute bottom-6 right-6 flex h-12 w-12 items-center justify-center rounded-full shadow-lg transition focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2 ${buttonClasses}`;
 
+  const wrapperVisibility = disabled ? "pointer-events-none opacity-0 translate-y-1" : "opacity-100 translate-y-0";
+
   return (
-    <div className="fixed bottom-12 right-0 z-40">
+    <div className={`fixed bottom-12 right-0 z-40 transition-all duration-200 ease-out ${wrapperVisibility}`} aria-hidden={disabled}>
       <div className="relative min-h-[12rem]">
         <AnimatePresence>
           {open && (
@@ -137,6 +160,7 @@ export default function ThemeControl({ manualCondition, setManualOverride, theme
           aria-expanded={open}
           onClick={() => setOpen((prev) => !prev)}
           className={open ? openButtonClasses : closedButtonClasses}
+          disabled={disabled}
         >
           <span className="flex items-center justify-center">
             <Paintbrush className="h-5 w-5" />

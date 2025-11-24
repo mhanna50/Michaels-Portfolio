@@ -144,7 +144,7 @@ export default function OffersSection({ theme }) {
               Services
             </p>
             <h2
-              className="font-serifalt text-6xl md:text-7xl tracking-tight leading-tight"
+              className="font-serifalt text-5xl md:text-6xl lg:text-7xl tracking-tight leading-tight"
               style={{ color: headerAccent }}
             >
               Website and Automation help that stays collaborative and on schedule.

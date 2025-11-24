@@ -315,9 +315,9 @@ export default function PortfolioPage({ theme, mainTheme }) {
     <div className="min-h-screen" style={pageStyle}>
       <StickyHeader theme={theme} forceVisible />
 
-      <section className="relative flex min-h-[70vh] flex-col justify-center overflow-hidden px-6 pt-40 pb-24 lg:pt-48 lg:pb-32" style={heroStyle}>
+      <section className="relative flex min-h-[80vh] flex-col justify-center overflow-hidden px-6 pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-48 lg:pb-32" style={heroStyle}>
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.08),_transparent_65%)]" />
-        <motion.div className="relative mx-auto mt-10 flex w-full max-w-5xl flex-col gap-12 text-left" {...createRevealProps()}>
+        <motion.div className="relative mx-auto flex w-full max-w-5xl flex-col gap-12 text-left mt-0 sm:mt-6 lg:mt-10" {...createRevealProps()}>
           <p className="font-accent text-lg uppercase tracking-[0.45em] sm:text-2xl" style={labelStyle}>
             Selected Work
           </p>
