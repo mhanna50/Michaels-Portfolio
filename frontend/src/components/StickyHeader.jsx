@@ -224,7 +224,7 @@ export default function StickyHeader({ theme, forceVisible = false }) {
             <img
               src={logoSrc}
               alt="Michael Hanna logo"
-              className="block h-[3.9rem] w-auto object-contain transform -translate-y-[0.25rem] phone:-translate-y-[0.35rem] tablet:-translate-y-[0.4rem] desktop:translate-y-0"
+              className="block h-[3.9rem] w-auto object-contain transform -translate-y-[0.25rem] phone:-translate-y-[0.35rem] tablet:h-[4.4rem] tablet:-translate-y-[0.55rem] desktop:h-[3.9rem] desktop:translate-y-0"
               loading="lazy"
             />
           </Link>
