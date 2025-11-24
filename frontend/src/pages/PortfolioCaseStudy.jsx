@@ -269,8 +269,9 @@ export default function PortfolioCaseStudy({ theme, mainTheme }) {
                 <img
                   src={caseStudy.coverImage}
                   alt={caseStudy.coverImageAlt}
-                  className="h-72 w-full object-cover"
+                  className="h-72 w-full object-contain bg-black/10"
                   loading="lazy"
+                  decoding="async"
                 />
                 <div className="px-6 py-5 space-y-4">
                   <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -358,6 +359,7 @@ export default function PortfolioCaseStudy({ theme, mainTheme }) {
                         alt={section.photo.alt}
                         className="h-full max-h-[360px] w-full object-contain"
                         loading="lazy"
+                        decoding="async"
                       />
                     </div>
                     <figcaption className="text-sm" style={labelStyle}>

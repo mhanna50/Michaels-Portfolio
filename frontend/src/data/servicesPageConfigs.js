@@ -101,8 +101,8 @@ export const designServicesConfig = {
         "Technical SEO + performance so people—and Google—see you as credible.",
       ],
       deliverablesColumns: 2,
-      detailImage: "/images/casestudies/ac1.png",
-      detailImageAlt: "Modern website screens showing layout details",
+      detailImage: "/images/casestudies/ac2.jpg",
+      detailImageAlt: "American Craftsman service menu layout from the case study",
       detail: {
         problem:
           "An outdated or DIY site, inconsistent branding, or zero Google visibility chips away at trust so leads leave before reaching out.",

@@ -70,21 +70,18 @@ function WorkCard({ study, styles, motionProps = {} }) {
   const tags = [...(study.industry || []), ...(study.services || [])];
   return (
     <motion.article
-      className="flex h-full flex-col overflow-hidden rounded-3xl border shadow-xl"
-      style={{ background: styles.cardBg, borderColor: styles.cardBorder }}
+      className="mb-8 inline-flex w-full flex-col overflow-hidden rounded-3xl border shadow-xl"
+      style={{ background: styles.cardBg, borderColor: styles.cardBorder, breakInside: "avoid" }}
       {...motionProps}
     >
-      <div className="relative h-60 w-full overflow-hidden">
+      <div className="relative w-full overflow-hidden rounded-t-3xl">
         <img
           src={study.coverImage}
           alt={study.coverImageAlt}
-          className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+          className="block w-full h-auto"
           loading="lazy"
+          decoding="async"
         />
-        <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-4 bg-gradient-to-t from-black/70 via-black/40 to-transparent px-5 py-4 text-sm text-white/90">
-          <span className="font-semibold">{study.client}</span>
-          <span>{study.year}</span>
-        </div>
       </div>
       <div className="flex flex-1 flex-col gap-5 p-6">
         <div className="space-y-2">
@@ -508,7 +505,7 @@ export default function PortfolioPage({ theme, mainTheme }) {
             </div>
           </motion.div>
           {libraryView === "case-studies" ? (
-            <div className="grid gap-8 md:grid-cols-2">
+            <div className="columns-1 md:columns-2 xl:columns-2 gap-8">
               {portfolioCaseStudies.map((study, index) => (
                 <WorkCard
                   key={study.slug}

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import heroHighlights from '@/data/heroHighlights';
 
 const SLIDE_INTERVAL = 6000;
@@ -31,17 +31,60 @@ const HighlightCard = ({ heading, subtext, headingColor, bodyColor }) => (
 export default function HeroHighlightsSlider({ heroTheme }) {
   const slides = useMemo(() => chunkHighlights(heroHighlights), []);
   const [activeSlide, setActiveSlide] = useState(0);
+  const [touchStartX, setTouchStartX] = useState(null);
+  const [touchCurrentX, setTouchCurrentX] = useState(null);
   const heroBackgroundColor = heroTheme?.bg || 'linear-gradient(135deg, #f8f7f2, #f0ede7)';
   const heroText = heroTheme?.text || '#1F1F1F';
   const heroMuted = heroTheme?.muted || 'rgba(15,15,15,0.7)';
 
+  const goToNext = useCallback(() => {
+    setActiveSlide((prev) => (prev + 1) % slides.length);
+  }, [slides.length]);
+
+  const goToPrev = useCallback(() => {
+    setActiveSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  }, [slides.length]);
+
+  const resetTouchState = useCallback(() => {
+    setTouchStartX(null);
+    setTouchCurrentX(null);
+  }, []);
+
+  const handleTouchStart = useCallback((event) => {
+    if (!event.touches || event.touches.length === 0) return;
+    setTouchStartX(event.touches[0].clientX);
+    setTouchCurrentX(null);
+  }, []);
+
+  const handleTouchMove = useCallback(
+    (event) => {
+      if (touchStartX === null || !event.touches || event.touches.length === 0) return;
+      setTouchCurrentX(event.touches[0].clientX);
+    },
+    [touchStartX]
+  );
+
+  const handleTouchEnd = useCallback(() => {
+    if (touchStartX === null || touchCurrentX === null) {
+      resetTouchState();
+      return;
+    }
+    const delta = touchStartX - touchCurrentX;
+    if (Math.abs(delta) > 40) {
+      if (delta > 0) {
+        goToNext();
+      } else {
+        goToPrev();
+      }
+    }
+    resetTouchState();
+  }, [touchStartX, touchCurrentX, goToNext, goToPrev, resetTouchState]);
+
   useEffect(() => {
     if (slides.length <= 1) return undefined;
-    const timer = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % slides.length);
-    }, SLIDE_INTERVAL);
+    const timer = setInterval(goToNext, SLIDE_INTERVAL);
     return () => clearInterval(timer);
-  }, [slides.length]);
+  }, [slides.length, goToNext]);
 
   if (slides.length === 0) return null;
 
@@ -51,7 +94,14 @@ export default function HeroHighlightsSlider({ heroTheme }) {
       style={{ background: heroBackgroundColor }}
     >
       <div className="relative mx-auto w-full max-w-4xl px-2 py-6">
-        <div className="overflow-hidden">
+        <div
+          className="overflow-hidden"
+          style={{ touchAction: 'pan-y' }}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          onTouchCancel={resetTouchState}
+        >
           <div
             className="flex transition-transform duration-500 ease-out"
             style={{ transform: `translateX(-${activeSlide * 100}%)` }}
