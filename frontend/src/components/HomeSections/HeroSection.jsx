@@ -108,7 +108,7 @@ export default function HeroSection({ mainTheme }) {
   return (
     <section
       id="hero"
-      className="relative flex flex-col items-center justify-start min-h-[max(820px,100vh)] px-6 lg:px-12 pt-10 lg:pt-20 pb-6 tablet:pb-[220px] desktop:pb-10 overflow-visible tablet:min-h-[100vh] tablet:pt-10"
+      className="relative flex flex-col items-center justify-start min-h-[max(820px,100vh)] px-6 lg:px-12 pt-10 lg:pt-20 pb-6 tablet:pb-[220px] desktop:pb-10 overflow-visible tablet:min-h-[90vh] tablet:pt-10"
       style={heroStyle}
     >
       
@@ -238,7 +238,7 @@ export default function HeroSection({ mainTheme }) {
       </div>
 
       {/* Tablet stat cards row */}
-      <div className="w-full hidden tablet:flex desktop:hidden justify-center z-20 pt-6 tablet:pt-0 tablet:pb-0 tablet:min-h-[0] tablet:absolute tablet:bottom-16 tablet:left-1/2 tablet:-translate-x-1/2 tablet:px-6">
+      <div className="w-full hidden tablet:flex desktop:hidden justify-center z-20 pt-4 tablet:pt-0 tablet:pb-0 tablet:min-h-[0] tablet:absolute tablet:bottom-8 tablet:left-1/2 tablet:-translate-x-1/2 tablet:px-6">
         <div className="grid w-full max-w-[1200px] gap-4 phone:gap-5 px-4 pb-4 tablet:px-10 tablet:gap-5 grid-cols-1 phone:grid-cols-2 tablet:grid-cols-4 justify-items-center">
           {statCards.map((card) => (
             <div key={`tablet-${card.id}`} className="w-full px-1 flex justify-center">
