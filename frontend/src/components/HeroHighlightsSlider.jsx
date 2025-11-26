@@ -11,22 +11,37 @@ const chunkHighlights = (items) => {
   return result;
 };
 
-const HighlightCard = ({ heading, subtext, headingColor, bodyColor }) => (
-  <div className="w-full leading-tight space-y-0.5 text-left px-2 py-3">
-    <p
-      className="font-accent uppercase text-xl text-black scale-y-100"
-      style={{ color: headingColor }}
-    >
-      {heading}
-    </p>
-    <p
-      className="font-serifalt text-base text-neutral line-clamp-2"
-      style={{ color: bodyColor }}
-    >
-      {subtext}
-    </p>
-  </div>
-);
+const HighlightCard = ({
+  heading,
+  subtext,
+  headingColor,
+  bodyColor,
+  fullTextOnMobile = false,
+}) => {
+  const wrapperClasses = ['w-full leading-tight space-y-0.5 text-left px-3 py-4']
+    .filter(Boolean)
+    .join(' ');
+  const bodyTextClasses = [
+    'font-serifalt text-base text-neutral line-clamp-2',
+    fullTextOnMobile ? 'hero-highlight-mobile-full' : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
+
+  return (
+    <div className={wrapperClasses}>
+      <p
+        className="font-accent uppercase text-xl text-black scale-y-100"
+        style={{ color: headingColor }}
+      >
+        {heading}
+      </p>
+      <p className={bodyTextClasses} style={{ color: bodyColor }}>
+        {subtext}
+      </p>
+    </div>
+  );
+};
 
 export default function HeroHighlightsSlider({ heroTheme }) {
   const slides = useMemo(() => chunkHighlights(heroHighlights), []);
@@ -90,10 +105,10 @@ export default function HeroHighlightsSlider({ heroTheme }) {
 
   return (
     <section
-      className="relative w-full desktop:hidden px-6 pt-0 pb-10"
+      className="relative w-full desktop:hidden px-0 phone:px-4 tablet:px-6 pt-0 pb-10"
       style={{ background: heroBackgroundColor }}
     >
-      <div className="relative mx-auto w-full max-w-4xl px-2 py-6">
+      <div className="relative mx-auto w-full max-w-4xl px-3 phone:px-2 py-6">
         <div
           className="overflow-hidden"
           style={{ touchAction: 'pan-y' }}
@@ -109,7 +124,7 @@ export default function HeroHighlightsSlider({ heroTheme }) {
             {slides.map((slidePair, slideIndex) => (
               <div
                 key={`highlight-slide-${slideIndex}`}
-                className="grid min-w-full grid-cols-1 gap-6 phone:grid-cols-2 tablet:grid-cols-2"
+                className="grid min-w-full grid-cols-2 gap-4 phone:gap-6 tablet:grid-cols-2"
               >
                 {slidePair.map((card) => (
                   <HighlightCard
@@ -118,6 +133,7 @@ export default function HeroHighlightsSlider({ heroTheme }) {
                     subtext={card.subtext}
                     headingColor={heroText}
                     bodyColor={heroMuted}
+                    fullTextOnMobile={card.fullTextOnMobile}
                   />
                 ))}
               </div>

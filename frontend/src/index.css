@@ -66,6 +66,20 @@ a {
   -webkit-line-clamp: 4;
 }
 
+.hero-highlight-mobile-full {
+  display: -webkit-box;
+}
+
+@media (max-width: 767px) {
+  .hero-highlight-mobile-full {
+    display: block;
+    overflow: visible;
+    -webkit-box-orient: unset;
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
+  }
+}
+
 
 .blog-post-body {
   overflow-wrap: anywhere;

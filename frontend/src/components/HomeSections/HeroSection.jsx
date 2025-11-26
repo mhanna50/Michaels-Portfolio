@@ -59,23 +59,29 @@ const StatCard = ({
   );
 };
 
-const ResultCard = ({ heading, subtext, delay, showDivider = false }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5, delay: delay }}
-    className={`flex h-full w-full flex-col items-start justify-end desktop:px-5 ${
-      showDivider
-        ? 'border-t border-primary-dark/40 pt-4 tablet:border-t-0 tablet:pt-0 desktop:border-t-0 desktop:pt-0'
-        : ''
-    }`}
-  >
-    <div className="w-full leading-tight space-y-0.5 text-left">
-      <p className="font-accent uppercase text-xl md:text-xl text-black scale-y-100">{heading}</p>
-      <p className="font-serifalt text-base text-neutral line-clamp-2">{subtext}</p>
-    </div>
-  </motion.div>
-);
+const ResultCard = ({ heading, subtext, delay, showDivider = false, fullTextOnMobile = false }) => {
+  const bodyTextClassName = fullTextOnMobile
+    ? 'font-serifalt text-base text-neutral line-clamp-2 hero-highlight-mobile-full'
+    : 'font-serifalt text-base text-neutral line-clamp-2';
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: delay }}
+      className={`flex h-full w-full flex-col items-start justify-end desktop:px-5 ${
+        showDivider
+          ? 'border-t border-primary-dark/40 pt-4 tablet:border-t-0 tablet:pt-0 desktop:border-t-0 desktop:pt-0'
+          : ''
+      }`}
+    >
+      <div className="w-full leading-tight space-y-0.5 text-left">
+        <p className="font-accent uppercase text-xl md:text-xl text-black scale-y-100">{heading}</p>
+        <p className={bodyTextClassName}>{subtext}</p>
+      </div>
+    </motion.div>
+  );
+};
 
 const BottomBanner = ({ wrapperClass = '' }) => (
   <motion.div
@@ -92,6 +98,7 @@ const BottomBanner = ({ wrapperClass = '' }) => (
           subtext={card.subtext}
           delay={card.delay}
           showDivider={card.showDivider}
+          fullTextOnMobile={card.fullTextOnMobile}
         />
       ))}
     </div>

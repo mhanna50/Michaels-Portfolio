@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Mail, Linkedin, Github } from "lucide-react";
+import { Mail, Linkedin, Github, FileDown } from "lucide-react";
 
 const parseHex = (color) => {
   if (typeof color !== "string") return null;
@@ -54,6 +54,12 @@ const socialLinks = [
     label: "GitHub",
     href: "https://github.com/mhanna50",
     icon: Github,
+  },
+  {
+    label: "Resume",
+    href: "/images/personal/Michael%20Hanna%20SWE%20Resume.pdf",
+    icon: FileDown,
+    download: "Michael_Hanna_SWE_Resume.pdf",
   },
 ];
 
@@ -161,7 +167,7 @@ export default function Footer({ mainTheme, theme }) {
                 Connect
               </p>
               <div className="flex flex-col items-start gap-2.5">
-                {socialLinks.map(({ label, href, icon: Icon, internal, subtitle }) => {
+                {socialLinks.map(({ label, href, icon: Icon, internal, subtitle, download }) => {
                   const sharedClasses =
                     "group inline-flex items-center gap-3 rounded-full border px-5 py-3 font-serifalt text-sm transition-all duration-300 hover:-translate-y-1 border-[var(--footer-btn-border)] bg-[var(--footer-btn-bg)] text-[var(--footer-btn-text)] hover:border-[var(--footer-btn-hover-border)] hover:bg-[var(--footer-btn-hover-bg)] hover:text-[var(--footer-btn-hover-text)]";
                   const content = (
@@ -191,8 +197,9 @@ export default function Footer({ mainTheme, theme }) {
                       key={label}
                       href={href}
                       className={sharedClasses}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      target={download ? undefined : "_blank"}
+                      rel={download ? undefined : "noopener noreferrer"}
+                      download={download}
                       aria-label={label}
                       style={connectButtonVars}
                     >
