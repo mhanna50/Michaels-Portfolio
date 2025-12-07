@@ -191,7 +191,7 @@ function AutomationCard({ solution, styles, motionProps = {} }) {
 
 export default function PortfolioPage({ theme, mainTheme }) {
   const [libraryView, setLibraryView] = useState("case-studies");
-  const faviconImageSrc = "/images/personal/RefinedLogo.svg";
+  const faviconImageSrc = "/images/personal/reallogo.svg";
   const textEntries = marqueePhrases.length ? marqueePhrases : ["Branding that Works"];
   const interleavedItems = textEntries.flatMap((phrase, idx) => [
     { type: "text", id: `phrase-${idx}`, content: phrase },
