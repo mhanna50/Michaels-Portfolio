@@ -57,9 +57,9 @@ const socialLinks = [
   },
   {
     label: "Resume",
-    href: "/images/personal/Michael%20Hanna%20SWE%20Resume.pdf",
+    href: "/images/personal/Resume%20SWE.pdf",
     icon: FileDown,
-    download: "Michael_Hanna_SWE_Resume.pdf",
+    download: "Resume_SWE.pdf",
   },
 ];
 
