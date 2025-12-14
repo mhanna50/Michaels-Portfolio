@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import {
   portfolioCaseStudies,
   portfolioStats,
+  codingProjects,
 } from "@/data/portfolioContent";
 import usePageMetadata from "@/hooks/usePageMetadata";
 import { SITE_URL, buildPortfolioListSchema, DEFAULT_OG_IMAGE } from "@/data/siteMeta";
@@ -64,6 +65,7 @@ const automationSolutions = [
 const libraryViewOptions = [
   { value: "case-studies", label: "Website Case Studies" },
   { value: "automations", label: "Automation Systems" },
+  { value: "coding-projects", label: "Coding Projects" },
 ];
 
 function WorkCard({ study, styles, motionProps = {} }) {
@@ -144,7 +146,7 @@ function AutomationCard({ solution, styles, motionProps = {} }) {
           Automation
         </span>
       </div>
-      <div>
+      <div className="mt-6 space-y-3">
         <h3 className="font-serifalt text-3xl leading-snug md:text-4xl" style={{ color: styles.headingColor }}>
           {solution.name}
         </h3>
@@ -155,21 +157,23 @@ function AutomationCard({ solution, styles, motionProps = {} }) {
           {solution.audience}
         </p>
       </div>
-      <div className="space-y-3">
-        <p className="text-base font-accent uppercase tracking-[0.3em]" style={{ color: styles.labelColor }}>
+      <div className="space-y-4">
+        <div className="space-y-1.5">
+          <p className="text-base font-accent uppercase tracking-[0.3em]" style={{ color: styles.labelColor }}>
           What it does
-        </p>
-        <p className="font-serifalt text-lg md:text-xl leading-relaxed" style={{ color: styles.textColor }}>
-          {solution.whatItDoes}
-        </p>
-      </div>
-      <div className="space-y-3">
-        <p className="text-base font-accent uppercase tracking-[0.3em]" style={{ color: styles.labelColor }}>
+          </p>
+          <p className="font-serifalt text-lg md:text-xl leading-relaxed" style={{ color: styles.textColor }}>
+            {solution.whatItDoes}
+          </p>
+        </div>
+        <div className="space-y-1.5">
+          <p className="text-base font-accent uppercase tracking-[0.3em]" style={{ color: styles.labelColor }}>
           Value / Outcome
-        </p>
-        <p className="font-serifalt text-lg md:text-xl leading-relaxed" style={{ color: styles.textColor }}>
-          {solution.value}
-        </p>
+          </p>
+          <p className="font-serifalt text-lg md:text-xl leading-relaxed" style={{ color: styles.textColor }}>
+            {solution.value}
+          </p>
+        </div>
       </div>
       <div className="mt-auto flex flex-wrap gap-2 pt-2">
         {solution.stack.map((tech) => (
@@ -184,6 +188,152 @@ function AutomationCard({ solution, styles, motionProps = {} }) {
             {tech}
           </span>
         ))}
+      </div>
+    </motion.article>
+  );
+}
+
+function CodingProjectCard({ project, styles, motionProps = {} }) {
+  const media = project.media;
+  const badgeLabel = project.badge || "Coding Project";
+  const ctaLinks = project.links || [];
+
+  const getLinkStyle = (variant = "primary") => {
+    if (variant === "outline") {
+      return {
+        backgroundColor: "transparent",
+        color: styles.headingColor,
+        borderColor: styles.ctaBorder,
+      };
+    }
+    if (variant === "ghost") {
+      return {
+        backgroundColor: "transparent",
+        color: styles.textColor,
+        borderColor: "transparent",
+      };
+    }
+    return {
+      backgroundColor: styles.ctaBg,
+      color: styles.ctaText,
+      borderColor: styles.ctaBorder,
+    };
+  };
+
+  return (
+    <motion.article
+      className="flex flex-col overflow-hidden rounded-3xl border"
+      style={{ borderColor: styles.borderColor, background: styles.background }}
+      {...motionProps}
+    >
+      {media && (
+        <div
+          className="relative w-full overflow-hidden border-b"
+          style={{ borderColor: styles.mediaBorder }}
+        >
+          {media.type === "video" ? (
+            <video
+              className="h-64 w-full object-cover md:h-72"
+              controls
+              playsInline
+              preload="metadata"
+              poster={media.poster}
+              aria-label={media.alt || `${project.title} demo video`}
+            >
+              <source src={media.src} type={media.mimeType || "video/mp4"} />
+              Your browser does not support the video tag.
+            </video>
+          ) : (
+            <img
+              src={media.src}
+              alt={media.alt || `${project.title} preview image`}
+              className="h-64 w-full object-cover md:h-72"
+              loading="lazy"
+              decoding="async"
+            />
+          )}
+        </div>
+      )}
+      <div className="flex flex-col gap-6 p-6">
+        <div className="space-y-2">
+          <p className="text-xs font-accent uppercase tracking-[0.35em]" style={{ color: styles.labelColor }}>
+            {badgeLabel}
+          </p>
+          <div className="flex items-center gap-2">
+            {project.icon && (
+              <span className="text-lg" aria-hidden="true">
+                {project.icon}
+              </span>
+            )}
+            <h3 className="font-serifalt text-2xl" style={{ color: styles.headingColor }}>
+              {project.title}
+            </h3>
+          </div>
+          <p className="text-sm leading-relaxed" style={{ color: styles.textColor }}>
+            {project.summary}
+          </p>
+        </div>
+        {project.features?.length > 0 && (
+          <div className="space-y-3">
+            <p className="text-xs font-accent uppercase tracking-[0.35em]" style={{ color: styles.labelColor }}>
+              Key Features
+            </p>
+            <ul className="list-disc space-y-2 pl-6">
+              {project.features.map((feature, index) => (
+                <li key={`${project.title}-feature-${index}`} className="text-sm leading-relaxed" style={{ color: styles.textColor }}>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {(project.techSummary || project.stack?.length > 0) && (
+          <div className="space-y-2">
+            <p className="text-xs font-accent uppercase tracking-[0.35em]" style={{ color: styles.labelColor }}>
+              Tech
+            </p>
+            {project.techSummary ? (
+              <p className="text-sm leading-relaxed" style={{ color: styles.textColor }}>
+                {project.techSummary}
+              </p>
+            ) : (
+              <div className="flex flex-wrap gap-2">
+                {project.stack.map((tech) => (
+                  <span
+                    key={`${project.title}-${tech}`}
+                    className="rounded-full border px-4 py-1 text-xs font-serifalt"
+                    style={{
+                      borderColor: styles.chipBorder,
+                      background: styles.chipBg,
+                      color: styles.headingColor,
+                    }}
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+        {ctaLinks.length > 0 && (
+          <div className="flex flex-wrap gap-3 pt-1">
+            {ctaLinks.map((link) => {
+              const isExternal = link.href?.startsWith("http");
+              return (
+                <a
+                  key={`${project.title}-${link.label}`}
+                  href={link.href}
+                  target={isExternal ? "_blank" : undefined}
+                  rel={isExternal ? "noreferrer" : undefined}
+                  className="inline-flex items-center rounded-full border px-5 py-3 text-[0.72rem] font-accent uppercase tracking-[0.35em] transition hover:-translate-y-0.5"
+                  style={getLinkStyle(link.variant)}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
+          </div>
+        )}
       </div>
     </motion.article>
   );
@@ -270,6 +420,19 @@ export default function PortfolioPage({ theme, mainTheme }) {
     textColor: headingStyle.color,
     accentColor: palette?.accent || headingStyle.color,
   };
+  const codingProjectCardStyles = {
+    borderColor: dividerColor.borderColor,
+    mediaBorder: getTone("rgba(246,248,246,0.12)", "rgba(15,23,42,0.12)"),
+    background: getTone("rgba(246,248,246,0.02)", "rgba(15,23,42,0.02)"),
+    headingColor: headingStyle.color,
+    textColor: mutedStyle.color,
+    labelColor: labelStyle.color,
+    chipBg: getTone("rgba(246,248,246,0.08)", "rgba(15,23,42,0.06)"),
+    chipBorder: getTone("rgba(246,248,246,0.3)", "rgba(15,23,42,0.15)"),
+    ctaBg: palette?.accent || headingStyle.color,
+    ctaBorder: palette?.accent || headingStyle.color,
+    ctaText: isNightTheme ? "#0b0f19" : "#f8fafc",
+  };
   const toggleActiveStyle = {
     backgroundColor: palette?.accent || headingStyle.color,
     color: isNightTheme ? "#0b0f19" : "#f8fafc",
@@ -307,6 +470,51 @@ export default function PortfolioPage({ theme, mainTheme }) {
     viewport: { once: true, amount: 0.2 },
     transition: { duration: 0.55, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] },
   });
+
+  const renderLibraryContent = () => {
+    if (libraryView === "automations") {
+      return (
+        <div className="grid items-start gap-8 md:grid-cols-2">
+          {automationSolutions.map((solution, index) => (
+            <AutomationCard
+              key={solution.name}
+              solution={solution}
+              styles={automationCardStyles}
+              motionProps={createItemRevealProps(index)}
+            />
+          ))}
+        </div>
+      );
+    }
+
+    if (libraryView === "coding-projects") {
+      return (
+        <div className="grid items-start gap-8 md:grid-cols-2">
+          {codingProjects.map((project, index) => (
+            <CodingProjectCard
+              key={project.title}
+              project={project}
+              styles={codingProjectCardStyles}
+              motionProps={createItemRevealProps(index)}
+            />
+          ))}
+        </div>
+      );
+    }
+
+    return (
+      <div className="columns-1 gap-8 md:columns-2 xl:columns-2">
+        {portfolioCaseStudies.map((study, index) => (
+          <WorkCard
+            key={study.slug}
+            study={study}
+            styles={workCardStyles}
+            motionProps={createItemRevealProps(index)}
+          />
+        ))}
+      </div>
+    );
+  };
 
   return (
     <div className="min-h-screen" style={pageStyle}>
@@ -504,29 +712,7 @@ export default function PortfolioPage({ theme, mainTheme }) {
               )}
             </div>
           </motion.div>
-          {libraryView === "case-studies" ? (
-            <div className="columns-1 md:columns-2 xl:columns-2 gap-8">
-              {portfolioCaseStudies.map((study, index) => (
-                <WorkCard
-                  key={study.slug}
-                  study={study}
-                  styles={workCardStyles}
-                  motionProps={createItemRevealProps(index)}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="grid gap-8 md:grid-cols-2">
-              {automationSolutions.map((solution, index) => (
-                <AutomationCard
-                  key={solution.name}
-                  solution={solution}
-                  styles={automationCardStyles}
-                  motionProps={createItemRevealProps(index)}
-                />
-              ))}
-            </div>
-          )}
+          {renderLibraryContent()}
         </div>
       </section>
 

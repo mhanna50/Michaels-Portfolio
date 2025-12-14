@@ -331,6 +331,56 @@ export const portfolioCaseStudies = [
   },
 ];
 
+export const codingProjects = [
+  {
+    badge: "SupplyWise Card",
+    title: "SupplyWise — Supplier Risk Analysis SaaS",
+    summary:
+      "Full-stack platform for supplier verification, multi-API data enrichment, and risk scoring.",
+    features: [
+      "Multi-API ingestion pipeline to pull supplier data from Azure Maps, GLEIF, and internal payloads.",
+      "Authentication and role-based access wrapped in a dashboard-style React UI.",
+      "Automated backend workflows refresh supplier records and risk metrics on a set cadence.",
+      "Custom risk-scoring logic blends data signals with business rules to surface a single indicator.",
+      "AI-powered summaries translate raw payloads into plain-language risk insights.",
+    ],
+    techSummary: "React • Django • Supabase (PostgreSQL) • REST APIs • Python • Tailwind CSS",
+    links: [{ label: "GitHub Repo", href: "https://github.com/mhanna50/Supplywise_MVP", variant: "primary" }],
+  },
+  {
+    badge: "Website Speed Analyzer Card",
+    icon: "",
+    title: "Website Speed Analyzer — .NET Performance API",
+    summary:
+      "Backend service that runs real-time website diagnostics and exposes results through a REST API.",
+    features: [
+      "Sends test requests to target URLs to measure latency and response times.",
+      "Captures HTTP status codes plus basic uptime/health metrics for every scan.",
+      "Async request handling supports multiple concurrent site checks without blocking.",
+      "Structured JSON responses are shaped for a future React dashboard to consume.",
+      "Robust error handling protects against timeouts, invalid URLs, and unreachable hosts.",
+    ],
+    techSummary: "ASP.NET Core • C# • REST API Design • Async Programming",
+    links: [{ label: "GitHub Repo", href: "https://github.com/mhanna50/Website_Speed_Analyzer", variant: "primary" }],
+  },
+  {
+    badge: "All Repos",
+    title: "Other Small Projects",
+    summary: "Workflow scripts, experiments, and coding challenges that don't need their own case study but still show my interest in various technologies.",
+    features: [
+
+    ],
+    techSummary: "Python • Swift • Flutter • C# • React • JavaScript",
+    links: [
+      {
+        label: "View my GitHub",
+        href: "https://github.com/mhanna50",
+        variant: "primary",
+      },
+    ],
+  },
+];
+
 export const portfolioStats = [
   {
     label: "New clients post-launch",
