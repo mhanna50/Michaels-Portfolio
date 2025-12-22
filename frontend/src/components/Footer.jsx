@@ -39,6 +39,10 @@ const navLinks = [
   { label: "Blog", href: "/blog" },
 ];
 
+const resumeFilePath = "/images/personal/Resume SWE.pdf";
+const resumeFileUrl = encodeURI(resumeFilePath);
+const resumeDownloadName = "Michael_Hanna_Resume_SWE.pdf";
+
 const socialLinks = [
   {
     label: "Contact",
@@ -57,9 +61,9 @@ const socialLinks = [
   },
   {
     label: "Resume",
-    href: "/images/personal/Resume%20SWE.pdf",
+    href: resumeFileUrl,
     icon: FileDown,
-    download: "Resume_SWE.pdf",
+    download: resumeDownloadName,
   },
 ];
 

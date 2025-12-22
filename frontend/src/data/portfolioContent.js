@@ -333,7 +333,54 @@ export const portfolioCaseStudies = [
 
 export const codingProjects = [
   {
-    badge: "SupplyWise Card",
+    badge: "Incident Platform Card",
+    title: "Incident Management Platform",
+    summary:
+      "Full-stack incident response hub that mirrors how SaaS teams declare, manage, and learn from production issues.",
+    media: {
+      type: "image",
+      src: "/images/personal/Screenshot 2025-12-22 at 3.37.11\u202fPM.png",
+      alt: "Incident command dashboard with live status timeline and roles.",
+    },
+    features: [
+      "Guides responders through declaration, command escalation, resolution, and postmortem publishing.",
+      "Controls lifecycle transitions with transactional rules so audit logs, timelines, and notifications stay consistent.",
+      "Splits internal operator workflows from a public-facing status site to protect sensitive context.",
+      "Streams live updates in real time so the full team shares a single source of truth during an incident.",
+      "Background workers fan out notifications asynchronously so the core workflow never blocks.",
+    ],
+    techSummary: "React • Node.js APIs • PostgreSQL • Redis queues • WebSockets",
+    links: [
+      { label: "Live Demo", href: "https://incident-management-status-platform.vercel.app", variant: "primary" },
+      { label: "GitHub Repo", href: "https://github.com/mhanna50/Incident_Management_Status_Platform", variant: "outline" },
+    ],
+  },
+  {
+    badge: "Performance Analyzer Card",
+    icon: "",
+    title: "Website Speed & SEO Performance Analyzer",
+    summary:
+      "Performance and SEO analyzer that inspects any website and generates remediation guidance within seconds.",
+    media: {
+      type: "image",
+      src: "/images/personal/Screenshot 2025-12-22 at 3.18.38\u202fPM.png",
+      alt: "Website speed and SEO analyzer UI summarizing scan scores.",
+    },
+    features: [
+      "Combines performance metrics, SEO heuristics, accessibility checks, and optional off-page signals into a single workflow.",
+      "Supports both fast triage scans and deep crawls, queuing work asynchronously to handle concurrency safely.",
+      "Persists scan history so teams can compare results over time and prove improvements.",
+      "Translates findings into severity scores and AI-generated remediation checklists.",
+      "Produces downloadable PDF reports for client handoff or internal reviews.",
+    ],
+    techSummary: "Node.js services • Headless Chrome audits • Queue workers • PostgreSQL • PDF rendering",
+    links: [
+      { label: "Live Demo", href: "https://website-analyzer-wheat.vercel.app", variant: "primary" },
+      { label: "GitHub Repo", href: "https://github.com/mhanna50/Website_Analyzer", variant: "outline" },
+    ],
+  },
+  {
+    badge: "SupplyWise Card (In Development)",
     title: "SupplyWise — Supplier Risk Analysis SaaS",
     summary:
       "Full-stack platform for supplier verification, multi-API data enrichment, and risk scoring.",
@@ -346,22 +393,6 @@ export const codingProjects = [
     ],
     techSummary: "React • Django • Supabase (PostgreSQL) • REST APIs • Python • Tailwind CSS",
     links: [{ label: "GitHub Repo", href: "https://github.com/mhanna50/Supplywise_MVP", variant: "primary" }],
-  },
-  {
-    badge: "Website Speed Analyzer Card",
-    icon: "",
-    title: "Website Speed Analyzer — .NET Performance API",
-    summary:
-      "Backend service that runs real-time website diagnostics and exposes results through a REST API.",
-    features: [
-      "Sends test requests to target URLs to measure latency and response times.",
-      "Captures HTTP status codes plus basic uptime/health metrics for every scan.",
-      "Async request handling supports multiple concurrent site checks without blocking.",
-      "Structured JSON responses are shaped for a future React dashboard to consume.",
-      "Robust error handling protects against timeouts, invalid URLs, and unreachable hosts.",
-    ],
-    techSummary: "ASP.NET Core • C# • REST API Design • Async Programming",
-    links: [{ label: "GitHub Repo", href: "https://github.com/mhanna50/Website_Speed_Analyzer", variant: "primary" }],
   },
   {
     badge: "All Repos",
