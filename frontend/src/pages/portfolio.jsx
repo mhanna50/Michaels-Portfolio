@@ -516,6 +516,14 @@ export default function PortfolioPage({ theme, mainTheme }) {
     );
   };
 
+  const scrollToSection = (sectionId) => {
+    if (typeof document === "undefined") return;
+    const target = document.getElementById(sectionId);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <div className="min-h-screen" style={pageStyle}>
       <StickyHeader theme={theme} forceVisible />
@@ -530,18 +538,107 @@ export default function PortfolioPage({ theme, mainTheme }) {
             Real-world sites and automations that help small teams look polished and stay responsive.
           </h1>
           <div className="flex flex-wrap gap-4">
-            <Link to="/services">
-              <Button
-                className="rounded-full px-8 py-4 text-sm font-accent uppercase tracking-[0.3em]"
-                style={primaryButtonStyle}
-              >
-                View services
-              </Button>
-            </Link>
+            <Button
+              type="button"
+              onClick={() => scrollToSection("project-library")}
+              className="rounded-full px-8 py-4 text-sm font-accent uppercase tracking-[0.3em]"
+              style={primaryButtonStyle}
+            >
+              View Project Library
+            </Button>
           </div>
         </motion.div>
       </section>
-
+      <section id="project-library" className="px-6 pt-20 pb-16 lg:pt-24 lg:pb-24" style={heroStyle}>
+        <div className="mx-auto max-w-6xl space-y-10">
+          <motion.div className="space-y-6" {...createRevealProps(0.22)}>
+            <div>
+              <p className="font-accent text-lg uppercase tracking-[0.45em]" style={labelStyle}>
+                Project library
+              </p>
+              <h2 className="mt-3 font-serifalt text-4xl leading-tight md:text-5xl" style={headingStyle}>
+                Recent builds that pair polished web experiences with simple automations.
+              </h2>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              {hasDualLibraryToggle ? (
+                <div className="inline-flex items-stretch overflow-hidden rounded-full border" style={dividerColor}>
+                  <button
+                    type="button"
+                    onClick={() => setLibraryView(caseStudiesToggleOption.value)}
+                    className="flex items-center justify-center px-6 py-3 text-[0.72rem] font-accent uppercase tracking-[0.35em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                    style={libraryView === caseStudiesToggleOption.value ? toggleActiveStyle : toggleInactiveStyle}
+                  >
+                    {caseStudiesToggleOption.label}
+                  </button>
+                  <span
+                    aria-hidden="true"
+                    className="flex items-center px-3 text-base font-serifalt"
+                    style={{ color: labelStyle.color }}
+                  >
+                    <ArrowRightLeft className="h-5 w-5" />
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setLibraryView(automationsToggleOption.value)}
+                    className="flex items-center justify-center px-6 py-3 text-[0.72rem] font-accent uppercase tracking-[0.35em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                    style={libraryView === automationsToggleOption.value ? toggleActiveStyle : toggleInactiveStyle}
+                  >
+                    {automationsToggleOption.label}
+                  </button>
+                </div>
+              ) : (
+                libraryViewOptions.map((option) => (
+                  <button
+                    key={option.value}
+                    type="button"
+                    onClick={() => setLibraryView(option.value)}
+                    className="rounded-full border px-5 py-2 text-xs font-accent uppercase tracking-[0.35em] transition-all hover:-translate-y-0.5"
+                    style={libraryView === option.value ? toggleActiveStyle : toggleInactiveStyle}
+                  >
+                    {option.label}
+                  </button>
+                ))
+              )}
+            </div>
+          </motion.div>
+          {renderLibraryContent()}
+        </div>
+      </section>
+      {marqueeItems.length > 0 && (
+        <section className="px-0 py-0" style={heroStyle}>
+          <motion.div className="relative overflow-hidden border-y" style={dividerColor} {...createRevealProps(0.18)}>
+            <div className="marquee-track gap-10 py-6">
+              {marqueeLoop.map((item, idx) => {
+                const isDuplicate = idx >= marqueeItems.length;
+                return (
+                  <div
+                    key={`${item.id}-${idx}`}
+                    className="marquee-item"
+                    aria-hidden={isDuplicate}
+                  >
+                    {item.type === "image" ? (
+                      <img
+                        src={item.src}
+                        alt={item.alt}
+                        className="h-10 w-auto object-contain opacity-80"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <span
+                        className="text-sm font-accent uppercase tracking-[0.35em]"
+                        style={{ color: headingStyle.color }}
+                      >
+                        {item.content}
+                      </span>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </motion.div>
+        </section>
+      )}
       <section className="px-6 pt-20 pb-20 lg:pt-28 lg:pb-24" style={heroStyle}>
         <div
           className="mx-auto flex max-w-6xl min-h-[520px] flex-col items-center justify-center gap-10 rounded-3xl border px-6 py-12 text-center md:px-12"
@@ -623,99 +720,6 @@ export default function PortfolioPage({ theme, mainTheme }) {
           </motion.div>
         </div>
       </section>
-
-      {marqueeItems.length > 0 && (
-        <section className="px-0 py-0" style={heroStyle}>
-          <motion.div className="relative overflow-hidden border-y" style={dividerColor} {...createRevealProps(0.18)}>
-            <div className="marquee-track gap-10 py-6">
-              {marqueeLoop.map((item, idx) => {
-                const isDuplicate = idx >= marqueeItems.length;
-                return (
-                  <div
-                    key={`${item.id}-${idx}`}
-                    className="marquee-item"
-                    aria-hidden={isDuplicate}
-                  >
-                    {item.type === "image" ? (
-                      <img
-                        src={item.src}
-                        alt={item.alt}
-                        className="h-10 w-auto object-contain opacity-80"
-                        loading="lazy"
-                      />
-                    ) : (
-                      <span
-                        className="text-sm font-accent uppercase tracking-[0.35em]"
-                        style={{ color: headingStyle.color }}
-                      >
-                        {item.content}
-                      </span>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </motion.div>
-        </section>
-      )}
-
-      <section id="project-library" className="px-6 pt-20 pb-16 lg:pt-24 lg:pb-24" style={heroStyle}>
-        <div className="mx-auto max-w-6xl space-y-10">
-          <motion.div className="space-y-6" {...createRevealProps(0.22)}>
-            <div>
-              <p className="font-accent text-lg uppercase tracking-[0.45em]" style={labelStyle}>
-                Project library
-              </p>
-              <h2 className="mt-3 font-serifalt text-4xl leading-tight md:text-5xl" style={headingStyle}>
-                Recent builds that pair polished web experiences with simple automations.
-              </h2>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              {hasDualLibraryToggle ? (
-                <div className="inline-flex items-stretch overflow-hidden rounded-full border" style={dividerColor}>
-                  <button
-                    type="button"
-                    onClick={() => setLibraryView(caseStudiesToggleOption.value)}
-                    className="flex items-center justify-center px-6 py-3 text-[0.72rem] font-accent uppercase tracking-[0.35em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-                    style={libraryView === caseStudiesToggleOption.value ? toggleActiveStyle : toggleInactiveStyle}
-                  >
-                    {caseStudiesToggleOption.label}
-                  </button>
-                  <span
-                    aria-hidden="true"
-                    className="flex items-center px-3 text-base font-serifalt"
-                    style={{ color: labelStyle.color }}
-                  >
-                    <ArrowRightLeft className="h-5 w-5" />
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => setLibraryView(automationsToggleOption.value)}
-                    className="flex items-center justify-center px-6 py-3 text-[0.72rem] font-accent uppercase tracking-[0.35em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-                    style={libraryView === automationsToggleOption.value ? toggleActiveStyle : toggleInactiveStyle}
-                  >
-                    {automationsToggleOption.label}
-                  </button>
-                </div>
-              ) : (
-                libraryViewOptions.map((option) => (
-                  <button
-                    key={option.value}
-                    type="button"
-                    onClick={() => setLibraryView(option.value)}
-                    className="rounded-full border px-5 py-2 text-xs font-accent uppercase tracking-[0.35em] transition-all hover:-translate-y-0.5"
-                    style={libraryView === option.value ? toggleActiveStyle : toggleInactiveStyle}
-                  >
-                    {option.label}
-                  </button>
-                ))
-              )}
-            </div>
-          </motion.div>
-          {renderLibraryContent()}
-        </div>
-      </section>
-
       <Footer theme={theme} mainTheme={mainTheme} />
     </div>
   );

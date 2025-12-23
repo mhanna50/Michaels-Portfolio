@@ -626,6 +626,14 @@ export default function ServicesPageLayout({ theme, mainTheme, config = {} }) {
         </section>
       );
 
+  const scrollToSection = (sectionId) => {
+    if (typeof document === "undefined") return;
+    const target = document.getElementById(sectionId);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <div className="min-h-screen" style={pageStyle}>
       <StickyHeader theme={theme} forceVisible />
@@ -643,14 +651,14 @@ export default function ServicesPageLayout({ theme, mainTheme, config = {} }) {
             {heroTitle}
           </h1>
           <div className="flex flex-wrap gap-4">
-            <Link to="/portfolio">
-              <Button
-                className="rounded-full px-8 py-4 text-sm font-accent uppercase tracking-[0.3em]"
-                style={primaryButtonStyle}
-              >
-                View Portfolio
-              </Button>
-            </Link>
+            <Button
+              type="button"
+              onClick={() => scrollToSection("deep-dive")}
+              className="rounded-full px-8 py-4 text-sm font-accent uppercase tracking-[0.3em]"
+              style={primaryButtonStyle}
+            >
+              Explore Deep Dives
+            </Button>
           </div>
         </motion.div>
       </section>
