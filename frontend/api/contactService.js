@@ -369,5 +369,10 @@ export async function sendContactEmail({ submission, toAddress, fromAddress, res
     throw new ContactDeliveryError(message, response.status);
   }
 
+  if (!result?.id) {
+    throw new ContactDeliveryError("Email provider did not return a message identifier.", 502);
+  }
+
+  console.info("Contact email accepted by provider:", { messageId: result.id });
   return result;
 }
