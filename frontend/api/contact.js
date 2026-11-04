@@ -74,11 +74,13 @@ export default async function handler(req, res) {
       return;
     }
     if (error instanceof ContactConfigError) {
-      res.status(error.statusCode).json({ error: error.message });
+      console.error("Contact form configuration error:", error.message);
+      res.status(error.statusCode).json({ error: "Contact form is temporarily unavailable. Please email contact@hannawebstudio.com directly." });
       return;
     }
     if (error instanceof ContactDeliveryError) {
-      res.status(error.statusCode).json({
+      console.error("Contact email provider rejected request:", { status: error.statusCode, message: error.message });
+      res.status(502).json({
         error: "Unable to send your message right now. Please try again soon.",
       });
       return;
