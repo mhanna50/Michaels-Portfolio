@@ -5,7 +5,6 @@ export const CONTACT_EMAIL = "contact@hannawebstudio.com";
 export const CONTACT_PHONE = "+1-484-716-8373";
 export const SERVICE_AREAS = ["Wilmington, Delaware", "United States"];
 export const SAME_AS_LINKS = [
-  "https://www.linkedin.com/feed/?trk=guest_homepage-basic_google-one-tap-submit",
   "https://github.com/mhanna50",
 ];
 
@@ -37,7 +36,7 @@ const buildOrganizationSchema = () => ({
   name: SITE_NAME,
   url: SITE_URL,
   logo: LOGO_URL,
-  sameAs: SAME_AS_LINKS,
+  description: "Independent web design, development and business automation studio helping service businesses improve their websites and workflows.",
   contactPoint: [
     {
       "@type": "ContactPoint",
@@ -79,11 +78,8 @@ const buildWebsiteSchema = () => ({
   publisher: {
     "@id": ORGANIZATION_ID,
   },
-  potentialAction: {
-    "@type": "SearchAction",
-    target: `${SITE_URL}/search?q={search_term_string}`,
-    "query-input": "required name=search_term_string",
-  },
+  inLanguage: "en-US",
+  description: "Hanna Web Studio provides web design, development and automation services for small businesses.",
 });
 
 export const buildSiteGraph = () => ({
