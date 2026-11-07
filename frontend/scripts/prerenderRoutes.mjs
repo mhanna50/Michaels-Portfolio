@@ -5,6 +5,7 @@ import { createRequire } from "node:module";
 import dotenv from "dotenv";
 import esbuild from "esbuild";
 import { portfolioCaseStudies } from "../src/data/portfolioContent.js";
+import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE, buildSiteGraph } from "../src/data/siteMeta.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, "..");
@@ -112,8 +113,124 @@ const buildRenderer = async () => {
   return render;
 };
 
-const injectHtml = (template, appHtml) =>
-  template.replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`);
+// Metadata must be present in the server-delivered HTML: social scrapers often never run React.
+const routeMetadata = {
+  "/": {
+    title: "Hanna Web Studio | Web Design & Business Automations",
+    description: "Hanna Web Studio builds modern small-business websites and practical AI-powered automations. See our work and get a project quote.",
+  },
+  "/services": {
+    title: "Web Design & Automation Services | Hanna Web Studio",
+    description: "Explore custom web design, development, branding, SEO and business automation services from Hanna Web Studio.",
+  },
+  "/services/web-design": {
+    title: "Small Business Web Design | Hanna Web Studio",
+    description: "Custom responsive websites for service businesses, with clear messaging, modern design and easy ways for customers to get in touch.",
+  },
+  "/services/automations": {
+    title: "Business Automation Services | Hanna Web Studio",
+    description: "Automate repetitive business tasks, customer follow-ups and workflows with practical integrations and AI-assisted solutions.",
+  },
+  "/portfolio": {
+    title: "Web Design Portfolio & Case Studies | Hanna Web Studio",
+    description: "Browse real web design and development projects by Hanna Web Studio, including small business websites and case studies.",
+  },
+  "/contact": {
+    title: "Contact Hanna Web Studio | Start a Project",
+    description: "Tell Hanna Web Studio about your website or automation project. Share your goals, budget and timeline to start a conversation.",
+  },
+  "/blog": {
+    title: "Web Design & Automation Insights | Hanna Web Studio",
+    description: "Practical articles about websites, SEO, development and business automation from Hanna Web Studio.",
+  },
+};
+
+const escapeAttribute = (value) => String(value ?? "")
+  .replace(/&/g, "&amp;")
+  .replace(/"/g, "&quot;")
+  .replace(/</g, "&lt;")
+  .replace(/>/g, "&gt;");
+
+const getRouteMetadata = (route) => {
+  const staticMeta = routeMetadata[route];
+  if (staticMeta) return staticMeta;
+  if (route.startsWith("/portfolio/")) {
+    const slug = route.split("/").pop();
+    const study = portfolioCaseStudies.find((entry) => entry.slug === slug);
+    if (study) return {
+      title: study.metaTitle || String(study.title) + " | Hanna Web Studio",
+      description: study.metaDescription || study.summary,
+      image: study.coverImage,
+      type: "article",
+    };
+  }
+  if (route.startsWith("/blog/")) {
+    const slug = route.split("/").pop();
+    const postFile = path.join(postsDir, slug + ".md");
+    if (fs.existsSync(postFile)) {
+      const source = fs.readFileSync(postFile, "utf8");
+      const frontmatter = source.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+      const fields = {};
+      if (frontmatter) {
+        for (const line of frontmatter[1].split(/\r?\n/)) {
+          const match = line.match(/^([A-Za-z][\w-]*):\s*(.*)$/);
+          if (match) fields[match[1]] = match[2].trim().replace(/^["']|["']$/g, "");
+        }
+      }
+      return {
+        title: (fields.title || slug.replace(/-/g, " ")) + " | Hanna Web Studio",
+        description: fields.description || "Web design and automation ideas from Hanna Web Studio.",
+        type: "article",
+      };
+    }
+  }
+  return routeMetadata["/"];
+};
+
+const injectHtml = (template, appHtml, route) => {
+  const metadata = getRouteMetadata(route);
+  const canonical = SITE_URL + (route === "/" ? "/" : route);
+  const image = metadata.image
+    ? (metadata.image.startsWith("http") ? metadata.image : SITE_URL + metadata.image)
+    : DEFAULT_OG_IMAGE;
+  const title = escapeAttribute(metadata.title);
+  const description = escapeAttribute(metadata.description);
+  const url = escapeAttribute(canonical);
+  const imageUrl = escapeAttribute(image);
+  const graph = route === "/"
+    ? buildSiteGraph()
+    : {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      name: metadata.title,
+      description: metadata.description,
+      url: canonical,
+      isPartOf: { "@id": SITE_URL + "#website" },
+      publisher: { "@id": SITE_URL + "#organization" },
+    };
+  const json = JSON.stringify(graph).replace(/</g, "\\u003c");
+  const tags = [
+    '<title>' + title + '</title>',
+    '<meta name="description" content="' + description + '" />',
+    '<link rel="canonical" href="' + url + '" />',
+    '<meta property="og:site_name" content="' + escapeAttribute(SITE_NAME) + '" />',
+    '<meta property="og:locale" content="en_US" />',
+    '<meta property="og:type" content="' + (metadata.type || "website") + '" />',
+    '<meta property="og:title" content="' + title + '" />',
+    '<meta property="og:description" content="' + description + '" />',
+    '<meta property="og:url" content="' + url + '" />',
+    '<meta property="og:image" content="' + imageUrl + '" />',
+    '<meta name="twitter:card" content="summary_large_image" />',
+    '<meta name="twitter:title" content="' + title + '" />',
+    '<meta name="twitter:description" content="' + description + '" />',
+    '<meta name="twitter:image" content="' + imageUrl + '" />',
+    '<script type="application/ld+json" id="page-structured-data">' + json + '</script>',
+  ].join("\n  ");
+  return template
+    .replace(/<title>[\s\S]*?<\/title>/i, "")
+    .replace("</head>", "  " + tags + "\n</head>")
+    .replace('<div id="root"></div>', '<div id="root">' + appHtml + '</div>');
+};
 
 const normalizeRoute = (route) => {
   if (route === "/") return "";
@@ -152,7 +269,7 @@ const main = async () => {
       wrapped.cause = error;
       throw wrapped;
     }
-    const html = injectHtml(template, appHtml);
+    const html = injectHtml(template, appHtml, route);
     const outputSegment = normalizeRoute(route);
     const outDir = outputSegment ? path.join(distDir, outputSegment) : distDir;
     ensureDir(outDir);
